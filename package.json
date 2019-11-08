@@ -1,0 +1,76 @@
+{
+  "name": "restash",
+  "version": "0.1.0",
+  "description": "Simple react context storage",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build:ts": "tsc --project tsconfig.prod.json",
+    "build": "npm run clean && npm run build:ts",
+    "start": "webpack-dev-server --config ./build/webpack --watch",
+    "docs": "typedoc ./src --options ./typedoc.json --out ./docs && touch ./docs/.nojekyll",
+    "prep": "npm run build && npm run docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blujedis/restash.git"
+  },
+  "files":[
+    "dist",
+    "docs",
+    "CHANGE.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "React",
+    "Context",
+    "React",
+    "Storage",
+    "react-recon",
+    "cache",
+    "storage",
+    "simple",
+    "storage",
+    "Provider"
+  ],
+  "author": "Blujedis <blujedicorp@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blujedis/restash/issues"
+  },
+  "homepage": "https://github.com/blujedis/restash#readme",
+  "peerDependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/node": "^12.12.5",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.1",
+    "copy-webpack-plugin": "^5.0.4",
+    "eslint": "^6.6.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-hot-loader": "^4.12.15",
+    "rimraf": "^3.0.0",
+    "source-map-loader": "^0.2.4",
+    "tslint": "^6.0.0-beta0",
+    "tslint-react": "^4.1.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2",
+    "wouter": "^2.3.1"
+  }
+}
