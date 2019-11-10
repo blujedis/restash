@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware, Middleware, StatusType } from '../';
 import Themes from './themes';
-import { endianness } from 'os';
 
 export interface IAppState {
-
+  nested: boolean;
 }
 
 type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'log';
@@ -38,12 +37,12 @@ const createLogger = (store) => {
       _messages: [],
       _log: (type, prefix, ...args: any[]) => {
         args = [...log.label(type, prefix), ...args];
-        
+
       },
       error(name, ...args: any[]) {
-       //
+        //
       },
-      end() { 
+      end() {
         log.collapse();
         log.end();
       }
@@ -60,14 +59,21 @@ const createLogger = (store) => {
 const storeLogger: Middleware<IAppState> = store => next => payload => {
 
   const log = createLogger(store);
-  const state = store.getState();
 
-  log('PREV STATE:', store.getState());
-  const result = next(payload);
-  log('NEXT STATE:', result);
+  let nextState;
+  const prevState = nextState = store.getState(); 
 
+  if (typeof payload === 'undefined') 
+    return nextState;
 
-  return result;
+  log('PREV STATE:', prevState);
+  nextState = next(payload);
+  log('NEXT STATE:', nextState);
+
+  return nextState;
+
+  // log('PREV STATE:', prev);
+  // log('NEXT STATE:', nextState);
 
 };
 

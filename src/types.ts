@@ -1,4 +1,8 @@
+import { ConsumerProps, ExoticComponent, Context } from "react";
+
 export const DYNAMIC = Symbol('DYNAMIC');
+export const MOUNTED = Symbol('MOUNTED');
+export const STATUS = Symbol('STATUS');
 
 export const StatusBase = {
   INIT: 'INIT',
@@ -23,8 +27,11 @@ export type StatusBaseTypes = typeof StatusBase;
 
 export type StatusTypes = typeof StatusType;
 
-export interface IStoreBase {
+export interface IStoreBase<Themes extends object> {
+  [MOUNTED]?: symbol;
+  [STATUS]?: symbol;
   [DYNAMIC]?: symbol;
+  theme?: KeyOf<Themes>;
   [key: string]: any;
 }
 
@@ -43,8 +50,8 @@ export type StatusDispatch<Statuses> = (status: ValueOf<Statuses>) => void;
 export type ThemeDispatch<Themes> = (theme: KeyOf<Themes>) => void;
 
 export interface IStoreDispatch<State, Statuses> {
-  (value: State, status?: ValueOf<Statuses>): void;
   <K extends keyof State>(key: K, value: State[K], status?: ValueOf<Statuses>): void;
+  (value: State, status?: ValueOf<Statuses>): void;
   <K extends keyof State>(key: K): void;
 }
 
@@ -77,7 +84,9 @@ export interface IStoreProvider<State, Statuses> {
 }
 
 export interface IStoreOptions<
-  State extends IStoreBase, Themes extends object, Statuses extends StatusBaseTypes> {
+  State extends IStoreBase<Themes>,
+  Themes extends object,
+  Statuses extends StatusBaseTypes> {
 
   /**
    * The initial store state, must be object.
@@ -100,11 +109,6 @@ export interface IStoreOptions<
   stateKey?: string;
 
   /**
-   * The key name to store the name of the active them if any.
-   */
-  themeKey?: KeyOf<State>;
-
-  /**
    * A collection of theme objects.
    */
   themes?: Themes;
@@ -116,12 +120,12 @@ export interface IStoreOptions<
 
 }
 
-export interface IStore<State extends IStoreBase, Themes extends object, Statuses extends object> {
+export interface IStore<State extends IStoreBase<Themes>, Themes extends object, Statuses extends object> {
 
   /**
    * The store's context.
    */
-  Context: React.Context<[State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>;
+  Context: Context<[State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>;
 
   /**
    * Creates a provider for the store context.
@@ -133,7 +137,7 @@ export interface IStore<State extends IStoreBase, Themes extends object, Statuse
   /**
    * Store consumer which enables access to the store inline within your JSX.Element.
    */
-  Consumer: React.ExoticComponent<React.ConsumerProps<
+  Consumer: ExoticComponent<ConsumerProps<
     [State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>>;
 
   /**
@@ -162,21 +166,11 @@ export interface IStore<State extends IStoreBase, Themes extends object, Statuse
   useTheme<K extends KeyOf<Themes>>(theme: K): UseThemeContext<Themes, K>;
 
   /**
-   * Dynamically types state store based on initial value or type passed.
-   * 
-   * @param key the key to set the dynamic state at in main state.
-   * @param initialState the initial state to be used.
-   */
-
-  useAny<DynamicState, K extends KeyOf<State>>(
-    key: K, initState: Partial<DynamicState>): UseStoreContext<DynamicState, Statuses>;
-
-  /**
    * Dynamically types state store based on initial value or type passed
    * stores dynamic state in symbol [DYNAMIC].
    * 
    * @param initialState the initial state to be used.
    */
-  useAny<DynamicState>(initState: Partial<DynamicState>): UseStoreContext<DynamicState, Statuses>;
+  useAny<DynamicState>(initState: Partial<DynamicState>, initialStatus?: ValueOf<Statuses>): UseStoreContext<DynamicState, Statuses>;
 
 }

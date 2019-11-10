@@ -30,7 +30,7 @@ module.exports = {
     ]),
 
     new HtmlWebpackPlugin({
-      title: 'Komo',
+      title: 'Restash',
       template: resolve(`${src}/index.html`),
       hash: true,
     })

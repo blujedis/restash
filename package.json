@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/blujedis/restash.git"
   },
-  "files":[
+  "files": [
     "dist",
     "docs",
     "CHANGE.md",
@@ -46,6 +46,7 @@
     "react-dom": "^16.11.0"
   },
   "devDependencies": {
+    "@types/lodash.isequal": "^4.5.5",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -72,5 +73,8 @@
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2",
     "wouter": "^2.3.1"
+  },
+  "dependencies": {
+    "lodash.isequal": "^4.5.0"
   }
 }

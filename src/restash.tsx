@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
-import { ValueOf, UseStoreContext, IStoreBase, StatusBaseTypes, StatusTypes, IStoreOptions, IStoreDispatch, Middleware, IStoreProvider, StatusType, DYNAMIC, KeyOf, UseThemeContext, IStore } from './types';
+import { ValueOf, UseStoreContext, IStoreBase, StatusBaseTypes, StatusTypes, IStoreOptions, IStoreDispatch, Middleware, IStoreProvider, StatusType, MOUNTED, STATUS, DYNAMIC, KeyOf, UseThemeContext, IStore } from './types';
 
 /**
  * Validates iniital state type.
@@ -50,6 +50,55 @@ function unwrap() {
 }
 
 /**
+ * Checks if is string.
+ * 
+ * @param value the value to inspect.
+ */
+function isString(value: unknown) {
+  return typeof value === 'string';
+}
+
+/**
+ * Checks if is undefined.
+ * 
+ * @param value the value to inspect.
+ */
+function isUndefined(value: unknown) {
+  return typeof value === 'undefined';
+}
+
+/**
+ * Checks if is null or undefined.
+ * 
+ * @param value the value to inspect.
+ */
+function isNullOrUndefined(value: unknown) {
+  return value === null || isUndefined(value);
+}
+
+/**
+ * Checks if is an object.
+ * 
+ * @param value the value to inspect.
+ */
+function isObject(value: unknown) {
+  return !isNullOrUndefined(value) &&
+    typeof value === 'object';
+}
+
+/**
+ * Checks if is a plain object.
+ * 
+ * @param value the value to inspect.
+ */
+export function isPlainObject(value: unknown) {
+  return isObject(value) &&
+    value.constructor &&
+    value.constructor === Object &&
+    Object.prototype.toString.call(value) === '[object Object]';
+}
+
+/**
  * Applies middleware wrapping for dispatch
  * 
  * @param middlewares and array of middlewares to be applied.
@@ -71,8 +120,10 @@ export function applyMiddleware<State, Statuses extends StatusBaseTypes = Status
  * 
  * @param options options for creating the store.
  */
-export function createStore<State extends IStoreBase = any,
-  Themes extends object = {}, Statuses extends StatusBaseTypes = StatusTypes>(
+export function createStore<
+  State extends IStoreBase<Themes> = any,
+  Themes extends object = {},
+  Statuses extends StatusBaseTypes = StatusTypes>(
     options: IStoreOptions<State, Themes, Statuses>) {
 
   let initialState = options.initialState;
@@ -80,7 +131,6 @@ export function createStore<State extends IStoreBase = any,
   const initialStatus = options.initialStatus || null;
   const stateKey = options.stateKey || '__APP_STATE__';
   const themes = options.themes;
-  const themeKey = options.themeKey || 'theme';
 
   validateState(initialState);
 
@@ -109,11 +159,13 @@ export function createStore<State extends IStoreBase = any,
         value = undefined;
       }
 
-      if (typeof value === 'undefined' && typeof key !== 'string') {
+      // Updating entire state.
+      if (isUndefined(value)) {
         newState = { ...state, ...key };
       }
+      // Updating at key if object merge, otherwise set.
       else {
-        if (typeof state[key] === 'object' && !Array.isArray(state[key]))
+        if (isPlainObject(state[key]))
           newState = { ...state, ...{ [key]: value } };
         else
           newState = { ...state, [key]: value };
@@ -155,9 +207,10 @@ export function createStore<State extends IStoreBase = any,
       else
         setStatus('MOUNTED' as any);
       const _initialState = { ...(initState || {}), [DYNAMIC]: {} };
+      mounted.current = true;
+      // _initialState
       setState(_initialState);
       initialState = undefined;
-      mounted.current = true;
       return () => {
         mounted.current = false;
       };
@@ -200,15 +253,17 @@ export function createStore<State extends IStoreBase = any,
 
     const [_state, setState, _status, setStatus] = useContext(Context);
 
-    if (typeof initState === 'object') {
+    if (isPlainObject(initState)) {
       initStatus = initValue as ValueOf<Statuses>;
       initValue = undefined;
     }
 
+    const normalizedValue = isPlainObject(initState) ? { ...initState } : initValue;
+
     useEffect(() => {
-      if (typeof initState !== 'undefined')
+      if (!isUndefined(normalizedValue))
         setState(initState as any, initValue as any, initStatus);
-    }, []);
+    }, [initState]);
 
     return [_state, setState, _status, setStatus] as UseStoreContext<State, Statuses>;
 
@@ -228,17 +283,18 @@ export function createStore<State extends IStoreBase = any,
 
       const currentValue = state[key];
 
-      // Updating value directly at key.
-      if (typeof v === 'undefined') {
-        if (typeof k === 'object' && !Array.isArray(k) && k !== null)
+      console.log(k, v, key);
+
+      // Updating state directly.
+      if (isUndefined(v)) {
+        if (isPlainObject(v))
           v = { ...currentValue, ...k };
         else
           v = { ...currentValue, [key]: k };
       }
       // Updating nested value at key.
       else {
-        if (typeof currentValue !== 'undefined' && (currentValue === null
-          || (typeof currentValue !== 'object' && !Array.isArray(currentValue))))
+        if (!isPlainObject(currentValue))
           throw new Error(`Failed to set store value at "${key}", the destination is not an object.`);
         v = { ...currentValue, [k]: v };
       }
@@ -253,18 +309,17 @@ export function createStore<State extends IStoreBase = any,
   }
 
   function useTheme<K extends KeyOf<Themes>>(theme?: K) {
-    const [currentTheme, setTheme] = useStoreAt(themeKey);
+    const [currentTheme, setTheme] = useStoreAt('theme', theme);
     const _theme = themes[theme || currentTheme];
     return [_theme, currentTheme || theme, setTheme] as UseThemeContext<Themes, K>;
   }
 
-  function useAny<DynamicState, K extends KeyOf<State>>(
-    key: K | Partial<DynamicState>, initState?: Partial<DynamicState>) {
-    if (arguments.length === 1) {
-      initState = key as Partial<DynamicState>;
-      key = DYNAMIC as K;
-    }
-    return useStoreAt(DYNAMIC as K, initState as any) as UseStoreContext<DynamicState, Statuses>;
+  function useAny<DynamicState>(
+    initState: Partial<DynamicState>,
+    initStatus?: ValueOf<Statuses>) {
+
+    return useStoreAt(DYNAMIC as KeyOf<State>, initState as any, initStatus) as UseStoreContext<DynamicState, Statuses>;
+
   }
 
   const Consumer = Context.Consumer;

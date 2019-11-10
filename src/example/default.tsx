@@ -1,15 +1,19 @@
 import React, { FC } from 'react';
-import { useTheme } from './store';
+import { useStore } from './store';
 
 const Default: FC = () => {
 
-  const [theme, currentName, setTheme] = useTheme('light');
+  const [state, setState] = useStore();
 
-  console.log(theme, currentName);
+  
 
   return (
     <div>
-      <h2>Restash</h2>
+      <h2>Default</h2>
+
+      <pre>
+        {JSON.stringify(state, null, 2)}
+      </pre>
     </div>
   );
 
