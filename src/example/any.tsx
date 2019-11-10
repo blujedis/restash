@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
-import { useAny } from './store';
+import { useAny, useStore } from './store';
+import { DYNAMIC } from '../types';
 
 const Any: FC = () => {
 
-  const [dynamic, setDynamic] = useAny({ counter: 0 });
+  const [state, setState] = useStore();
+  const [anyval, setAny] = useAny({ counter: 0 });
 
   const updateCounter = () => {
-    const count = dynamic.counter || 0;
-    setDynamic({ counter: count + 1 });
+    const count = anyval.counter || 0;
+    // setAny({ counter: count + 1 });
+    setAny('counter', count + 1);
   };
 
-  const getCounter = () => (dynamic || {}).counter || 0;
+  const getCounter = () => (anyval || {}).counter || 0;
 
   return (
     <div>
@@ -24,7 +27,7 @@ const Any: FC = () => {
         <button type="button" onClick={updateCounter}>Update Counter</button>
       </div>
       <pre>
-        {JSON.stringify(dynamic, null, 2)}
+        {JSON.stringify(state, null, 2)}
       </pre>
     </div>
   );

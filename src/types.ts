@@ -29,7 +29,6 @@ export type StatusTypes = typeof StatusType;
 
 export interface IStoreBase<Themes extends object> {
   [MOUNTED]?: symbol;
-  [STATUS]?: symbol;
   [DYNAMIC]?: symbol;
   theme?: KeyOf<Themes>;
   [key: string]: any;

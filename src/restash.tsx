@@ -281,25 +281,38 @@ export function createStore<
         v = undefined;
       }
 
+
       const currentValue = state[key];
+      let updateVal2;
 
-      console.log(k, v, key);
-
-      // Updating state directly.
+      // Is top level
       if (isUndefined(v)) {
-        if (isPlainObject(v))
-          v = { ...currentValue, ...k };
-        else
-          v = { ...currentValue, [key]: k };
+        updateVal2 = { [key]: k };
       }
-      // Updating nested value at key.
+      // Is nested.
       else {
-        if (!isPlainObject(currentValue))
-          throw new Error(`Failed to set store value at "${key}", the destination is not an object.`);
-        v = { ...currentValue, [k]: v };
+        updateVal2 = { [k]: v };
+        if (isPlainObject(currentValue[k])) {
+          const tmp = { ...currentValue[k], ...updateVal2[k] };
+          // HERE
+        }
       }
 
-      setState(key, v, s);
+
+
+      const updateKey = isUndefined(v) ? key : k;
+      let updateVal = isUndefined(v) ? k : v;
+
+      if (isPlainObject(currentValue)) {
+        if (isPlainObject(updateVal))
+          updateVal = { ...currentValue, ...updateVal };
+      }
+
+      // console.log('update key:', updateKey);
+      // console.log('update val:', updateVal);
+      // console.log(key, k, updateVal, s);
+
+      setState(key, updateVal, s);
 
     };
 
@@ -311,7 +324,10 @@ export function createStore<
   function useTheme<K extends KeyOf<Themes>>(theme?: K) {
     const [currentTheme, setTheme] = useStoreAt('theme', theme);
     const _theme = themes[theme || currentTheme];
-    return [_theme, currentTheme || theme, setTheme] as UseThemeContext<Themes, K>;
+    const dispatchTheme = (newTheme?: K) => {
+      setTheme(newTheme);
+    };
+    return [_theme, currentTheme || theme, dispatchTheme] as UseThemeContext<Themes, K>;
   }
 
   function useAny<DynamicState>(

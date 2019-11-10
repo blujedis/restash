@@ -61,19 +61,16 @@ const storeLogger: Middleware<IAppState> = store => next => payload => {
   const log = createLogger(store);
 
   let nextState;
-  const prevState = nextState = store.getState(); 
+  const prevState = nextState = store.getState();
 
-  if (typeof payload === 'undefined') 
+  if (typeof payload === 'undefined')
     return nextState;
 
-  log('PREV STATE:', prevState);
+  // log('PREV STATE:', prevState);
   nextState = next(payload);
-  log('NEXT STATE:', nextState);
+  // log('NEXT STATE:', nextState);
 
   return nextState;
-
-  // log('PREV STATE:', prev);
-  // log('NEXT STATE:', nextState);
 
 };
 
