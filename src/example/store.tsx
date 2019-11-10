@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
-import { useStore } from './store';
+import { useStore } from './init';
 
-const Default: FC = () => {
+const Store: FC = () => {
 
   const [state, setState] = useStore();
 
-  
+  const updateState = () => {
+
+  };
 
   return (
     <div>
-      <h2>Default</h2>
+      <h2>Store</h2>
 
       <pre>
         {JSON.stringify(state, null, 2)}
@@ -19,4 +21,4 @@ const Default: FC = () => {
 
 };
 
-export default Default;
+export default Store;

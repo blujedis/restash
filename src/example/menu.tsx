@@ -18,9 +18,7 @@ const Menu: FC = () => {
     <div>
       <img src="/logo.png" width="175" style={{ marginBottom: '12px' }} />
       <ul style={ul}>
-        <li style={li}><Link href="/" >Default</Link></li>
-        <li style={li}><Link href="/nested" >Nested</Link></li>
-        <li style={li}><Link href="/any" >Any</Link></li>
+        <li style={li}><Link href="/" >Store</Link></li>
         <li style={li}><Link href="/theme" >Theme</Link></li>
       </ul>
     </div>

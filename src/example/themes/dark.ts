@@ -11,6 +11,7 @@ const vars = {
       ...base.color,
       primary: base.color.blue,
       secondary: base.color.cyan,
+      other: ''
     }
 
   }

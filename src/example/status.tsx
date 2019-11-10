@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { useStore, useStoreAt } from './store';
+import { useStore, useStoreAt } from './init';
 
-const Nested: FC = () => {
+const Status: FC = () => {
 
   const [nested, setNested] = useStoreAt('nested', false);
   const [state] = useStore();
@@ -29,4 +29,4 @@ const Nested: FC = () => {
 
 };
 
-export default Nested;
+export default Status;

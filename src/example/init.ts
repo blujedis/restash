@@ -2,7 +2,11 @@ import { createStore, applyMiddleware, Middleware, StatusType } from '../';
 import Themes from './themes';
 
 export interface IAppState {
-  nested: boolean;
+  nested?: boolean;
+  nestedObj?: {
+    firstName?: string;
+    lastName?: string;
+  };
 }
 
 type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'log';
@@ -77,7 +81,7 @@ const storeLogger: Middleware<IAppState> = store => next => payload => {
 const middleware = applyMiddleware(storeLogger);
 
 const appStore = createStore<IAppState, typeof Themes>({
-  middleware,
+  // middleware,
   themes: Themes
 });
 
@@ -85,9 +89,7 @@ const Context = appStore.Context;
 const Provider = appStore.Provider;
 const Consumer = appStore.Consumer;
 const useStore = appStore.useStore;
-const useStoreAt = appStore.useStoreAt;
 const useTheme = appStore.useTheme;
-const useAny = appStore.useAny;
 
 export * from '../';
 
@@ -96,7 +98,5 @@ export {
   Provider,
   Consumer,
   useStore,
-  useStoreAt,
-  useTheme,
-  useAny
+  useTheme
 };

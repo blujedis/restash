@@ -1,10 +1,16 @@
 import React, { FC } from 'react';
-import { Route, Router } from 'wouter';
-import Default from './default';
-import Nested from './nested';
-import Any from './any';
+import { Route, Router, Switch } from 'wouter';
+import Store from './store';
 import Theme from './theme';
 import Menu from './menu';
+
+const NotFound: FC = (props) => {
+  return (
+    <div>
+      404 - Not Found
+    </div>
+  );
+};
 
 const App: FC = () => {
 
@@ -14,10 +20,12 @@ const App: FC = () => {
         <div>
           <Menu />
         </div>
-        <Route path="/" component={Default} />
-        <Route path="/nested" component={Nested} />
-        <Route path="/any" component={Any} />
-        <Route path="/theme" component={Theme} />
+        <Switch>
+          <Route path="/" component={Store} />
+          <Route path="/theme" component={Theme} />
+          <Route path="/:404*" component={NotFound} />
+        </Switch>
+
       </div>
     </Router>
   );

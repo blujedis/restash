@@ -1,6 +1,5 @@
 import { ConsumerProps, ExoticComponent, Context } from "react";
 
-export const DYNAMIC = Symbol('DYNAMIC');
 export const MOUNTED = Symbol('MOUNTED');
 export const STATUS = Symbol('STATUS');
 
@@ -29,39 +28,39 @@ export type StatusTypes = typeof StatusType;
 
 export interface IStoreBase<Themes extends object> {
   [MOUNTED]?: symbol;
-  [DYNAMIC]?: symbol;
   theme?: KeyOf<Themes>;
   [key: string]: any;
 }
 
 export interface IMiddlewareStore<State, Statuses> {
-  dispatch?: IStoreDispatch<State, Statuses>;
+  dispatch?: StoreDispatch<State, Statuses>;
   getState?: () => State;
   getStatus?: () => ValueOf<Statuses>;
   isMounted?: boolean;
 }
 
+// export type Middleware<State, Statuses extends StatusBaseTypes = StatusTypes> = (
+//   store: IMiddlewareStore<State, Statuses>) => StoreDispatch<State, Statuses>;
+
 export type Middleware<State, Statuses extends StatusBaseTypes = StatusTypes> = (
-  store: IMiddlewareStore<State, Statuses>) => IStoreDispatch<State, Statuses>;
+  store: IMiddlewareStore<State, Statuses>) => (next: StoreDispatch<State, Statuses>) => (payload: any) => State;
 
 export type StatusDispatch<Statuses> = (status: ValueOf<Statuses>) => void;
 
 export type ThemeDispatch<Themes> = (theme: KeyOf<Themes>) => void;
 
-export interface IStoreDispatch<State, Statuses> {
-  <K extends keyof State>(key: K, value: State[K], status?: ValueOf<Statuses>): void;
-  (value: State, status?: ValueOf<Statuses>): void;
-  <K extends keyof State>(key: K): void;
-}
+export type StoreDispatch<State, Statuses> = (state: State, status?: ValueOf<Statuses>) => void;
+
+export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
 
 export type UseStoreContext<State, Statuses> =
-  [State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
+  [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
 
-export type UseKeyContext<State, K extends keyof State, Statuses> =
-  [State[K]?, IStoreDispatch<State[K], Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
+export type UseStoreAtContext<State, Statuses> =
+  [State?, StoreAtDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
 
-export type UseThemeContext<Themes, K extends keyof Themes> =
-  [Themes[K]?, K?, ThemeDispatch<Themes>?];
+export type UseThemeContext<Themes, K extends KeyOf<Themes>> =
+  [Themes[K]?, ThemeDispatch<Themes>?, K?];
 
 export interface IStoreProvider<State, Statuses> {
 
@@ -103,11 +102,6 @@ export interface IStoreOptions<
   initialStatus?: ValueOf<Statuses>;
 
   /**
-   * The state key used for initial state when using SSR.
-   */
-  stateKey?: string;
-
-  /**
    * A collection of theme objects.
    */
   themes?: Themes;
@@ -124,7 +118,7 @@ export interface IStore<State extends IStoreBase<Themes>, Themes extends object,
   /**
    * The store's context.
    */
-  Context: Context<[State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>;
+  Context: Context<[State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>;
 
   /**
    * Creates a provider for the store context.
@@ -137,7 +131,7 @@ export interface IStore<State extends IStoreBase<Themes>, Themes extends object,
    * Store consumer which enables access to the store inline within your JSX.Element.
    */
   Consumer: ExoticComponent<ConsumerProps<
-    [State?, IStoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>>;
+    [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>>;
 
   /**
    * Exposes hook to store state.
@@ -145,17 +139,22 @@ export interface IStore<State extends IStoreBase<Themes>, Themes extends object,
    * @param state the initial state to set for store.
    * @param status the initial status if any to be set.
    */
-  useStore(initialState?: Partial<State>, initialStatus?: ValueOf<Statuses>): UseStoreContext<State, Statuses>;
+  useStore<U extends State = State>(key: KeyOf<U>, initialValue: Partial<U>[KeyOf<U>], initialStatus?: ValueOf<Statuses>): UseStoreAtContext<U, Statuses>;
 
   /**
-   * Exposes hook to store state by store key.
+   * Exposes hook to store state.
    * 
-   * @param key a key in the store's state. 
-   * @param value an optional initial value to be set.
-   * @param status an optional initial status to be set.
+   * @param state the initial state to set for store.
+   * @param status the initial status if any to be set.
    */
-  useStoreAt<K extends KeyOf<State>>(
-    key: K, initialValue?: State[K], initialStatus?: ValueOf<Statuses>): UseKeyContext<State, K, Statuses>;
+  useStore<U extends State = State>(initialState: Partial<U>, initialStatus?: ValueOf<Statuses>): UseStoreContext<U, Statuses>;
+
+  /**
+   * Exposes hook to store state.
+   */
+  useStore<U extends State = State>(): UseStoreContext<U, Statuses>;
+
+
 
   /**
    * Exposes theme state hook.
@@ -163,13 +162,5 @@ export interface IStore<State extends IStoreBase<Themes>, Themes extends object,
    * @param theme the theme to load from thems when store was created.
    */
   useTheme<K extends KeyOf<Themes>>(theme: K): UseThemeContext<Themes, K>;
-
-  /**
-   * Dynamically types state store based on initial value or type passed
-   * stores dynamic state in symbol [DYNAMIC].
-   * 
-   * @param initialState the initial state to be used.
-   */
-  useAny<DynamicState>(initState: Partial<DynamicState>, initialStatus?: ValueOf<Statuses>): UseStoreContext<DynamicState, Statuses>;
 
 }

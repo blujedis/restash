@@ -1,5 +1,9 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
-import { ValueOf, UseStoreContext, IStoreBase, StatusBaseTypes, StatusTypes, IStoreOptions, IStoreDispatch, Middleware, IStoreProvider, StatusType, MOUNTED, STATUS, DYNAMIC, KeyOf, UseThemeContext, IStore } from './types';
+import { ValueOf, UseStoreContext, IStoreBase, StatusBaseTypes, StatusTypes, IStoreOptions, StoreDispatch, Middleware, IStoreProvider, StatusType, MOUNTED, STATUS, KeyOf, UseThemeContext, IStore, UseStoreAtContext } from './types';
+import isEqual from 'lodash.isequal';
+import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
+
+const STATE_KEY = '__RESTASH_APP_STATE__';
 
 /**
  * Validates iniital state type.
@@ -47,6 +51,18 @@ function unwrap() {
     }
     return next(...payload);
   };
+}
+
+/**
+ * Normalizes dispatch state.
+ * 
+ * @param keyOrState the key or state to be normalized.
+ * @param value the value to normalize if present.
+ */
+function toState<State extends object, K extends KeyOf<State>>(keyOrState: State | K, value?: State[K]) {
+  if (isUndefined(value))
+    return keyOrState as State;
+  return { [keyOrState as K]: value } as State;
 }
 
 /**
@@ -111,7 +127,7 @@ export function applyMiddleware<State, Statuses extends StatusBaseTypes = Status
   return (store) => {
     let dispatch = store.dispatch;
     middlewares.forEach(m => (dispatch = m(store)(dispatch)));
-    return dispatch as IStoreDispatch<State, Statuses>;
+    return dispatch as StoreDispatch<State, Statuses>;
   };
 }
 
@@ -129,7 +145,6 @@ export function createStore<
   let initialState = options.initialState;
   const middleware = options.middleware;
   const initialStatus = options.initialStatus || null;
-  const stateKey = options.stateKey || '__APP_STATE__';
   const themes = options.themes;
 
   validateState(initialState);
@@ -146,41 +161,23 @@ export function createStore<
     const [status, setStatus] = useStatusState();
     const [state, setState] = useState<State>({} as any);
 
-    let newState;
-    let newStatus;
-    const getState = () => newState || state;
-    const getStatus = () => newStatus || status;
+    let nextState = state;
+    let nextStatus = status;
 
-    // Custom State dispatcher.
-    function dispatch(key: any, value: any, _status?: ValueOf<Statuses>) {
+    const getState = () => state || nextState;
+    const getStatus = () => status || nextStatus;
 
-      if (StatusType[value]) {
-        _status = value;
-        value = undefined;
-      }
-
-      // Updating entire state.
-      if (isUndefined(value)) {
-        newState = { ...state, ...key };
-      }
-      // Updating at key if object merge, otherwise set.
-      else {
-        if (isPlainObject(state[key]))
-          newState = { ...state, ...{ [key]: value } };
-        else
-          newState = { ...state, [key]: value };
-      }
-
-      setState(newState);
-
+    const dispatch = (_state, _status) => {
+      nextState = state;
+      if (isPlainObject(_state))
+        nextState = { ...state, ..._state };
       if (_status) {
-        newStatus = _status;
-        setStatus(_status);
+        nextStatus = _status;
+        setStatus(nextStatus);
       }
-
-      return newState as any;
-
-    }
+      setState(nextState);
+      return nextState;
+    };
 
     const dispatcher = !middleware ?
       (...args: any) => dispatch.apply(null, args) :
@@ -189,9 +186,8 @@ export function createStore<
           args[2] = args[1];
           args[1] = undefined;
         }
-        const _dispatch = dispatch as IStoreDispatch<State, Statuses>;
         const obj = {
-          dispatch: _dispatch,
+          dispatch,
           getState,
           getStatus,
           get mounted() { return mounted.current; }
@@ -201,22 +197,28 @@ export function createStore<
 
     // Use effect to set initial state.
     useEffect(() => {
-      const initState = getInitialState(initialState, stateKey);
+
+      const initState = getInitialState(initialState, STATE_KEY);
+
       if (initialStatus)
         setStatus(initialStatus as ValueOf<Statuses>);
       else
         setStatus('MOUNTED' as any);
-      const _initialState = { ...(initState || {}), [DYNAMIC]: {} };
+
+      const _initialState = { ...(initState || {}) };
       mounted.current = true;
-      // _initialState
+
       setState(_initialState);
+
       initialState = undefined;
+
       return () => {
         mounted.current = false;
       };
+
     }, []);
 
-    return [state, dispatcher as IStoreDispatch<State, Statuses>, status, setStatus];
+    return [nextState, dispatcher as StoreDispatch<State, Statuses>, nextStatus, setStatus];
 
   };
 
@@ -248,94 +250,65 @@ export function createStore<
 
   }
 
-  function useStore<K extends keyof State>(
-    initState?: Partial<State> | K, initValue?: Partial<State>[K] | ValueOf<Statuses>, initStatus?: ValueOf<Statuses>) {
+  function useStore<S = State>(
+    key: KeyOf<S>, initValue: ValueOf<S>, initStatus?: ValueOf<Statuses>): UseStoreAtContext<S, Statuses>;
+  function useStore<S = State>(initState: S, initStatus?: ValueOf<Statuses>):
+    UseStoreAtContext<S, Statuses>;
+  function useStore<S = State>(): UseStoreAtContext<S, Statuses>;
+  function useStore<S = State>(
+    initStateOrKey?: S | KeyOf<S>, initValue?: ValueOf<S> | ValueOf<Statuses>, initStatus?: ValueOf<Statuses>) {
 
     const [_state, setState, _status, setStatus] = useContext(Context);
 
-    if (isPlainObject(initState)) {
+    if (isPlainObject(initStateOrKey)) {
       initStatus = initValue as ValueOf<Statuses>;
       initValue = undefined;
     }
 
-    const normalizedValue = isPlainObject(initState) ? { ...initState } : initValue;
+    const isNested = isString(initStateOrKey);
+    const key = initStateOrKey as KeyOf<S>;
+    const val = initValue as ValueOf<S>;
+    const initState = (isNested ? { [key]: val } : key) as State;
 
     useEffect(() => {
-      if (!isUndefined(normalizedValue))
-        setState(initState as any, initValue as any, initStatus);
-    }, [initState]);
+      if (!isUndefined(initStateOrKey)) {
 
-    return [_state, setState, _status, setStatus] as UseStoreContext<State, Statuses>;
-
-  }
-
-  function useStoreAt<K extends keyof State>(key: K, initState?: State[K], initStatus?: ValueOf<Statuses>) {
-
-    const [state, setState, _status, setStatus] = useStore(key, initState, initStatus);
-
-    const dispatcher = (k: any, v: any, s: ValueOf<Statuses>) => {
-
-      // Only setting status.
-      if (StatusType[v]) {
-        s = v;
-        v = undefined;
+        setState(initState, initStatus);
       }
+    }, []);
 
+    const dispatcher = (k, v, s) => {
 
-      const currentValue = state[key];
-      let updateVal2;
+      let nextState = k;
 
-      // Is top level
-      if (isUndefined(v)) {
-        updateVal2 = { [key]: k };
-      }
-      // Is nested.
-      else {
-        updateVal2 = { [k]: v };
-        if (isPlainObject(currentValue[k])) {
-          const tmp = { ...currentValue[k], ...updateVal2[k] };
-          // HERE
+      if (isNested) {
+        if (isUndefined(v)) {
+          nextState = { [key]: k };
+        }
+        else {
+          const nextNestedState = { [key]: { [k]: v } };
+          if (isPlainObject(_state[key]))
+            nextState = { ..._state[key], ...nextNestedState };
+          else
+            nextState = nextNestedState;
         }
       }
 
-
-
-      const updateKey = isUndefined(v) ? key : k;
-      let updateVal = isUndefined(v) ? k : v;
-
-      if (isPlainObject(currentValue)) {
-        if (isPlainObject(updateVal))
-          updateVal = { ...currentValue, ...updateVal };
-      }
-
-      // console.log('update key:', updateKey);
-      // console.log('update val:', updateVal);
-      // console.log(key, k, updateVal, s);
-
-      setState(key, updateVal, s);
+      setState(nextState, s);
 
     };
 
-    return [state[key], dispatcher as IStoreDispatch<State, Statuses>,
-      _status, setStatus] as UseStoreContext<State[K], Statuses>;
+    if (isNested)
+      return [_state[key], dispatcher, _status, setStatus] as UseStoreAtContext<S, Statuses>;
+
+    return [_state, dispatcher, _status, setStatus] as UseStoreContext<State, Statuses>;
 
   }
 
   function useTheme<K extends KeyOf<Themes>>(theme?: K) {
-    const [currentTheme, setTheme] = useStoreAt('theme', theme);
-    const _theme = themes[theme || currentTheme];
-    const dispatchTheme = (newTheme?: K) => {
-      setTheme(newTheme);
-    };
-    return [_theme, currentTheme || theme, dispatchTheme] as UseThemeContext<Themes, K>;
-  }
-
-  function useAny<DynamicState>(
-    initState: Partial<DynamicState>,
-    initStatus?: ValueOf<Statuses>) {
-
-    return useStoreAt(DYNAMIC as KeyOf<State>, initState as any, initStatus) as UseStoreContext<DynamicState, Statuses>;
-
+    const [currentTheme, setTheme] = useStore('theme', theme);
+    const _theme = themes[currentTheme];
+    return ([_theme, setTheme, currentTheme] as any) as UseThemeContext<Themes, K>;
   }
 
   const Consumer = Context.Consumer;
@@ -345,9 +318,7 @@ export function createStore<
     Provider,
     Consumer,
     useStore,
-    useStoreAt,
-    useTheme,
-    useAny
+    useTheme
   };
 
   return store;
