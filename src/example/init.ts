@@ -70,9 +70,9 @@ const storeLogger: Middleware<IAppState> = store => next => payload => {
   if (typeof payload === 'undefined')
     return nextState;
 
-  // log('PREV STATE:', prevState);
+  log('PREV STATE:', prevState);
   nextState = next(payload);
-  // log('NEXT STATE:', nextState);
+  log('NEXT STATE:', nextState);
 
   return nextState;
 
@@ -81,7 +81,7 @@ const storeLogger: Middleware<IAppState> = store => next => payload => {
 const middleware = applyMiddleware(storeLogger);
 
 const appStore = createStore<IAppState, typeof Themes>({
-  // middleware,
+  middleware,
   themes: Themes
 });
 
@@ -90,6 +90,7 @@ const Provider = appStore.Provider;
 const Consumer = appStore.Consumer;
 const useStore = appStore.useStore;
 const useTheme = appStore.useTheme;
+const useStatus = appStore.useStatus;
 
 export * from '../';
 
@@ -98,5 +99,6 @@ export {
   Provider,
   Consumer,
   useStore,
-  useTheme
+  useTheme,
+  useStatus
 };

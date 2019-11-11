@@ -1,4 +1,4 @@
-import { ConsumerProps, ExoticComponent, Context } from "react";
+import { ConsumerProps, ExoticComponent, Context, MutableRefObject } from 'react';
 
 export const MOUNTED = Symbol.for('MOUNTED');
 export const STATUS = Symbol.for('STATUS');
@@ -27,9 +27,11 @@ export type StatusBaseTypes = typeof StatusBase;
 
 export type StatusTypes = typeof StatusType;
 
-export interface IStoreBase<Statuses extends StatusBaseTypes, Themes extends object> {
+export type State<App, Themes extends object, Statuses extends StatusBaseTypes = StatusTypes> = App & IStoreBase<Themes, Statuses>
+
+export interface IStoreBase<Themes extends object = {}, Statuses extends StatusBaseTypes = StatusTypes> {
   [MOUNTED]?: boolean;
-  [STATUS]?: Statuses[KeyOf<Statuses>];
+  [STATUS]?: ValueOf<Statuses>;
   [THEME]?: KeyOf<Themes>;
   [key: string]: any;
 }
@@ -37,31 +39,36 @@ export interface IStoreBase<Statuses extends StatusBaseTypes, Themes extends obj
 export interface IMiddlewareStore<State, Statuses> {
   dispatch?: StoreDispatch<State, Statuses>;
   getState?: () => State;
-  getStatus?: () => KeyOf<Statuses>;
-  isMounted?: boolean;
+  getStatus?: () => ValueOf<Statuses>;
+  mounted?: boolean;
 }
 
-export type Middleware<State, Statuses extends StatusBaseTypes> = (
-  store: IMiddlewareStore<State, Statuses>) => (next: StoreDispatch<State, Statuses>) => (payload: any) => State;
+export type Middleware<
+  State extends IStoreBase<Themes, Statuses>,
+  Themes extends object = {},
+  Statuses extends StatusBaseTypes = StatusTypes> = (
+    store: IMiddlewareStore<State, Statuses>) =>
+    (next: StoreDispatch<State, Statuses>) =>
+      (payload: any) => State;
 
 // DISPATCHERS //
 
-export type StatusDispatch<Statuses> = (status: KeyOf<Statuses>) => void;
+export type StatusDispatch<Statuses> = (status: ValueOf<Statuses>) => void;
 
 export type ThemeDispatch<Themes extends object> = (theme: KeyOf<Themes>) => void;
 
-export type StoreDispatch<State, Statuses> = (state: State, status?: KeyOf<Statuses>) => void;
+export type StoreDispatch<State, Statuses> = (state: State, status?: ValueOf<Statuses>) => void;
 
 export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
 
 export type UseStoreContext<State, Statuses> =
-  [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
+  [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?];
 
 export type UseStoreAtContext<State, Statuses> =
-  [State?, StoreAtDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?];
+  [State?, StoreAtDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?];
 
-export type UseStatusContext<Statuses extends StatusBaseTypes, K extends KeyOf<Statuses>> =
-  [Statuses[K]?, ThemeDispatch<Statuses>?, K?];
+export type UseStatusContext<Statuses extends StatusBaseTypes, V extends ValueOf<Statuses>> =
+  [V?, StatusDispatch<Statuses>?];
 
 export type UseThemeContext<Themes extends object, K extends KeyOf<Themes>> =
   [Themes[K]?, ThemeDispatch<Themes>?, K?];
@@ -86,9 +93,9 @@ export interface IStoreProvider<State, Statuses> {
 }
 
 export interface IStoreOptions<
-  State extends IStoreBase<Statuses, Themes>,
-  Statuses extends StatusBaseTypes,
-  Themes extends object> {
+  State extends IStoreBase<Themes, Statuses>,
+  Themes extends object,
+  Statuses extends StatusBaseTypes = StatusTypes> {
 
   /**
    * The initial store state, must be object.
@@ -98,7 +105,7 @@ export interface IStoreOptions<
   /**
    * Array of middleware functions.
    */
-  middleware?: Middleware<State, Statuses>;
+  middleware?: Middleware<State, Themes, Statuses>;
 
   /**
    * The initial status of the store.
@@ -117,12 +124,15 @@ export interface IStoreOptions<
 
 }
 
-export interface IStore<State extends IStoreBase<Statuses, Themes>, Statuses extends StatusBaseTypes, Themes extends object> {
+export interface IStore<
+  State extends IStoreBase<Themes, Statuses>,
+  Themes extends object,
+  Statuses extends StatusBaseTypes = StatusTypes> {
 
   /**
    * The store's context.
    */
-  Context: Context<[State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>;
+  Context: Context<UseStoreContext<State, Statuses>>;
 
   /**
    * Creates a provider for the store context.
@@ -134,8 +144,8 @@ export interface IStore<State extends IStoreBase<Statuses, Themes>, Statuses ext
   /**
    * Store consumer which enables access to the store inline within your JSX.Element.
    */
-  Consumer: ExoticComponent<ConsumerProps<
-    [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?]>>;
+  Consumer: ExoticComponent<ConsumerProps<UseStoreContext<State, Statuses>>>;
+
 
   /**
    * Exposes hook to store state at specified key.
@@ -163,7 +173,7 @@ export interface IStore<State extends IStoreBase<Statuses, Themes>, Statuses ext
    * 
    * @param status the status to initialize with.
    */
-  useStatus<K extends KeyOf<Statuses>>(status: K): UseStatusContext<Statuses, K>;
+  useStatus<V extends ValueOf<Statuses>>(status?: ValueOf<Statuses>): UseStatusContext<Statuses, V>;
 
   /**
    * Exposes theme state hook.

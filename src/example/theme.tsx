@@ -1,13 +1,16 @@
 import React, { FC } from 'react';
-import { useTheme } from './init';
+import { useTheme, useStatus } from './init';
+import { StatusType } from '../types';
 
 const Theme: FC = () => {
 
   const [theme, setTheme, currentTheme] = useTheme('light');
+  const [status, setStatus] = useStatus(StatusType.START);
 
-  const changeTheme = (e) => {
+  const changeTheme = async (e) => {
     const val = e.target.value;
     setTheme(val);
+    setStatus('START')
   };
 
   const colors = () => JSON.stringify(!theme || !theme.vars ? {} : theme.vars.color, null, 2);
@@ -19,6 +22,10 @@ const Theme: FC = () => {
       <div style={{ marginBottom: '12px' }}>
         <span>Current Theme: </span>
         <span style={{ fontWeight: 'bolder' }}>{currentTheme}</span>
+      </div>
+      <div style={{ marginBottom: '12px' }}>
+        <span>Current Status: </span>
+        <span style={{ fontWeight: 'bolder' }}>{status}</span>
       </div>
       <div style={{ marginBottom: '24px' }}>
         <select onChange={changeTheme} value={currentTheme}>
