@@ -27,7 +27,6 @@ const App: FC = () => {
           <Route path="/theme" component={Theme} />
           <Route path="/:404*" component={NotFound} />
         </Switch>
-
       </div>
     </Router>
   );

@@ -1,8 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 const JsonData: FC<{ data: any, label?: string }> = ({ data, label }) => {
-  if (!data || !Object.keys(data).length)
-    return null;
+
+  let _data = data || {};
+
+  useEffect(() => {
+    _data = data || {};
+  }, [data]);
+
   return (
     <div>
       <h3>{label || 'Current State'}</h3>

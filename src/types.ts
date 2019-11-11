@@ -60,10 +60,10 @@ export type StoreDispatch<State, Statuses> = (state: State, status?: ValueOf<Sta
 export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value?: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
 
 export type UseStoreContext<State, Statuses> =
-  [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?];
+  [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?, MutableRefObject<Set<any>>?];
 
 export type UseStoreAtContext<State, Statuses> =
-  [State?, StoreAtDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?];
+  [State?, StoreAtDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?, MutableRefObject<Set<any>>?];
 
 export type UseStatusContext<Statuses extends StatusBaseTypes, V extends ValueOf<Statuses>> =
   [V?, StatusDispatch<Statuses>?];

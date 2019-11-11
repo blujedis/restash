@@ -8,6 +8,13 @@ const Status: FC = () => {
   const [status, setStatus] = useStatus(StatusType.START);
   const [state] = useStore();
 
+  // console.log('status:', status);
+  // console.log(state);
+
+  const getState = () => {
+    return state;
+  };
+
   const changeStatus = (e) => {
     setStatus(e.target.value);
   };
@@ -30,7 +37,9 @@ const Status: FC = () => {
           <option>ERROR</option>
         </select>
       </div>
-      <JsonData data={state} />
+      <pre>
+        {JSON.stringify(getState(), null, 2)}
+      </pre>
     </div>
   );
 

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useStoreAt, useStore } from './init';
 import JsonData from './jsondata';
 
@@ -7,15 +7,14 @@ const Store: FC = () => {
   const [stateAt, setStateAt] = useStoreAt('active', true);
   const [state, setState] = useStore({ firstName: 'Peter', lastName: 'Gibbons' });
 
-  // useEffect(() => {
-  //   console.log('state:', state);
-  //   console.log('active:', stateAt);
-  // }, []);
+  const getState = () => {
+    return state;
+  };
 
-  const changeState = (key) => {
+  const changeUser = (key) => {
     return (e) => {
-      // setState()
-    }
+      setState({ [key as any]: e.target.value } as any);
+    };
   };
 
   const changeStateAt = (e) => {
@@ -28,16 +27,24 @@ const Store: FC = () => {
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ marginBottom: '12px' }}>
         <span>First Name: </span>
-        <input type="text" defaultValue={state.firstName} /><br /><br />
+        <input
+          type="text"
+          defaultValue={state.firstName}
+          onBlur={changeUser('firstName')} /><br /><br />
         <span>Last Name: </span>
-        <input type="text" defaultValue={state.lastName} /><br /><br />
+        <input
+          type="text"
+          defaultValue={state.lastName}
+          onBlur={changeUser('lastName')} /><br /><br />
       </div>
       <div style={{ marginBottom: '12px' }}>
         <span>Is Active: </span>
         <input type="checkbox" defaultChecked={stateAt} onChange={changeStateAt} />
       </div>
-
-      <JsonData data={state} />
+      <pre>
+        {JSON.stringify(getState(), null, 2)}
+      </pre>
+      {/* <JsonData data={state} /> */}
     </div>
   );
 
