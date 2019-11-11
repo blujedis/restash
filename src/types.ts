@@ -1,9 +1,5 @@
 import { ConsumerProps, ExoticComponent, Context, MutableRefObject } from 'react';
 
-export const MOUNTED = Symbol.for('MOUNTED');
-export const STATUS = Symbol.for('STATUS');
-export const THEME = Symbol.for('THEME');
-
 export const StatusBase = {
   INIT: 'INIT',
   MOUNTED: 'MOUNTED'
@@ -27,11 +23,11 @@ export type StatusBaseTypes = typeof StatusBase;
 
 export type StatusTypes = typeof StatusType;
 
-export interface IStoreBase<Themes extends object = {}, Statuses extends StatusBaseTypes = StatusTypes> {
-  [MOUNTED]?: boolean;
-  [STATUS]?: ValueOf<Statuses>;
-  [THEME]?: KeyOf<Themes>;
-  [key: string]: any;
+export interface IStoreState<State, Themes extends object, Statuses extends StatusBaseTypes> {
+  mounted?: boolean;
+  status?: ValueOf<Statuses>;
+  theme?: KeyOf<Themes>;
+  state?: State;
 }
 
 export interface IMiddlewareStore<State, Statuses> {
@@ -42,8 +38,7 @@ export interface IMiddlewareStore<State, Statuses> {
 }
 
 export type Middleware<
-  State extends IStoreBase<Themes, Statuses>,
-  Themes extends object = {},
+  State,
   Statuses extends StatusBaseTypes = StatusTypes> = (
     store: IMiddlewareStore<State, Statuses>) =>
     (next: StoreDispatch<State, Statuses>) =>
@@ -59,6 +54,8 @@ export type StoreDispatch<State, Statuses> = (state: State, status?: ValueOf<Sta
 
 export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value?: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
 
+
+
 export type UseStoreContext<State, Statuses> =
   [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?, MutableRefObject<Set<any>>?];
 
@@ -71,17 +68,12 @@ export type UseStatusContext<Statuses extends StatusBaseTypes, V extends ValueOf
 export type UseThemeContext<Themes extends object, K extends KeyOf<Themes>> =
   [Themes[K]?, ThemeDispatch<Themes>?, K?];
 
-export interface IStoreProvider<State, Statuses> {
+export interface IStoreProvider<State> {
 
   /**
    * The initial store state, must be object.
    */
   initialState?: State;
-
-  /**
-   * Object containing enum like object of statuses.
-   */
-  statuses?: Statuses;
 
   /**
    * Provider child elements.
@@ -91,8 +83,8 @@ export interface IStoreProvider<State, Statuses> {
 }
 
 export interface IStoreOptions<
-  State extends IStoreBase<Themes, Statuses>,
-  Themes extends object,
+  State extends object,
+  Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes> {
 
   /**
@@ -103,12 +95,7 @@ export interface IStoreOptions<
   /**
    * Array of middleware functions.
    */
-  middleware?: Middleware<State, Themes, Statuses>;
-
-  /**
-   * The initial status of the store.
-   */
-  initialStatus?: ValueOf<Statuses>;
+  middleware?: Middleware<State, Statuses>;
 
   /**
    * A collection of theme objects.
@@ -123,7 +110,7 @@ export interface IStoreOptions<
 }
 
 export interface IStore<
-  State extends IStoreBase<Themes, Statuses>,
+  State extends object,
   Themes extends object,
   Statuses extends StatusBaseTypes = StatusTypes> {
 
@@ -137,7 +124,7 @@ export interface IStore<
    * 
    * @param options the Provider's options.
    */
-  Provider(options: IStoreProvider<State, Statuses>): JSX.Element;
+  Provider(options: IStoreProvider<State>): JSX.Element;
 
   /**
    * Store consumer which enables access to the store inline within your JSX.Element.
@@ -156,7 +143,7 @@ export interface IStore<
    * 
    * @param state the initial state to set for store.
    */
-  useStore<S extends IStoreBase<Themes, Statuses>>(initialState?: S): UseStoreContext<S, Statuses>;
+  useStore<S extends object>(initialState?: S): UseStoreContext<S, Statuses>;
 
   /**
    * Exposes hook to store state at dyanmically specified key.
@@ -164,7 +151,7 @@ export interface IStore<
    * @param key the nested state key to use.
    * @param initialValue the inital value for the nested key.
    */
-  useStoreAt<S extends IStoreBase<Themes, Statuses> = State, K extends KeyOf<S> = KeyOf<S>>(key: K, initialValue?: S[K]): UseStoreAtContext<S[K], Statuses>;
+  useStoreAt<S extends object = State, K extends KeyOf<S> = KeyOf<S>>(key: K, initialValue?: S[K]): UseStoreAtContext<S[K], Statuses>;
 
 
   /**

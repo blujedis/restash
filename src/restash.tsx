@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useRef, MutableRefObject } from 'react';
 import {
   ValueOf, UseStoreContext, StatusBaseTypes, StatusTypes, IStoreOptions, StoreDispatch, Middleware, IStoreProvider,
-  StatusType, MOUNTED, STATUS, THEME, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, IStoreBase, StatusBase
+  StatusType, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, IStoreState, StatusBase
 } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
@@ -123,10 +123,9 @@ export function isPlainObject(value: unknown) {
  * @param middlewares and array of middlewares to be applied.
  */
 export function applyMiddleware<
-  State extends IStoreBase<Themes, Statuses>,
-  Themes extends object = {},
+  State extends object,
   Statuses extends StatusBaseTypes = StatusTypes
->(...middlewares: Middleware<State, Themes, Statuses>[]) {
+>(...middlewares: Middleware<State, Statuses>[]) {
   middlewares = middlewares.slice();
   middlewares = [thunkify(), ...middlewares, unwrap()] as any;
   middlewares.reverse();
@@ -135,7 +134,7 @@ export function applyMiddleware<
     middlewares.forEach(m => (dispatch = m(store)(dispatch)));
     return dispatch as StoreDispatch<State, Statuses>;
   };
-  return handler as Middleware<State, Themes, Statuses>;
+  return handler as Middleware<State, Statuses>;
 }
 
 /**
@@ -144,14 +143,16 @@ export function applyMiddleware<
  * @param options options for creating the store.
  */
 export function createStore<
-  State extends IStoreBase<Themes, Statuses>,
+  State extends object,
   Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes>(
     options: IStoreOptions<State, Themes, Statuses>) {
 
+  type SS = IStoreState<State, Themes, Statuses>;
+
   let initialState = options.initialState;
   const middleware = options.middleware;
-  const themes = options.themes;
+  const themes = options.themes || {};
   const statuses = isUndefined(options.statuses) ? StatusType : { ...options.statuses, ...StatusBase };
 
   validateState(initialState);
@@ -160,21 +161,20 @@ export function createStore<
   const useStoreState = (): UseStoreContext<State, Statuses> => {
 
     const mounted = useRef(false);
-    const [state, setState] = useState<State>({ [STATUS]: StatusType.INIT, [MOUNTED]: false } as any);
+    const [state, setState] = useState<IStoreState<State, Themes, Statuses>>({ status: StatusType.INIT, mounted: false } as any);
 
     let nextState = state;
-    const nextStatus = nextState[STATUS];
     let prevState = nextState;
 
     const getState = () => nextState;
-    const getStatus = () => nextState[STATUS];
+    const getStatus = () => nextState.status;
 
     const dispatch = (_state, _status) => {
       if (isUndefined(_state) && isUndefined(_status))
         return _state;
       nextState = { ...state, ...prevState, ..._state };
       if (_status)
-        nextState = { ...nextState, [STATUS]: nextStatus };
+        nextState = { ...nextState, status: nextState.status };
       setState(nextState);
       prevState = { ..._state };
       return nextState;
@@ -204,7 +204,7 @@ export function createStore<
     useEffect(() => {
 
       let _initialState = getInitialState(initialState, STATE_KEY);
-      _initialState = { ..._initialState, [STATUS]: StatusType.MOUNTED, [MOUNTED]: true };
+      _initialState = { ..._initialState, status: StatusType.MOUNTED, mounted: true };
 
       mounted.current = true;
 
@@ -229,7 +229,7 @@ export function createStore<
   Context.displayName = 'Restash';
 
   // tslint:disable-next-line
-  function Provider({ initialState, children }: IStoreProvider<State, Statuses>) {
+  function Provider({ initialState, children }: IStoreProvider<State>) {
 
     // tslint:disable-next-line
     let [state, setState, status, setStatus] = useStoreState();
@@ -344,13 +344,13 @@ export function createStore<
   }
 
   function useStatus<K extends KeyOf<Statuses>>(status?: Statuses[K]) {
-    const [currentStatus, setStatus] = useStoreInit(STATUS as any, status) as any;
+    const [currentStatus, setStatus] = useStoreInit('status', status) as any;
     const nextStatus = !_initialized_hooks ? status || currentStatus : currentStatus || status;
     return ([nextStatus, setStatus]) as UseStatusContext<Statuses, Statuses[K]>;
   }
 
   function useTheme<K extends KeyOf<Themes>>(theme?: K) {
-    const [currentTheme, setTheme] = useStoreInit(THEME as any, theme) as any;
+    const [currentTheme, setTheme] = useStoreInit('theme', theme) as any;
     const nextTheme = !_initialized_hooks ? theme || currentTheme : currentTheme || theme;
     return ([themes[nextTheme], setTheme, nextTheme]) as UseThemeContext<Themes, K>;
   }
