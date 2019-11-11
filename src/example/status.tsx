@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { useStore, useStoreAt } from './init';
+import { useStore } from './init';
 
 const Status: FC = () => {
 
-  const [nested, setNested] = useStoreAt('nested', false);
+  const [nested, setNested] = useStore('nested', false);
   const [state] = useStore();
 
   const toggleNested = () => {
