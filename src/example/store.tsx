@@ -4,21 +4,22 @@ import JsonData from './jsondata';
 
 const Store: FC = () => {
 
-  const [stateAt, setStateAt] = useStoreAt('user');
-  const [state, setState] = useStore({ active: true });
+  const [stateAt, setStateAt] = useStoreAt('active', true);
+  const [state, setState] = useStore({ firstName: 'Peter', lastName: 'Gibbons' });
 
-  useEffect(() => {
-    console.log(state);
-  }, []);
+  // useEffect(() => {
+  //   console.log('state:', state);
+  //   console.log('active:', stateAt);
+  // }, []);
 
-  const toDefault = v => String(v || '');
-
-  const changeState = (e) => {
-
+  const changeState = (key) => {
+    return (e) => {
+      // setState()
+    }
   };
 
   const changeStateAt = (e) => {
-    setStateAt(e.target.value);
+    setStateAt(e.target.checked);
   };
 
   return (
@@ -26,14 +27,16 @@ const Store: FC = () => {
       <h2 style={{ marginBottom: '12px' }}>Store</h2>
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ marginBottom: '12px' }}>
-        <span>Value: </span>
-        <input type="text" />
-        <span style={{ fontWeight: 'bolder' }}></span>
+        <span>First Name: </span>
+        <input type="text" defaultValue={state.firstName} /><br /><br />
+        <span>Last Name: </span>
+        <input type="text" defaultValue={state.lastName} /><br /><br />
       </div>
       <div style={{ marginBottom: '12px' }}>
-        <span>Value At: </span>
-        <span style={{ fontWeight: 'bolder' }}></span>
+        <span>Is Active: </span>
+        <input type="checkbox" defaultChecked={stateAt} onChange={changeStateAt} />
       </div>
+
       <JsonData data={state} />
     </div>
   );

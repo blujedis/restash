@@ -260,19 +260,8 @@ export function createStore<
     const val = initValue as ValueOf<State>;
     const initState = (isNested ? { [key]: val } : key) as State;
 
-    if (!isUndefined(initState) && (mounted && mounted.current)) {
+    if (!isUndefined(initState) && (mounted && mounted.current))
       setState({ ..._state, ...initState });
-      console.log('set store state');
-    }
-
-    // useEffect(() => {
-    //   if (!isNestedSymbol) {
-    //     setState(initState);
-    //   }
-    //   else {
-    //     setState(initState);
-    //   }
-    // }, []);
 
     const dispatcher = (k, v, s) => {
 
@@ -317,9 +306,14 @@ export function createStore<
   function useStore(initialState?: State): UseStoreContext<State, Statuses>;
 
   function useStore(initStateOrKey?, initValue?) {
-    const val = isString(initStateOrKey) ? { [initStateOrKey]: initValue } : initStateOrKey;
-    const [state, setState, status, setStatus] = useStoreInit(val);
-    return ([state, setState, status, setStatus]) as any;
+    initValue = isString(initStateOrKey) ? { [initStateOrKey]: initValue } : initStateOrKey;
+    const [state, setState, status, setStatus, mounted] = useStoreInit(initStateOrKey, initValue);
+    let nextState = state || {};
+    if (status === StatusType.INIT as any && !isUndefined(initValue)) {
+      nextState = { ...state, ...initValue };
+    }
+    const returnState = isString(initStateOrKey) ? nextState[initStateOrKey] : nextState;
+    return ([returnState, setState, status, setStatus]) as any;
   }
 
   function useStatus<K extends KeyOf<Statuses>>(status?: Statuses[K]) {
