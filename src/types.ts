@@ -27,8 +27,6 @@ export type StatusBaseTypes = typeof StatusBase;
 
 export type StatusTypes = typeof StatusType;
 
-export type UserState<App, Themes extends object, Statuses extends StatusBaseTypes = StatusTypes> = App & IStoreBase<Themes, Statuses>;
-
 export interface IStoreBase<Themes extends object = {}, Statuses extends StatusBaseTypes = StatusTypes> {
   [MOUNTED]?: boolean;
   [STATUS]?: ValueOf<Statuses>;
@@ -59,7 +57,7 @@ export type ThemeDispatch<Themes extends object> = (theme: KeyOf<Themes>) => voi
 
 export type StoreDispatch<State, Statuses> = (state: State, status?: ValueOf<Statuses>) => void;
 
-export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
+export type StoreAtDispatch<State, Statuses> = (key: ValueOf<State>, value?: State[KeyOf<State>], status?: ValueOf<Statuses>) => void;
 
 export type UseStoreContext<State, Statuses> =
   [State?, StoreDispatch<State, Statuses>?, ValueOf<Statuses>?, StatusDispatch<Statuses>?, MutableRefObject<boolean>?];
@@ -146,26 +144,27 @@ export interface IStore<
    */
   Consumer: ExoticComponent<ConsumerProps<UseStoreContext<State, Statuses>>>;
 
-
   /**
-   * Exposes hook to store state at specified key.
+   * Exposes hook to store state.
    * 
-   * @param key the nested state key to use.
-   * @param initialValue the inital value for the nested key.
+   * @param state the initial state to set for store.
    */
-  useStore<U extends State = State>(key: KeyOf<U>, initialValue: U[KeyOf<U>]): UseStoreAtContext<U, Statuses>;
+  useStore(initialState?: State): UseStoreContext<State, Statuses>;
 
   /**
    * Exposes hook to store state.
    * 
    * @param state the initial state to set for store.
    */
-  useStore<U extends State = State>(initialState: U): UseStoreContext<U, Statuses>;
+  useStore<S extends IStoreBase<Themes, Statuses>>(initialState?: S): UseStoreContext<S, Statuses>;
 
   /**
-   * Exposes hook to store state.
+   * Exposes hook to store state at dyanmically specified key.
+   * 
+   * @param key the nested state key to use.
+   * @param initialValue the inital value for the nested key.
    */
-  useStore<U extends State = State>(): UseStoreContext<U, Statuses>;
+  useStoreAt<S extends IStoreBase<Themes, Statuses> = State, K extends KeyOf<S> = KeyOf<S>>(key: K, initialValue?: S[K]): UseStoreAtContext<S[K], Statuses>;
 
 
   /**
@@ -173,7 +172,7 @@ export interface IStore<
    * 
    * @param status the status to initialize with.
    */
-  useStatus<V extends ValueOf<Statuses>>(status?: V): UseStatusContext<Statuses, V>;
+  useStatus<K extends KeyOf<Statuses>>(status?: Statuses[K]): UseStatusContext<Statuses, Statuses[K]>;
 
   /**
    * Exposes theme state hook.

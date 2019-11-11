@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, Middleware, StatusType } from '../';
+import { createStore, applyMiddleware } from '../';
 import { createLogger } from '../middleware';
 import Themes from './themes';
 
 export interface IAppState {
-  nested?: boolean;
-  nestedObj?: {
+  active?: boolean;
+  user?: {
     firstName?: string;
     lastName?: string;
   };
@@ -23,6 +23,7 @@ const Consumer = appStore.Consumer;
 const useStore = appStore.useStore;
 const useTheme = appStore.useTheme;
 const useStatus = appStore.useStatus;
+const useStoreAt = appStore.useStoreAt;
 
 export * from '../';
 
@@ -31,6 +32,7 @@ export {
   Provider,
   Consumer,
   useStore,
+  useStoreAt,
   useTheme,
   useStatus
 };

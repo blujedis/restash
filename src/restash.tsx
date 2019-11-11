@@ -1,9 +1,8 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import {
   ValueOf, UseStoreContext, StatusBaseTypes, StatusTypes, IStoreOptions, StoreDispatch, Middleware, IStoreProvider,
-  StatusType, MOUNTED, STATUS, THEME, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, UserState
+  StatusType, MOUNTED, STATUS, THEME, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, IStoreBase
 } from './types';
-import { any } from 'prop-types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
 
@@ -124,19 +123,19 @@ export function isPlainObject(value: unknown) {
  * @param middlewares and array of middlewares to be applied.
  */
 export function applyMiddleware<
-  App extends object,
+  State extends IStoreBase<Themes, Statuses>,
   Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes
->(...middlewares: Middleware<UserState<App, Themes, Statuses>, Themes, Statuses>[]) {
+>(...middlewares: Middleware<State, Themes, Statuses>[]) {
   middlewares = middlewares.slice();
   middlewares = [thunkify(), ...middlewares, unwrap()] as any;
   middlewares.reverse();
-  const handler = (store) => {
+  const handler: any = (store) => {
     let dispatch = store.dispatch;
     middlewares.forEach(m => (dispatch = m(store)(dispatch)));
-    return dispatch as StoreDispatch<UserState<App, Themes, Statuses>, Statuses>;
+    return dispatch as StoreDispatch<State, Statuses>;
   };
-  return handler as Middleware<UserState<App, Themes, Statuses>, Themes, Statuses>;
+  return handler as Middleware<State, Themes, Statuses>;
 }
 
 /**
@@ -145,12 +144,10 @@ export function applyMiddleware<
  * @param options options for creating the store.
  */
 export function createStore<
-  App extends object = {},
+  State extends IStoreBase<Themes, Statuses>,
   Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes>(
-    options: IStoreOptions<UserState<App, Themes, Statuses>, Themes, Statuses>) {
-
-  type AppState = UserState<App, Themes, Statuses>;
+    options: IStoreOptions<State, Themes, Statuses>) {
 
   let initialState = options.initialState;
   const middleware = options.middleware;
@@ -159,10 +156,10 @@ export function createStore<
   validateState(initialState);
 
   // Main store state.
-  const useStoreState = (): UseStoreContext<AppState, Statuses> => {
+  const useStoreState = (): UseStoreContext<State, Statuses> => {
 
     const mounted = useRef(false);
-    const [state, setState] = useState<AppState>({ [STATUS]: StatusType.INIT, [MOUNTED]: false } as any);
+    const [state, setState] = useState<State>({ [STATUS]: StatusType.INIT, [MOUNTED]: false } as any);
 
     let nextState = state;
     const nextStatus = nextState[STATUS];
@@ -172,9 +169,11 @@ export function createStore<
     const getStatus = () => nextState[STATUS];
 
     const dispatch = (_state, _status) => {
+      if (isUndefined(_state) && isUndefined(_status))
+        return _state;
       nextState = { ...state, ...prevState, ..._state };
       if (_status)
-        nextState = { ...nextState, [STATUS]: nextStatus }
+        nextState = { ...nextState, [STATUS]: nextStatus };
       setState(nextState);
       prevState = { ..._state };
       return nextState;
@@ -204,10 +203,16 @@ export function createStore<
     useEffect(() => {
 
       let _initialState = getInitialState(initialState, STATE_KEY);
+
       _initialState = { ..._initialState, [STATUS]: StatusType.MOUNTED, [MOUNTED]: true };
+
       mounted.current = true;
+
       setState(_initialState);
+
       initialState = undefined;
+
+      console.log('initial state state');
 
       return () => {
         mounted.current = false;
@@ -215,18 +220,18 @@ export function createStore<
 
     }, []);
 
-    return [nextState, dispatcher as StoreDispatch<AppState, Statuses>, nextStatus, dispatchStatus, mounted];
+    return [nextState, dispatcher as StoreDispatch<State, Statuses>, nextStatus, dispatchStatus, mounted];
 
   };
 
   // Create the Context
-  const Context = createContext<UseStoreContext<AppState, Statuses>>([]);
+  const Context = createContext<UseStoreContext<State, Statuses>>([]);
 
   // Set the default context display name.
   Context.displayName = 'Restash';
 
   // tslint:disable-next-line
-  function Provider({ initialState, children }: IStoreProvider<AppState, Statuses>) {
+  function Provider({ initialState, children }: IStoreProvider<State, Statuses>) {
 
     // tslint:disable-next-line
     let [state, setState, status, setStatus] = useStoreState();
@@ -244,81 +249,99 @@ export function createStore<
 
   }
 
-  /**
-   * Expose hook to use store.
-   * 
-   * @param initStateOrKey the initial state or key.
-   * @param initValue the initial value to bind to the key.
-   */
-  function useStore<S = AppState>(initStateOrKey?: S | KeyOf<S>, initValue?: ValueOf<S> | ValueOf<Statuses> | KeyOf<Themes>) {
+  function useStoreInit(initStateOrKey?: State | KeyOf<State>, initValue?: ValueOf<State> | ValueOf<Statuses> | KeyOf<Themes>) {
 
     const [_state, setState, _status, setStatus, mounted] = useContext(Context);
 
     const isNestedSymbol = isSymbol(initStateOrKey);
     const isNested = isString(initStateOrKey) || isNestedSymbol;
 
-    const key = initStateOrKey as KeyOf<S>;
-    const val = initValue as ValueOf<S>;
-    const initState = (isNested ? { [key]: val } : key) as AppState;
+    const key = initStateOrKey as KeyOf<State>;
+    const val = initValue as ValueOf<State>;
+    const initState = (isNested ? { [key]: val } : key) as State;
 
-    useEffect(() => {
-      if (!isUndefined(initStateOrKey)) {
-        if (!isNestedSymbol) {
-          setState(initState);
-        }
-        else if (mounted && mounted.current) {
-          setState(initState);
-        }
-      }
-    }, []);
+    if (!isUndefined(initState) && (mounted && mounted.current)) {
+      setState({ ..._state, ...initState });
+      console.log('set store state');
+    }
+
+    // useEffect(() => {
+    //   if (!isNestedSymbol) {
+    //     setState(initState);
+    //   }
+    //   else {
+    //     setState(initState);
+    //   }
+    // }, []);
 
     const dispatcher = (k, v, s) => {
 
-      let nextState = k;
+      let tmpState = k;
 
       if (isNested) {
         if (isUndefined(v)) {
-          nextState = { [key]: k };
+          tmpState = { [key]: k };
         }
         else {
-          const nextNestedState = { [key]: { [k]: v } };
+          const nextTmpState = { [key]: { [k]: v } };
           if (isPlainObject(_state[key]))
-            nextState = { ..._state[key], ...nextNestedState };
+            tmpState = { ..._state[key], ...nextTmpState };
           else
-            nextState = nextNestedState;
+            tmpState = nextTmpState;
         }
       }
-
-      setState(nextState, s);
+      setState(tmpState, s);
 
     };
 
     if (isNested)
-      return [_state[key], dispatcher, _status, setStatus, mounted] as UseStoreAtContext<S, Statuses>;
+      return [_state[key], dispatcher, _status, setStatus, mounted] as UseStoreAtContext<State, Statuses>;
 
-    return [_state, dispatcher, _status, setStatus, mounted] as UseStoreContext<AppState, Statuses>;
+    return [_state, dispatcher, _status, setStatus, mounted] as UseStoreContext<State, Statuses>;
 
   }
 
-  function useStatus<V extends ValueOf<Statuses>>(status?: V) {
-    const [currentStatus, setStatus] = useStore(STATUS, status);
-    const nextStatus = (status === StatusType.INIT as any ? status : currentStatus || status) as V;
-    return ([nextStatus, setStatus] as any) as UseStatusContext<Statuses, V>;
+  /**
+   * Expose hook to use store at key.
+   * 
+   * @param key the initial state or key.
+   * @param initialValue the initial value to bind to the key.
+   */
+  function useStore(key: KeyOf<State>, initialValue?: ValueOf<State> | ValueOf<Statuses> | KeyOf<Themes>): UseStoreAtContext<State, Statuses>;
+
+  /**
+   * Expose hook to use store.
+   * 
+   * @param initialState the initial state.
+   */
+  function useStore(initialState?: State): UseStoreContext<State, Statuses>;
+
+  function useStore(initStateOrKey?, initValue?) {
+    const val = isString(initStateOrKey) ? { [initStateOrKey]: initValue } : initStateOrKey;
+    const [state, setState, status, setStatus] = useStoreInit(val);
+    return ([state, setState, status, setStatus]) as any;
+  }
+
+  function useStatus<K extends KeyOf<Statuses>>(status?: Statuses[K]) {
+    const [currentStatus, setStatus] = useStoreInit(STATUS as any, status);
+    const nextStatus = (status === StatusType.INIT as any ? status : currentStatus || status) as Statuses[K];
+    return ([nextStatus, setStatus] as any) as UseStatusContext<Statuses, Statuses[K]>;
   }
 
   function useTheme<K extends KeyOf<Themes>>(theme?: K) {
-    const [currentTheme, setTheme, status] = useStore(THEME, theme)
+    const [currentTheme, setTheme, status] = useStoreInit(THEME as any, theme);
     const nextTheme = (status === StatusType.INIT as any ? theme : currentTheme || theme) as K;
     return ([themes[nextTheme], setTheme, nextTheme] as any) as UseThemeContext<Themes, K>;
   }
 
   const Consumer = Context.Consumer;
 
-  const store: IStore<AppState, Themes, Statuses> = {
+  const store: IStore<State, Themes, Statuses> = {
     Context,
     Provider,
     Consumer,
     useStore,
+    useStoreAt: useStore,
     useStatus,
     useTheme
   };

@@ -1,29 +1,36 @@
 import React, { FC } from 'react';
-import { useStore } from './init';
+import { useStatus, useStore } from './init';
+import JsonData from './jsondata';
+import { StatusType } from '../types';
 
 const Status: FC = () => {
 
-  const [nested, setNested] = useStore('nested', false);
+  const [status, setStatus] = useStatus(StatusType.START);
   const [state] = useStore();
 
-  const toggleNested = () => {
-    setNested(!nested);
+  const changeStatus = (e) => {
+    setStatus(e.target.value);
   };
 
   return (
     <div>
-      <h2 style={{ marginBottom: '12px' }}>Nested Store Values</h2>
+      <h2 style={{ marginBottom: '12px' }}>Status</h2>
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ marginBottom: '12px' }}>
-        <span>Nested Value: </span>
-        <span style={{ fontWeight: 'bolder' }}>{nested}</span>
+        <span>Current Status: </span>
+        <span style={{ fontWeight: 'bolder' }}>{status}</span>
       </div>
-      <div style={{ marginBottom: '12px' }}>
-        <button type="button" onClick={toggleNested}>Toggle Nested</button>
+      <div style={{ marginBottom: '24px' }}>
+        <select onChange={changeStatus} value={status}>
+          <option value=''>Please Select</option>
+          <option>START</option>
+          <option>PROGRESS</option>
+          <option>STOP</option>
+          <option>COMPLETE</option>
+          <option>ERROR</option>
+        </select>
       </div>
-      <pre>
-        {JSON.stringify(state, null, 2)}
-      </pre>
+      <JsonData data={state} />
     </div>
   );
 
