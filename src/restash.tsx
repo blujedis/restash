@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import {
-  ValueOf, UseStoreContext, IStoreBase, StatusBaseTypes, StatusTypes, IStoreOptions, StoreDispatch, Middleware, IStoreProvider,
-  StatusType, MOUNTED, STATUS, THEME, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, State
+  ValueOf, UseStoreContext, StatusBaseTypes, StatusTypes, IStoreOptions, StoreDispatch, Middleware, IStoreProvider,
+  StatusType, MOUNTED, STATUS, THEME, KeyOf, UseThemeContext, IStore, UseStoreAtContext, UseStatusContext, UserState
 } from './types';
 import { any } from 'prop-types';
 
@@ -127,16 +127,16 @@ export function applyMiddleware<
   App extends object,
   Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes
->(...middlewares: Middleware<State<App, Themes, Statuses>, Themes, Statuses>[]) {
+>(...middlewares: Middleware<UserState<App, Themes, Statuses>, Themes, Statuses>[]) {
   middlewares = middlewares.slice();
   middlewares = [thunkify(), ...middlewares, unwrap()] as any;
   middlewares.reverse();
   const handler = (store) => {
     let dispatch = store.dispatch;
     middlewares.forEach(m => (dispatch = m(store)(dispatch)));
-    return dispatch as StoreDispatch<State<App, Themes, Statuses>, Statuses>;
+    return dispatch as StoreDispatch<UserState<App, Themes, Statuses>, Statuses>;
   };
-  return handler as Middleware<State<App, Themes, Statuses>, Themes, Statuses>;
+  return handler as Middleware<UserState<App, Themes, Statuses>, Themes, Statuses>;
 }
 
 /**
@@ -148,20 +148,15 @@ export function createStore<
   App extends object = {},
   Themes extends object = {},
   Statuses extends StatusBaseTypes = StatusTypes>(
-    options: IStoreOptions<State<App, Themes, Statuses>, Themes, Statuses>) {
+    options: IStoreOptions<UserState<App, Themes, Statuses>, Themes, Statuses>) {
 
-  type AppState = State<App, Themes, Statuses>;
+  type AppState = UserState<App, Themes, Statuses>;
 
   let initialState = options.initialState;
   const middleware = options.middleware;
   const themes = options.themes;
 
   validateState(initialState);
-
-  // Break this out in case we extend at some point.
-  // const useStatusState = () => {
-  //   return useState<ValueOf<Statuses>>('INIT' as any);
-  // };
 
   // Main store state.
   const useStoreState = (): UseStoreContext<AppState, Statuses> => {
@@ -170,7 +165,7 @@ export function createStore<
     const [state, setState] = useState<AppState>({ [STATUS]: StatusType.INIT, [MOUNTED]: false } as any);
 
     let nextState = state;
-    let nextStatus = nextState[STATUS];
+    const nextStatus = nextState[STATUS];
     let prevState = nextState;
 
     const getState = () => nextState;
@@ -262,9 +257,9 @@ export function createStore<
     const isNestedSymbol = isSymbol(initStateOrKey);
     const isNested = isString(initStateOrKey) || isNestedSymbol;
 
-    let key = initStateOrKey as KeyOf<S>;
+    const key = initStateOrKey as KeyOf<S>;
     const val = initValue as ValueOf<S>;
-    const initState = (isNested ? { [key]: val } : key) as State;
+    const initState = (isNested ? { [key]: val } : key) as AppState;
 
     useEffect(() => {
       if (!isUndefined(initStateOrKey)) {
@@ -301,20 +296,13 @@ export function createStore<
     if (isNested)
       return [_state[key], dispatcher, _status, setStatus, mounted] as UseStoreAtContext<S, Statuses>;
 
-    return [_state, dispatcher, _status, setStatus, mounted] as UseStoreContext<State, Statuses>;
+    return [_state, dispatcher, _status, setStatus, mounted] as UseStoreContext<AppState, Statuses>;
 
   }
 
   function useStatus<V extends ValueOf<Statuses>>(status?: V) {
     const [currentStatus, setStatus] = useStore(STATUS, status);
     const nextStatus = (status === StatusType.INIT as any ? status : currentStatus || status) as V;
-    const dispatcher = s => {
-      if (s === 'INIT' || s === 'MOUNTED')
-        console.warn(`INIT or MOUNTED status can only be dispatched by Restash internally`);
-      s = currentStatus;
-      setStatus(s, null) as any;
-      return s;
-    }
     return ([nextStatus, setStatus] as any) as UseStatusContext<Statuses, V>;
   }
 

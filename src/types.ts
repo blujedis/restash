@@ -27,7 +27,7 @@ export type StatusBaseTypes = typeof StatusBase;
 
 export type StatusTypes = typeof StatusType;
 
-export type State<App, Themes extends object, Statuses extends StatusBaseTypes = StatusTypes> = App & IStoreBase<Themes, Statuses>
+export type UserState<App, Themes extends object, Statuses extends StatusBaseTypes = StatusTypes> = App & IStoreBase<Themes, Statuses>;
 
 export interface IStoreBase<Themes extends object = {}, Statuses extends StatusBaseTypes = StatusTypes> {
   [MOUNTED]?: boolean;
@@ -173,7 +173,7 @@ export interface IStore<
    * 
    * @param status the status to initialize with.
    */
-  useStatus<V extends ValueOf<Statuses>>(status?: ValueOf<Statuses>): UseStatusContext<Statuses, V>;
+  useStatus<V extends ValueOf<Statuses>>(status?: V): UseStatusContext<Statuses, V>;
 
   /**
    * Exposes theme state hook.
