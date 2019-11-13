@@ -1,3 +1,4 @@
+import { Context, ExoticComponent } from "react";
 
 export const MOUNTED = Symbol.for('MOUNTED');
 export const STATUS = Symbol.for('STATUS');
@@ -8,52 +9,29 @@ export type KeyOf<T> = Extract<keyof T, string>;
 
 export type ValueOf<T, K extends KeyOf<T> = any> = T[K];
 
-export interface IState {
-  [key: string]: any;
-}
+export type Dispatch<S, U> =
+  (state: S, status?: U) => S;
 
-export type Dispatch<S extends IState, U extends string> =
-  (state: S, status?: ValueOf<U>) => S;
-
-export interface IRestash<S extends IState, U extends string> {
+export interface IRestashDispatch<S, U> {
   dispatch: Dispatch<S, U>;
   readonly mounted: boolean;
   readonly state: S;
-  readonly status: string;
+  readonly status: U;
 }
 
-export interface IContext<S extends IState, U extends string> {
+export interface IContext<S, U> {
   state?: S;
   setState?: Dispatch<S, U>;
-  restash?: IRestash<S, U>;
+  restash?: IRestashDispatch<S, U>;
 }
 
-export type Restash<S extends IState, U extends string> =
-  [S, (state: S, status?: ValueOf<U>) => S, IRestash<S, U>];
+export type Restash<S, U> =
+  [S, (state: S, status?: U) => S, IRestashDispatch<S, U>];
 
-export type Middleware<S extends IState, U extends string> =
-  (store: IRestash<S, U>) => (next: Dispatch<S, U>) => (payload: any) => S;
+export type Middleware<S, U> =
+  (store: IRestashDispatch<S, U>) => (next: Dispatch<S, U>) => (payload: any) => S;
 
-export interface IOptions<S extends IState, U extends string = Status> {
-
-  /**
-   * The initial store state, must be object.
-   */
-  initialState?: S;
-
-  /**
-   * Array of middleware functions.
-   */
-  middleware?: Middleware<S, U>;
-
-  /**
-   * Dispatch status key values.
-   */
-  statuses?: U[];
-
-}
-
-export interface IProvider<S extends IState> {
+export interface IProvider<S> {
 
   /**
    * The initial store state, must be object.
@@ -64,5 +42,17 @@ export interface IProvider<S extends IState> {
    * Provider child elements.
    */
   children?: any;
+
+}
+
+export interface IRestash<S, U extends string> {
+
+  Context: Context<IContext<S, U>>;
+
+  Provider: (options: IProvider<S>) => JSX.Element;
+
+  Consumer: ExoticComponent<React.ConsumerProps<IContext<S, U>>>;
+
+  useStore: () => Restash<S, U>;
 
 }

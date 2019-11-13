@@ -88,6 +88,15 @@ export function isNullOrUndefined(value: unknown) {
 }
 
 /**
+ * Checks if is function
+ * 
+ * @param value the value to inspect.
+ */
+export function isFunction(value: unknown) {
+  return typeof value === 'function';
+}
+
+/**
  * Checks if is an object.
  * 
  * @param value the value to inspect.

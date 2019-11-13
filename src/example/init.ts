@@ -1,19 +1,16 @@
-import { createLogger, createStore, applyMiddleware } from '../';
+import { createLogger, createRestash } from '../';
 
-interface IApp {
-  other: number;
-}
+const logger = createLogger();
 
-const logger = createLogger<IApp>();
+const initialState = {
+  firstName: 'Bob',
+  lastName: 'Jones',
+  age: 35
+};
 
-/**
- * Create and export Restash store.
- */
-const { Provider, Context, Consumer, useStore } = createStore<IApp>({
-  initialState: { other: 33 },
-  middleware: applyMiddleware<IApp>(logger),
-  statuses: ['TEST']
-});
+const { createStore, applyMiddleware } = createRestash(initialState, ['TEST']);
+
+const { Provider, Context, Consumer, useStore } = createStore(applyMiddleware(logger));
 
 export {
   Provider,
