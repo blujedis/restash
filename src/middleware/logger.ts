@@ -1,44 +1,47 @@
-import { Middleware } from '../types';
+import { Middleware, IState, Status } from '../types';
+import { isUndefined } from '../utils';
 
-const styles = {
+// tslint:disable no-console
+
+const _styles = {
   head: 'color: #666',
   stat: 'color: mediumpurple',
   prev: 'color: deepskyblue',
   next: 'color: mediumseagreen'
 };
 
-type Types = typeof styles;
+type Types = typeof _styles;
 
-const format = (type: keyof Types, label: string, ...args: any[]) => [`%c${label}`, styles[type], ...args];
+export function createLogger<S extends IState = IState, U extends string = Status>(
+  styles?: Partial<Types>) {
 
-export function createLogger<App>() {
+  styles = { ..._styles, ...styles };
 
-  const middleware = (store) => next => payload => {
+  const format = (type: keyof Types, label: string, ...args: any[]) => [`%c${label}`, styles[type], ...args];
 
-    if (!store.mounted)
-      return store.getState();
+  const middleware: Middleware<S, U> = (store) => next => payload => {
+
+    if (!store.mounted || isUndefined(payload))
+      return store.state;
 
     let nextState;
-    const prevState = nextState = store.getState();
+    const prevState = nextState = store.state;
 
-    if (typeof payload === 'undefined')
-      return nextState;
-
-    const status = store.getStatus();
-
+    const status = store.status;
     const label = format('head', new Date().toTimeString());
+
     console.group(...label);
-    console.log(...format('stat', 'STATUS:', '(' + status.toUpperCase() + ')'));
-    console.log(...format('prev', 'PREV STATE:', prevState));
+    console.log(...format('stat', 'status:', status.toUpperCase()));
+    console.log(...format('prev', 'prev state:', prevState));
     nextState = next(payload);
-    console.log(...format('next', 'NEXT STATE:', nextState));
+    console.log(...format('next', 'next state:', nextState));
     console.groupEnd();
 
     return nextState;
 
   };
 
-  return middleware as Middleware<App>;
+  return middleware;
 
 }
 

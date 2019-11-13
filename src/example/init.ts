@@ -1,38 +1,24 @@
-import { createStore, applyMiddleware } from '../';
-import { createLogger } from '../middleware';
-import Themes from './themes';
+import { createLogger, createStore, applyMiddleware } from '../';
 
-export interface IAppState {
-  active?: boolean;
-  user?: {
-    firstName?: string;
-    lastName?: string;
-  };
+interface IApp {
+  other: number;
 }
 
-const middleware = applyMiddleware(createLogger<IAppState>());
+const logger = createLogger<IApp>();
 
-const appStore = createStore<IAppState, typeof Themes>({
-  middleware,
-  themes: Themes
+/**
+ * Create and export Restash store.
+ */
+const { Provider, Context, Consumer, useStore } = createStore<IApp>({
+  initialState: { other: 33 },
+  middleware: applyMiddleware<IApp>(logger),
+  statuses: ['TEST']
 });
 
-const Context = appStore.Context;
-const Provider = appStore.Provider;
-const Consumer = appStore.Consumer;
-const useStore = appStore.useStore;
-const useTheme = appStore.useTheme;
-const useStatus = appStore.useStatus;
-const useStoreAt = appStore.useStoreAt;
-
-export * from '../';
-
 export {
-  Context,
   Provider,
+  Context,
   Consumer,
-  useStore,
-  useStoreAt,
-  useTheme,
-  useStatus
+  useStore
 };
+

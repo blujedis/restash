@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Router, Switch } from 'wouter';
 import Store from './store';
-import Status from './status';
-import Theme from './theme';
 import Menu from './menu';
 
 const NotFound: FC = (props) => {
@@ -23,8 +21,6 @@ const App: FC = () => {
         </div>
         <Switch>
           <Route path="/" component={Store} />
-          <Route path="/status" component={Status} />
-          <Route path="/theme" component={Theme} />
           <Route path="/:404*" component={NotFound} />
         </Switch>
       </div>
