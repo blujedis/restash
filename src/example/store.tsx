@@ -4,10 +4,12 @@ import JsonData from './jsondata';
 
 const Store: FC = () => {
 
-  const [state, dispatch] = useStore();
+  const [state, setState, restash] = useStore();
+  // const [stateAt, setStateAt] = useStore('age');
 
-  const setState = () => {
-    dispatch({ firstName: 'Larry' });
+  const onClick = () => {
+    setState({ firstName: 'Larry' });
+    setState({ age: 47 });
   };
 
   return (
@@ -15,10 +17,10 @@ const Store: FC = () => {
       <h2 style={{ marginBottom: '12px' }}>Store</h2>
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ marginBottom: '12px' }}>
-        Status
+        Status: {restash.status}
       </div>
       <div>
-        <button type="button" onClick={setState}>Set Larry</button>
+        <button type="button" onClick={onClick}>Set Larry</button>
       </div>
       <pre>
         {JSON.stringify(state, null, 2)}

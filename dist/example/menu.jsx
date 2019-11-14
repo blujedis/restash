@@ -19,7 +19,6 @@ const Menu = () => {
       <img src="/logo.png" width="175" style={{ marginBottom: '12px' }}/>
       <ul style={ul}>
         <li style={li}><wouter_1.Link href="/">Store</wouter_1.Link></li>
-        <li style={li}><wouter_1.Link href="/status">Status</wouter_1.Link></li>
         <li style={li}><wouter_1.Link href="/theme">Theme</wouter_1.Link></li>
       </ul>
     </div>);

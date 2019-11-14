@@ -1,3 +1,4 @@
+
 /**
  * Validates iniital state type.
  * 
@@ -139,12 +140,56 @@ export function isEmpty(value: unknown) {
 }
 
 /**
- * Simple helper to destructure at key.
+ * Tries to stringify JSON.
  * 
- * @param obj the source object.
- * @param key the key to destructure at.
- * @param val the value to merge.
+ * @param value the value to stringify.
  */
-export function toMerged<T extends object = any>(obj: T, key: string, val: object) {
-  return { ...obj, ...{ [key]: { ...obj[key], ...val } } } as T;
+export function tryStringifyJSON(value: object) {
+  try {
+    return JSON.stringify(value);
+  }
+  catch (ex) {
+    return false;
+  }
+}
+
+/**
+ * Tries to parse JSON.
+ * 
+ * @param value the value to parse.
+ */
+export function tryParseJSON(value: string) {
+  try {
+    return JSON.parse(value);
+  }
+  catch (ex) {
+    return false;
+  }
+}
+
+/**
+ * Persists state to storage.
+ * 
+ * @param key the key used to set storage.
+ * @param value the value to be set.
+ */
+export function setStorage(key: string, value: object) {
+  if (typeof localStorage === 'undefined')
+    return;
+  setImmediate(() => {
+    const stringified = tryStringifyJSON(value);
+    if (stringified)
+      localStorage.setItem(key, stringified);
+  });
+}
+
+/**
+ * Gets state from storage.
+ * 
+ * @param key the storage key to retrieve.
+ */
+export function getStorage<S extends object>(key: string) {
+  if (typeof localStorage === 'undefined')
+    return null;
+  return tryParseJSON(localStorage.getItem(key)) as S;
 }

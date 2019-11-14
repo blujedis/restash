@@ -1,8 +1,9 @@
 
-import { useContext, useRef, Reducer } from 'react';
+import { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
-import { toMerged, thunkify, unwrap } from './utils';
-import { IRestashDispatch, IAction, Dispatcher, IContextOptions, Middleware, IStoreOptions, IStoreBaseOptions, IStoreState } from './types';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage } from './utils';
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, Status, StatusTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
+import { isUndefined } from 'util';
 
 const contexts = new Set<string>();
 
@@ -17,23 +18,23 @@ export function getKey(key: string = 'RESTASH_STORE') {
 }
 
 /**
-  * Applies middleware wrapping for dispatch
-  * 
-  * @param middlewares and array of middlewares to be applied.
-  */
-// function applyMiddleware(...middlewares: Middleware<S, U>[]) {
-//   middlewares = middlewares.slice();
-//   middlewares = [thunkify(), ...middlewares, unwrap()] as any;
-//   middlewares.reverse();
-//   const handler: any = (store) => {
-//     let dispatch = store.dispatch;
-//     middlewares.forEach(m => (dispatch = m(store)(dispatch)));
-//     return dispatch as Dispatch<S, U>;
-//   };
-//   return handler as Middleware<S, U>;
-// }
+ * Applies middleware wrapping for dispatch
+ * 
+ * @param middlewares and array of middlewares to be applied.
+ */
+export function applyMiddleware(...middlewares: Middleware[]) {
+  middlewares = middlewares.slice();
+  middlewares = [thunkify(), ...middlewares, unwrap()] as any;
+  middlewares.reverse();
+  const handler: any = (store) => {
+    let dispatch = store.dispatch;
+    middlewares.forEach(m => (dispatch = m(store)(dispatch)));
+    return dispatch as MiddlewareDispatch;
+  };
+  return handler as Middleware;
+}
 
-export function createContext<S extends object, A extends IAction = any>(
+export function createContext<S extends object, A extends IAction>(
   name: string,
   options: IContextOptions<S, A>) {
   if (contexts.has(name)) return null;
@@ -46,12 +47,11 @@ export function createContext<S extends object, A extends IAction = any>(
  * 
  * @param initialState the initial state of the store.
  */
-export function createStore<S extends object, A extends IAction>(options?: IStoreBaseOptions<S>) {
+export function createStore<S extends object, A extends IAction>(options?: IStoreOptions<S, A>) {
 
   options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
 
   const key = getKey();
-  console.log(key);
 
   const store = createContext<S, A>(key, {
     initialState: options.initialState,
@@ -62,7 +62,11 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
 
   const { Context, Provider, Consumer } = store;
 
-  const useStore = useContext(Context);
+  // Hook must be wrapped.
+  const useStore = () => {
+    const [state, dispatch] = useContext(Context);
+    return [state, dispatch] as [S, React.Dispatch<A>];
+  };
 
   return {
     Context,
@@ -73,57 +77,124 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
 
 }
 
-export function createRestash<S extends object, U extends string>(options?: IStoreOptions<S, U>) {
+export function createRestash<
+  S extends object,
+  U extends string>(options?: IRestashOptions<S, U>) {
 
-  const reducer = (s, a) => toMerged(s, 'data', a.payload);
+  type Statuses = U | StatusTypes;
+  type State = IStoreState<S, Statuses>;
 
-  const storeState: IStoreState<S, U> = {
+  // Check for persisent state
+  if (options.persist) {
+    const state = getStorage<S>(options.persist);
+    if (state)
+      options.initialState = { ...options.initialState, ...state };
+  }
+
+  const reducer: Reducer<State, IRestashAction> = (s, a) => {
+
+    if (isUndefined(a))
+      return s;
+
+    let nextState = s;
+
+    if (a.type === Action.data)
+      nextState = { ...s, ...{ data: { ...s.data, ...a.payload } } };
+
+
+    if (a.type === Action.status)
+      nextState = { ...s, ...{ [Action.status]: a.payload } };
+
+    return nextState;
+
+  };
+
+  const storeState: State = {
+    status: Status.init,
     data: options.initialState
   };
 
-  const store = createStore<IStoreState<S, U>, IAction<S>>({
+  const store = createStore<State, IRestashAction>({
     initialState: storeState,
     reducer
   });
 
   if (!store) return;
 
-  const { Context, Provider, Consumer } = store;
+  const { Context, Provider, Consumer, useStore: useStoreBase } = store;
 
-  const useStore = () => {
+  let prevPayload = {};
+
+  function useStore<K extends KeyOf<S>>(key: K): RestashHook<S[K], U, DispatchAt<S, U, K>>;
+  function useStore(): RestashHook<S, U>;
+  function useStore<K extends KeyOf<S>>(key?: K) {
 
     const mounted = useRef(false);
-    const [state, setState] = useContext(Context);
+    const [state, setState] = useStoreBase();
 
-    const dispatch = (s) => {
-      const clone = { ...state };
+    useEffect(() => {
+      mounted.current = true;
+      if (state.status !== Status.mounted)
+        setState({
+          type: Action.status,
+          payload: Status.mounted
+        });
+      return () => mounted.current = false;
+    }, []);
+
+    const dispatch = (s, u?) => {
+
+      let payload = s as any;
+
+      if (key) {
+        payload = { [key]: s };
+        if (isPlainObject(state.data[key]) && isPlainObject(s))
+          payload = { [key]: { ...state.data[key], ...s } };
+      }
+
+      // Ensures logs are accurate with latest payload reflected.
+      prevPayload = payload;
+
       setState({
-        type: null,
-        payload: s
+        type: Action.data,
+        payload
       });
-      return toMerged(clone, 'data', s);
+
+      const nextState = { ...state.data, ...prevPayload, ...payload };
+
+      if (options.persist)
+        setStorage(options.persist, nextState);
+
+      return nextState;
+
     };
 
-    const restash: IRestashDispatch<S, U> = {
-      dispatch: setState,
+    const restash = {
+      dispatch,
       get mounted() {
         return mounted.current;
+      },
+      get status() {
+        return state.status;
       },
       get state() {
         return state.data;
       },
-      get status() {
-        return state.status;
+      get key() {
+        return key || null;
       }
     };
 
     const withMiddleware = (...args: any) => (options.middleware)(restash)(args);
     const withoutMiddleware = (...args: any) => dispatch.apply(null, args);
-    const dispatcher = (!options.middleware ? withoutMiddleware : withMiddleware)
+    const dispatcher = (!options.middleware ? withoutMiddleware : withMiddleware);
 
-    return [state.data, dispatcher as any]; // [S, (state: Partial<S>) => S];
+    if (key)
+      return [state.data[key] as any, dispatcher, restash];
 
-  };
+    return [state.data, dispatcher, restash];
+
+  }
 
   return {
     Context,

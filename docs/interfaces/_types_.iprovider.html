@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IMiddlewareStore | Restash</title>
+	<title>IProvider | Restash</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/_types_.html">&quot;types&quot;</a>
 				</li>
 				<li>
-					<a href="_types_.imiddlewarestore.html">IMiddlewareStore</a>
+					<a href="_types_.iprovider.html">IProvider</a>
 				</li>
 			</ul>
-			<h1>Interface IMiddlewareStore&lt;State, Statuses&gt;</h1>
+			<h1>Interface IProvider&lt;T, A&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -73,10 +73,10 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>State</h4>
+						<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
 					</li>
 					<li>
-						<h4>Statuses</h4>
+						<h4>A<span class="tsd-signature-symbol">: </span><a href="_types_.iaction.html" class="tsd-signature-type">IAction</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -84,7 +84,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IMiddlewareStore</span>
+						<span class="target">IProvider</span>
 					</li>
 				</ul>
 			</section>
@@ -95,10 +95,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.imiddlewarestore.html#dispatch" class="tsd-kind-icon">dispatch</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.imiddlewarestore.html#getstate" class="tsd-kind-icon">get<wbr>State</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.imiddlewarestore.html#getstatus" class="tsd-kind-icon">get<wbr>Status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.imiddlewarestore.html#mounted" class="tsd-kind-icon">mounted</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.iprovider.html#children" class="tsd-kind-icon">children</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.iprovider.html#initialstate" class="tsd-kind-icon">initial<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.iprovider.html#reducer" class="tsd-kind-icon">reducer</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,72 +106,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="dispatch" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> dispatch</h3>
-					<div class="tsd-signature tsd-kind-icon">dispatch<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#storedispatch" class="tsd-signature-type">StoreDispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="children" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> children</h3>
+					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/types.ts#L38">types.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/types.ts#L26">types.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="getstate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">get<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<a name="initialstate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> initial<wbr>State</h3>
+					<div class="tsd-signature tsd-kind-icon">initial<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/types.ts#L39">types.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/types.ts#L24">types.ts:24</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">State</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="getstatus" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Status</h3>
-					<div class="tsd-signature tsd-kind-icon">get<wbr>Status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<a name="reducer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> reducer</h3>
+					<div class="tsd-signature tsd-kind-icon">reducer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Reducer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/types.ts#L40">types.ts:40</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_types_.html#valueof" class="tsd-signature-type">ValueOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <a href="../modules/_types_.html#valueof" class="tsd-signature-type">ValueOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="mounted" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> mounted</h3>
-					<div class="tsd-signature tsd-kind-icon">mounted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/types.ts#L41">types.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/types.ts#L25">types.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,6 +142,9 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_context_.html">"context"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_example_app_.html">"example/app"</a>
@@ -200,25 +162,10 @@
 						<a href="../modules/_example_menu_.html">"example/menu"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_example_status_.html">"example/status"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_example_store_.html">"example/store"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_example_theme_.html">"example/theme"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_example_themes_dark_.html">"example/themes/dark"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_example_themes_default_.html">"example/themes/default"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_example_themes_index_.html">"example/themes/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_example_themes_vars_.html">"example/themes/vars"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_index_.html">"index"</a>
@@ -235,96 +182,81 @@
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_types_.html">"types"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_utils_.html">"utils"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_types_.action.html" class="tsd-kind-icon">Action</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_types_.status.html" class="tsd-kind-icon">Status</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_types_.iaction.html" class="tsd-kind-icon">IAction</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_types_.icontextoptions.html" class="tsd-kind-icon">IContext<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_types_.imiddlewarestore.html" class="tsd-kind-icon">IMiddleware<wbr>Store</a>
+						<a href="_types_.iprovider.html" class="tsd-kind-icon">IProvider</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.imiddlewarestore.html#dispatch" class="tsd-kind-icon">dispatch</a>
+								<a href="_types_.iprovider.html#children" class="tsd-kind-icon">children</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.imiddlewarestore.html#getstate" class="tsd-kind-icon">get<wbr>State</a>
+								<a href="_types_.iprovider.html#initialstate" class="tsd-kind-icon">initial<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.imiddlewarestore.html#getstatus" class="tsd-kind-icon">get<wbr>Status</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.imiddlewarestore.html#mounted" class="tsd-kind-icon">mounted</a>
+								<a href="_types_.iprovider.html#reducer" class="tsd-kind-icon">reducer</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_types_.istore.html" class="tsd-kind-icon">IStore</a>
+						<a href="_types_.irestash.html" class="tsd-kind-icon">IRestash</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_types_.istorebase.html" class="tsd-kind-icon">IStore<wbr>Base</a>
+						<a href="_types_.irestashaction.html" class="tsd-kind-icon">IRestash<wbr>Action</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_types_.irestashoptions.html" class="tsd-kind-icon">IRestash<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_types_.istoreoptions.html" class="tsd-kind-icon">IStore<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_types_.istoreprovider.html" class="tsd-kind-icon">IStore<wbr>Provider</a>
+						<a href="_types_.istorestate.html" class="tsd-kind-icon">IStore<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_types_.html#actiontypes" class="tsd-kind-icon">Action<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_types_.html#dispatch" class="tsd-kind-icon">Dispatch</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_types_.html#dispatchat" class="tsd-kind-icon">Dispatch<wbr>At</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/_types_.html#keyof" class="tsd-kind-icon">Key<wbr>Of</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_types_.html#middleware" class="tsd-kind-icon">Middleware</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#statusbasetypes" class="tsd-kind-icon">Status<wbr>Base<wbr>Types</a>
+						<a href="../modules/_types_.html#middlewaredispatch" class="tsd-kind-icon">Middleware<wbr>Dispatch</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#statusdispatch" class="tsd-kind-icon">Status<wbr>Dispatch</a>
+						<a href="../modules/_types_.html#restashhook" class="tsd-kind-icon">Restash<wbr>Hook</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_types_.html#statustypes" class="tsd-kind-icon">Status<wbr>Types</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#storeatdispatch" class="tsd-kind-icon">Store<wbr>AtDispatch</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#storedispatch" class="tsd-kind-icon">Store<wbr>Dispatch</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#themedispatch" class="tsd-kind-icon">Theme<wbr>Dispatch</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#usestatuscontext" class="tsd-kind-icon">Use<wbr>Status<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#usestoreatcontext" class="tsd-kind-icon">Use<wbr>Store<wbr>AtContext</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#usestorecontext" class="tsd-kind-icon">Use<wbr>Store<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#usethemecontext" class="tsd-kind-icon">Use<wbr>Theme<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_types_.html#valueof" class="tsd-kind-icon">Value<wbr>Of</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#mounted-1" class="tsd-kind-icon">MOUNTED</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#status" class="tsd-kind-icon">STATUS</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#theme" class="tsd-kind-icon">THEME</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#statusbase" class="tsd-kind-icon">Status<wbr>Base</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
-						<a href="../modules/_types_.html#statustype" class="tsd-kind-icon">Status<wbr>Type</a>
 					</li>
 				</ul>
 			</nav>

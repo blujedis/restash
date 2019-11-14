@@ -5,32 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const init_1 = require("./init");
-const jsondata_1 = __importDefault(require("./jsondata"));
 const Theme = () => {
-    const [theme, setTheme, currentTheme] = init_1.useTheme('light');
-    const changeTheme = async (e) => {
-        const val = e.target.value;
-        setTheme(val);
+    const [state, setState] = init_1.useStore('firstName');
+    const onClick = () => {
+        setState('Jason');
     };
-    const colors = () => !theme || !theme.vars ? {} : theme.vars.color;
     return (<div>
       <h2 style={{ marginBottom: '12px' }}>Theme</h2>
       <hr style={{ marginBottom: '20px' }}/>
       <div style={{ marginBottom: '12px' }}>
-        <span>Current Theme: </span>
-        <span style={{ fontWeight: 'bolder' }}>{currentTheme}</span>
+        Status
       </div>
-      <div style={{ marginBottom: '24px' }}>
-        <select onChange={changeTheme} value={currentTheme}>
-          <option value=''>Please Select</option>
-          <option>light</option>
-          <option>dark</option>
-        </select>
+      <div>
+        <button type="button" onClick={onClick}>Set Jason</button>
       </div>
-      <h4 style={{ marginBottom: '8px' }}>Display Our Theme Vars</h4>
-      <div style={{ fontSize: '.85rem', color: '#666' }}>(showing ONLY vars for brevity)</div>
       <pre>
-        <jsondata_1.default data={colors()} label={'Current Theme Colors'}/>
+        {JSON.stringify(state, null, 2)}
       </pre>
     </div>);
 };

@@ -5,29 +5,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const init_1 = require("./init");
-const jsondata_1 = __importDefault(require("./jsondata"));
 const Store = () => {
-    const [stateAt, setStateAt] = init_1.useStoreAt('nested');
-    const [state, setState] = init_1.useStore();
-    const changeState = (e) => {
-        setStateAt(e.target.value);
-    };
-    const changeStateAt = (e) => {
-        setStateAt(e.target.value);
+    const [state, setState, restash] = init_1.useStore();
+    // const [stateAt, setStateAt] = useStore('age');
+    const onClick = () => {
+        setState({ firstName: 'Larry' });
+        setState({ age: 47 });
     };
     return (<div>
       <h2 style={{ marginBottom: '12px' }}>Store</h2>
       <hr style={{ marginBottom: '20px' }}/>
       <div style={{ marginBottom: '12px' }}>
-        <span>Current Value: </span>
-        <span style={{ fontWeight: 'bolder' }}>{stateAt || ''}</span>
+        Status: {restash.status}
       </div>
-      <div style={{ marginBottom: '24px' }}>
-
+      <div>
+        <button type="button" onClick={onClick}>Set Larry</button>
       </div>
-      <h4>Current State</h4>
       <pre>
-        <jsondata_1.default data={state}/>
+        {JSON.stringify(state, null, 2)}
       </pre>
     </div>);
 };

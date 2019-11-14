@@ -73,20 +73,19 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_middleware_logger_.html#types" class="tsd-kind-icon">Types</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_middleware_logger_.html#styles" class="tsd-kind-icon">Styles</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_middleware_logger_.html#createlogger" class="tsd-kind-icon">create<wbr>Logger</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_middleware_logger_.html#format" class="tsd-kind-icon">format</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_middleware_logger_.html#logger" class="tsd-kind-icon">logger</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported"><a href="_middleware_logger_.html#styles" class="tsd-kind-icon">styles</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported"><a href="_middleware_logger_.html#_styles" class="tsd-kind-icon">_styles</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,12 +94,12 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="types" class="tsd-anchor"></a>
-					<h3>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<a name="styles" class="tsd-anchor"></a>
+					<h3>Styles</h3>
+					<div class="tsd-signature tsd-kind-icon">Styles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L10">middleware/logger.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L13">middleware/logger.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -125,57 +124,72 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-					<a name="createlogger" class="tsd-anchor"></a>
-					<h3>create<wbr>Logger</h3>
+					<a name="logger" class="tsd-anchor"></a>
+					<h3>logger</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Logger&lt;App&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+						<li class="tsd-signature tsd-kind-icon">logger&lt;Y&gt;<span class="tsd-signature-symbol">(</span>styles<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Y</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L14">middleware/logger.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L15">middleware/logger.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>App</h4>
+									<h4>Y<span class="tsd-signature-symbol">: </span><a href="_middleware_logger_.html#styles" class="tsd-signature-type">Styles</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> styles: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Y</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter-siganture">
-									<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>store<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.imiddlewarestore.html" class="tsd-signature-type">IMiddlewareStore</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+									<ul class="tsd-signatures tsd-kind-type-literal tsd-has-type-parameter tsd-is-not-exported">
+										<li class="tsd-signature tsd-kind-icon">&lt;S, U&gt;<span class="tsd-signature-symbol">(</span>store<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.irestash.html" class="tsd-signature-type">IRestash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
 									</ul>
 									<ul class="tsd-descriptions">
 										<li class="tsd-description">
+											<h4 class="tsd-type-parameters-title">Type parameters</h4>
+											<ul class="tsd-type-parameters">
+												<li>
+													<h4>S</h4>
+												</li>
+												<li>
+													<h4>U<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h4>
+												</li>
+											</ul>
 											<h4 class="tsd-parameters-title">Parameters</h4>
 											<ul class="tsd-parameters">
 												<li>
-													<h5>store: <a href="../interfaces/_types_.imiddlewarestore.html" class="tsd-signature-type">IMiddlewareStore</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													<h5>store: <a href="../interfaces/_types_.irestash.html" class="tsd-signature-type">IRestash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></h5>
 												</li>
 											</ul>
 											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-siganture">
 													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="_types_.html#storedispatch" class="tsd-signature-type">StoreDispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="_types_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
 													</ul>
 													<ul class="tsd-descriptions">
 														<li class="tsd-description">
 															<h4 class="tsd-parameters-title">Parameters</h4>
 															<ul class="tsd-parameters">
 																<li>
-																	<h5>next: <a href="_types_.html#storedispatch" class="tsd-signature-type">StoreDispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Statuses</span><span class="tsd-signature-symbol">&gt;</span></h5>
+																	<h5>next: <a href="_types_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></h5>
 																</li>
 															</ul>
 															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
 															<ul class="tsd-parameters">
 																<li class="tsd-parameter-siganture">
 																	<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-																		<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span></li>
+																		<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span></li>
 																	</ul>
 																	<ul class="tsd-descriptions">
 																		<li class="tsd-description">
@@ -185,7 +199,7 @@
 																					<h5>payload: <span class="tsd-signature-type">any</span></h5>
 																				</li>
 																			</ul>
-																			<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">State</span></h4>
+																			<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">S</span></h4>
 																		</li>
 																	</ul>
 																</li>
@@ -201,84 +215,55 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="format" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> format</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof Types</span>, label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L12">middleware/logger.ts:12</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>type: <span class="tsd-signature-type">keyof Types</span></h5>
-								</li>
-								<li>
-									<h5>label: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Object literals</h2>
 				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="styles" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> styles</h3>
-					<div class="tsd-signature tsd-kind-icon">styles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<a name="_styles" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> _styles</h3>
+					<div class="tsd-signature tsd-kind-icon">_styles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L3">middleware/logger.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L6">middleware/logger.ts:6</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="styles.head-1" class="tsd-anchor"></a>
+						<a name="_styles.head-1" class="tsd-anchor"></a>
 						<h3>head</h3>
 						<div class="tsd-signature tsd-kind-icon">head<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;color: #666&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L4">middleware/logger.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L7">middleware/logger.ts:7</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="styles.next-1" class="tsd-anchor"></a>
+						<a name="_styles.next-1" class="tsd-anchor"></a>
 						<h3>next</h3>
 						<div class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;color: mediumseagreen&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L7">middleware/logger.ts:7</a></li>
+								<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L10">middleware/logger.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="styles.prev-1" class="tsd-anchor"></a>
+						<a name="_styles.prev-1" class="tsd-anchor"></a>
 						<h3>prev</h3>
 						<div class="tsd-signature tsd-kind-icon">prev<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;color: deepskyblue&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L6">middleware/logger.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L9">middleware/logger.ts:9</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="styles.stat-1" class="tsd-anchor"></a>
+						<a name="_styles.stat-1" class="tsd-anchor"></a>
 						<h3>stat</h3>
 						<div class="tsd-signature tsd-kind-icon">stat<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;color: mediumpurple&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/middleware/logger.ts#L5">middleware/logger.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/middleware/logger.ts#L8">middleware/logger.ts:8</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -290,6 +275,9 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_context_.html">"context"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_example_app_.html">"example/app"</a>
@@ -307,25 +295,10 @@
 						<a href="_example_menu_.html">"example/menu"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_example_status_.html">"example/status"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="_example_store_.html">"example/store"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_example_theme_.html">"example/theme"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_dark_.html">"example/themes/dark"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_default_.html">"example/themes/default"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_index_.html">"example/themes/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_vars_.html">"example/themes/vars"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -342,21 +315,21 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_types_.html">"types"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_utils_.html">"utils"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_middleware_logger_.html#types" class="tsd-kind-icon">Types</a>
+						<a href="_middleware_logger_.html#styles" class="tsd-kind-icon">Styles</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_middleware_logger_.html#createlogger" class="tsd-kind-icon">create<wbr>Logger</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_middleware_logger_.html#format" class="tsd-kind-icon">format</a>
+						<a href="_middleware_logger_.html#logger" class="tsd-kind-icon">logger</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_middleware_logger_.html#styles" class="tsd-kind-icon">styles</a>
+						<a href="_middleware_logger_.html#_styles" class="tsd-kind-icon">_styles</a>
 					</li>
 				</ul>
 			</nav>

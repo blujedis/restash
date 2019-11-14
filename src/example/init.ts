@@ -1,7 +1,6 @@
-import { createStore } from '../';
-// import Restash, { logger } from '../';
+import { createStore, createRestash, logger, applyMiddleware } from '../';
 
-const initialState = {
+const _initialState = {
   firstName: 'Bob',
   lastName: 'Jones',
   age: 35,
@@ -11,7 +10,17 @@ const initialState = {
   }
 };
 
-const { Context, Consumer, Provider, useStore } = createStore(initialState);
+// Cast to partial.
+type InitialState = Partial<typeof _initialState>;
+const initialState = _initialState as InitialState;
+
+const middleware = applyMiddleware(logger());
+
+const { Context, Consumer, Provider, useStore } = createRestash({
+  initialState,
+  middleware,
+  persist: 'Restash'
+});
 
 export {
   Context,
@@ -19,19 +28,3 @@ export {
   Provider,
   useStore
 };
-
-// const { createStore, applyMiddleware } = Restash(initialState, ['OTHER']);
-
-// const { Provider, Context, Consumer, useStore, useStoreAt } =
-//   createStore(
-//     // applyMiddleware(logger())
-//   );
-
-// export {
-//   Provider,
-//   Context,
-//   Consumer,
-//   useStore,
-//   useStoreAt
-// };
-

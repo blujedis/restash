@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;example/status&quot; | Restash</title>
+	<title>&quot;context&quot; | Restash</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_example_status_.html">&quot;example/status&quot;</a>
+					<a href="_context_.html">&quot;context&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;example/status&quot;</h1>
+			<h1>External module &quot;context&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_example_status_.html#status" class="tsd-kind-icon">Status</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_context_.html#initcontext" class="tsd-kind-icon">init<wbr>Context</a></li>
 							</ul>
 						</section>
 					</div>
@@ -81,20 +81,46 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="status" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Status</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">Status<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="initcontext" class="tsd-anchor"></a>
+					<h3>init<wbr>Context</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Context&lt;C, A&gt;<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.icontextoptions.html" class="tsd-signature-type">IContextOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/e48f3f4/src/example/status.tsx#L6">example/status.tsx:6</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/2eefed7/src/context.tsx#L5">context.tsx:5</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
+								</li>
+								<li>
+									<h4>A<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.iaction.html" class="tsd-signature-type">IAction</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_types_.icontextoptions.html" class="tsd-signature-type">IContextOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>Consumer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConsumerProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>Context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>Provider<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Provider</span></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -105,6 +131,9 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_context_.html">"context"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_example_app_.html">"example/app"</a>
@@ -121,26 +150,11 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_example_menu_.html">"example/menu"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="_example_status_.html">"example/status"</a>
-					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_example_store_.html">"example/store"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_example_theme_.html">"example/theme"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_dark_.html">"example/themes/dark"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_default_.html">"example/themes/default"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_index_.html">"example/themes/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_themes_vars_.html">"example/themes/vars"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -157,12 +171,15 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_types_.html">"types"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_utils_.html">"utils"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_example_status_.html#status" class="tsd-kind-icon">Status</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_context_.html#initcontext" class="tsd-kind-icon">init<wbr>Context</a>
 					</li>
 				</ul>
 			</nav>

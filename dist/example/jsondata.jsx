@@ -9,12 +9,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const JsonData = ({ data, label }) => {
-    if (!data || !Object.entries(data).length)
-        return null;
-    return (<react_1.Fragment>
+    let _data = data || {};
+    react_1.useEffect(() => {
+        _data = data || {};
+    }, [data]);
+    return (<div>
       <h3>{label || 'Current State'}</h3>
+      <hr />
       <pre>{JSON.stringify(data, null, 2)}</pre>
-    </react_1.Fragment>);
+    </div>);
 };
 exports.default = JsonData;
 //# sourceMappingURL=jsondata.jsx.map

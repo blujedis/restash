@@ -1,10 +1,10 @@
 import { Middleware } from '../types';
-export declare function createLogger<App>(): Middleware<App, {}, {
-    START: string;
-    PROGRESS: string;
-    STOP: string;
-    COMPLETE: string;
-    ERROR: string;
-    INIT: string;
-    MOUNTED: string;
-}>;
+declare const _styles: {
+    head: string;
+    stat: string;
+    prev: string;
+    next: string;
+};
+declare type Styles = typeof _styles;
+export declare function logger<Y extends Styles = Styles>(styles?: Partial<Y>): Middleware;
+export {};
