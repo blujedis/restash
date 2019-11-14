@@ -1,4 +1,4 @@
-import { Status } from '../types';
+import { Status, Middleware } from '../types';
 import { isUndefined } from '../utils';
 
 // tslint:disable no-console
@@ -10,15 +10,15 @@ const _styles = {
   next: 'color: mediumseagreen'
 };
 
-type Types = typeof _styles;
+type Styles = typeof _styles;
 
-export function createLogger(styles?: Partial<Types>) {
+export function logger<S, U extends string, Y extends Styles = Styles>(styles?: Partial<Y>) {
 
   styles = { ..._styles, ...styles };
 
-  const format = (type: keyof Types, label: string, ...args: any[]) => [`%c${label}`, styles[type], ...args];
+  const format = (type: keyof Styles, label: string, ...args: any[]) => [`%c${label}`, styles[type], ...args];
 
-  const middleware = (store) => next => payload => {
+  const middleware: Middleware<S, U> = (store) => next => payload => {
 
     if (!store.mounted || isUndefined(payload))
       return store.state;

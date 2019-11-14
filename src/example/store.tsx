@@ -4,7 +4,11 @@ import JsonData from './jsondata';
 
 const Store: FC = () => {
 
-  const [state, setState, restash] = useStore();
+  const [state, dispatch] = useStore();
+
+  const setState = () => {
+    dispatch({ firstName: 'Larry' });
+  };
 
   return (
     <div>
@@ -12,6 +16,9 @@ const Store: FC = () => {
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ marginBottom: '12px' }}>
         Status
+      </div>
+      <div>
+        <button type="button" onClick={setState}>Set Larry</button>
       </div>
       <pre>
         {JSON.stringify(state, null, 2)}

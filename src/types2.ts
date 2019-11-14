@@ -1,16 +1,13 @@
 import { Context, ExoticComponent } from "react";
 
-export const MOUNTED = Symbol.for('MOUNTED');
-export const STATUS = Symbol.for('STATUS');
+export enum Status {
+  INIT,
+  MOUNTED
+}
 
-export type Status = 'INIT' | 'MOUNTED';
+export type Statuses = keyof typeof Status;
 
-export type KeyOf<T> = Extract<keyof T, string>;
-
-export type ValueOf<T, K extends KeyOf<T> = any> = T[K];
-
-export type Dispatch<S, U> =
-  (state: S, status?: U) => S;
+export type Dispatch<S, U> = (state: S, status?: U) => S;
 
 export interface IRestashDispatch<S, U> {
   dispatch: Dispatch<S, U>;
@@ -45,7 +42,9 @@ export interface IProvider<S> {
 
 }
 
-export interface IRestash<S, U extends string> {
+type Combine<S, K extends string, V> = S & Partial<Record<K, V>>;
+
+export interface IRestash<S, U> {
 
   Context: Context<IContext<S, U>>;
 
@@ -53,6 +52,18 @@ export interface IRestash<S, U extends string> {
 
   Consumer: ExoticComponent<React.ConsumerProps<IContext<S, U>>>;
 
-  useStore: () => Restash<S, U>;
+  useStore<V, K extends string>(key: K, value?: V): Restash<Combine<S, K, V>, U>;
+
+  useStore(initialState: S): Restash<S, U>;
+
+  useStore(): Restash<S, U>;
+
+  useStoreAt<K extends keyof S>(key: K, value?: S[K]): Restash<S[K], U>;
 
 }
+
+export interface IRestashInit<S, U> {
+  applyMiddleware: (...middlewares: Middleware<S, U>[]) => Middleware<S, U>;
+  createStore: (middleware?: Middleware<S, U>) => IRestash<S, U>;
+}
+

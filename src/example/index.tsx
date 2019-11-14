@@ -4,7 +4,7 @@ import App from './app';
 import { Provider } from './init';
 
 ReactDom.render(
-  <Provider initialState={{ name: 'bobby' }}>
+  <Provider>
     <App />
   </Provider>,
   document.getElementById('root')

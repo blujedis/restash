@@ -117,3 +117,34 @@ export function isPlainObject(value: unknown) {
     value.constructor === Object &&
     Object.prototype.toString.call(value) === '[object Object]';
 }
+
+/**
+ * Loosely checks if value is empty.
+ * 
+ * @param value the value to inspect.
+ */
+export function isEmpty(value: unknown) {
+
+  if (isString(value))
+    return value === '';
+
+  if (Array.isArray(value))
+    return !value.length;
+
+  if (isPlainObject(value))
+    return !Object.keys(value).length;
+
+  return false;
+
+}
+
+/**
+ * Simple helper to destructure at key.
+ * 
+ * @param obj the source object.
+ * @param key the key to destructure at.
+ * @param val the value to merge.
+ */
+export function toMerged<T extends object = any>(obj: T, key: string, val: object) {
+  return { ...obj, ...{ [key]: { ...obj[key], ...val } } } as T;
+}
