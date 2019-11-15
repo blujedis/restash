@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, DispatchAt, IRestashAction } from './types';
+import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction } from './types';
 /**
  * Gets a unique key based on number of loaded contexts.
  *
@@ -74,9 +74,9 @@ export declare function createStore<S extends object, A extends IAction>(options
  * @param options options used to initialize Restash.
  */
 export declare function createRestash<S extends object, U extends string>(options?: IRestashOptions<S, U>): {
-    Context: import("react").Context<[IStoreState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>;
-    Provider: ({ reducer, initialState, children }: import("./types").IProvider<IStoreState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
-    Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[IStoreState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>>;
+    Context: import("react").Context<[IRestashState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>;
+    Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
+    Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>>;
     useStore: {
         <K extends Extract<keyof S, string>>(key: K): [S[K], DispatchAt<S, U, K>, import("./types").IRestash<S[K], U, DispatchAt<S, U, K>>];
         (): [S, import("./types").Dispatch<S, U>, import("./types").IRestash<S, U, import("./types").Dispatch<S, U>>];

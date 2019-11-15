@@ -74,7 +74,6 @@
 							<h3>Enumerations</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_types_.action.html" class="tsd-kind-icon">Action</a></li>
-								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_types_.status.html" class="tsd-kind-icon">Status</a></li>
 								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_types_.statusbase.html" class="tsd-kind-icon">Status<wbr>Base</a></li>
 							</ul>
 						</section>
@@ -87,8 +86,8 @@
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.irestash.html" class="tsd-kind-icon">IRestash</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.irestashaction.html" class="tsd-kind-icon">IRestash<wbr>Action</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.irestashoptions.html" class="tsd-kind-icon">IRestash<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.irestashstate.html" class="tsd-kind-icon">IRestash<wbr>State</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.istoreoptions.html" class="tsd-kind-icon">IStore<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_types_.istorestate.html" class="tsd-kind-icon">IStore<wbr>State</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -102,7 +101,6 @@
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_types_.html#middlewaredispatch" class="tsd-kind-icon">Middleware<wbr>Dispatch</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_types_.html#restashhook" class="tsd-kind-icon">Restash<wbr>Hook</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_types_.html#statusbasetypes" class="tsd-kind-icon">Status<wbr>Base<wbr>Types</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_types_.html#statustypes" class="tsd-kind-icon">Status<wbr>Types</a></li>
 							</ul>
 						</section>
 					</div>
@@ -116,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">Action<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof Action</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L16">types.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L34">types.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,9 +124,14 @@
 					<div class="tsd-signature tsd-kind-icon">Dispatch&lt;S, U&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L80">types.ts:80</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L198">types.ts:198</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Default dispactch type/interface.</p>
+						</div>
+					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
@@ -169,9 +172,14 @@
 					<div class="tsd-signature tsd-kind-icon">Dispatch<wbr>At&lt;S, U, K&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L82">types.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L203">types.ts:203</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Dispatch interface used when dispatching at a specific key in state.</p>
+						</div>
+					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
@@ -215,7 +223,7 @@
 					<div class="tsd-signature tsd-kind-icon">Key<wbr>Of&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Extract</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L18">types.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L36">types.ts:36</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -231,9 +239,14 @@
 					<div class="tsd-signature tsd-kind-icon">Middleware<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L89">types.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L216">types.ts:216</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Interface/type for middlware.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -307,9 +320,14 @@
 					<div class="tsd-signature tsd-kind-icon">Middleware<wbr>Dispatch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L87">types.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L211">types.ts:211</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Intermediary type for middleware dispatch.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -350,9 +368,14 @@
 					<div class="tsd-signature tsd-kind-icon">Restash<wbr>Hook&lt;S, U, D&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/_types_.irestash.html" class="tsd-signature-type">IRestash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L97">types.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L239">types.ts:239</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The type/interface for the exposed Restash hook.</p>
+						</div>
+					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
@@ -372,17 +395,7 @@
 					<div class="tsd-signature tsd-kind-icon">Status<wbr>Base<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof StatusBase</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L10">types.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="statustypes" class="tsd-anchor"></a>
-					<h3>Status<wbr>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">Status<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof Status</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/58fd925/src/types.ts#L50">types.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/dac4623/src/types.ts#L22">types.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -396,27 +409,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_context_.html">"context"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_app_.html">"example/app"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_index_.html">"example/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_init_.html">"example/init"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_jsondata_.html">"example/jsondata"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_menu_.html">"example/menu"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_store_.html">"example/store"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_example_storeat_.html">"example/storeat"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -444,9 +436,6 @@
 						<a href="../enums/_types_.action.html" class="tsd-kind-icon">Action</a>
 					</li>
 					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_types_.status.html" class="tsd-kind-icon">Status</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
 						<a href="../enums/_types_.statusbase.html" class="tsd-kind-icon">Status<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
@@ -468,10 +457,10 @@
 						<a href="../interfaces/_types_.irestashoptions.html" class="tsd-kind-icon">IRestash<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_types_.istoreoptions.html" class="tsd-kind-icon">IStore<wbr>Options</a>
+						<a href="../interfaces/_types_.irestashstate.html" class="tsd-kind-icon">IRestash<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_types_.istorestate.html" class="tsd-kind-icon">IStore<wbr>State</a>
+						<a href="../interfaces/_types_.istoreoptions.html" class="tsd-kind-icon">IStore<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_types_.html#actiontypes" class="tsd-kind-icon">Action<wbr>Types</a>
@@ -496,9 +485,6 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_types_.html#statusbasetypes" class="tsd-kind-icon">Status<wbr>Base<wbr>Types</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_types_.html#statustypes" class="tsd-kind-icon">Status<wbr>Types</a>
 					</li>
 				</ul>
 			</nav>

@@ -1,12 +1,11 @@
 
 import { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
-import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState } from './utils';
-import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
-import { isUndefined } from 'util';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined } from './utils';
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
-const contexts = new Set<string>();
+const CONTEXTS = new Set<string>();
 
 /**
  * Gets a unique key based on number of loaded contexts.
@@ -14,7 +13,7 @@ const contexts = new Set<string>();
  * @param key the store key.
  */
 export function getKey(key: string = 'RESTASH_STORE') {
-  const len = [...contexts.values()].filter(v => v === key).length;
+  const len = [...CONTEXTS.values()].filter(v => v === key).length;
   return key + '_' + len;
 }
 
@@ -51,8 +50,8 @@ export function applyMiddleware(...middlewares: Middleware[]) {
 export function createContext<S extends object, A extends IAction>(
   name: string,
   options: IContextOptions<S, A>) {
-  if (contexts.has(name)) return null;
-  contexts.add(name);
+  if (CONTEXTS.has(name)) return null;
+  CONTEXTS.add(name);
   return initContext(options);
 }
 
@@ -133,7 +132,7 @@ export function createRestash<
   U extends string>(options?: IRestashOptions<S, U>) {
 
   type Statuses = U | StatusBaseTypes;
-  type State = IStoreState<S, Statuses>;
+  type State = IRestashState<S, Statuses>;
 
   // Check for persisent state
   if (options.persistent) {
@@ -146,15 +145,12 @@ export function createRestash<
 
     let nextState = {} as any;
 
-    if (a.status)
-      nextState.status = a.status;
+    nextState.status = isUndefined(a.status) || a.status === '' ? StatusBase.mounted : a.status;
 
     if (a.type === Action.data)
       nextState.data = { ...s.data, ...a.payload };
 
     nextState = { ...s, ...{ status: nextState.status }, data: { ...s.data, ...nextState.data } };
-
-    console.log(nextState);
 
     return nextState;
 

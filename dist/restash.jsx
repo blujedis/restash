@@ -5,14 +5,14 @@ const context_1 = require("./context");
 const utils_1 = require("./utils");
 const types_1 = require("./types");
 const STATE_KEY = '__RESTASH_APP_STATE__';
-const contexts = new Set();
+const CONTEXTS = new Set();
 /**
  * Gets a unique key based on number of loaded contexts.
  *
  * @param key the store key.
  */
 function getKey(key = 'RESTASH_STORE') {
-    const len = [...contexts.values()].filter(v => v === key).length;
+    const len = [...CONTEXTS.values()].filter(v => v === key).length;
     return key + '_' + len;
 }
 exports.getKey = getKey;
@@ -47,9 +47,9 @@ exports.applyMiddleware = applyMiddleware;
  * @param options context options used to initialize.
  */
 function createContext(name, options) {
-    if (contexts.has(name))
+    if (CONTEXTS.has(name))
         return null;
-    contexts.add(name);
+    CONTEXTS.add(name);
     return context_1.initContext(options);
 }
 exports.createContext = createContext;
@@ -126,12 +126,10 @@ function createRestash(options) {
     }
     const reducer = (s, a) => {
         let nextState = {};
-        if (a.status)
-            nextState.status = a.status;
+        nextState.status = utils_1.isUndefined(a.status) || a.status === '' ? types_1.StatusBase.mounted : a.status;
         if (a.type === types_1.Action.data)
             nextState.data = { ...s.data, ...a.payload };
         nextState = { ...s, ...{ status: nextState.status }, data: { ...s.data, ...nextState.data } };
-        console.log(nextState);
         return nextState;
     };
     const storeState = {

@@ -34,7 +34,7 @@ const Store: FC = () => {
       <hr style={{ marginBottom: '20px' }} />
       <div style={{ color: '#fff', backgroundColor: 'darkblue', padding: '6px', display: 'inline' }}>
         <span>{(restash.status || '').toUpperCase()}</span> &nbsp;
-        <select defaultValue={restash.status} onChange={changeStatus}>
+        <select value={restash.status} onChange={changeStatus}>
           <option value="">Please Select</option>
           <option>mounted</option>
           <option>start</option>

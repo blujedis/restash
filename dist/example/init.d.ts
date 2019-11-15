@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare const Context: import("react").Context<[import("../types").IStoreState<Partial<{
+declare const Context: import("react").Context<[import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -7,7 +7,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("../types").IStoreState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -15,7 +15,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IStoreState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
