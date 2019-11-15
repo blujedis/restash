@@ -1,5 +1,5 @@
 
-import { useContext, useRef, Reducer, useEffect } from 'react';
+import { useContext, useRef, Reducer, useEffect, useReducer } from 'react';
 import { initContext } from './context';
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined } from './utils';
 import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
@@ -177,7 +177,10 @@ export function createRestash<
   function useStore<K extends KeyOf<S>>(key?: K) {
 
     const mounted = useRef(false);
+  
     const [state, setState] = useStoreBase();
+    const prevState = useRef(state);
+
 
     useEffect(() => {
       mounted.current = true;
@@ -208,12 +211,14 @@ export function createRestash<
         payload
       });
 
-      const nextState = { ...state.data, ...prevPayload, ...payload };
+      const nextData = { ...state.data, ...prevPayload, ...payload };
+
+      prevState.current = { status: u || state.status, data: nextData };
 
       if (options.persistent)
-        setStorage(options.persistent, nextState);
+        setStorage(options.persistent, nextData);
 
-      return nextState;
+      return nextData;
 
     };
 
@@ -223,10 +228,10 @@ export function createRestash<
         return mounted.current;
       },
       get status() {
-        return state.status;
+        return prevState.current.status;
       },
       get state() {
-        return state.data;
+        return prevState.current.data; 
       },
       get key() {
         return key || null;

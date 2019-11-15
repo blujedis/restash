@@ -18,12 +18,11 @@ function logger(styles) {
         const prevState = nextState = store.state;
         const status = store.status;
         const label = format('head', new Date().toTimeString());
-        console.group(...label);
-        if (status)
-            console.log(...format('stat', 'status:', status));
-        console.log(...format('prev', 'prev state:', prevState));
         nextState = next(payload);
+        console.group(...label);
+        console.log(...format('prev', 'prev state:', prevState));
         console.log(...format('next', 'next state:', nextState));
+        console.log(...format('stat', 'status:', status || 'none', '>', store.status));
         console.groupEnd();
         return nextState;
     };

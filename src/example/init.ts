@@ -18,7 +18,7 @@ const middleware = applyMiddleware(logger());
 
 const { Context, Consumer, Provider, useStore } = createRestash({
   initialState,
-  // middleware,
+  middleware,
   persistent: 'Restash',
   statuses: ['start', 'progress', 'error', 'complete']
 });

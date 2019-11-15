@@ -147,6 +147,7 @@ function createRestash(options) {
     function useStore(key) {
         const mounted = react_1.useRef(false);
         const [state, setState] = useStoreBase();
+        const prevState = react_1.useRef(state);
         react_1.useEffect(() => {
             mounted.current = true;
             if (state.status === types_1.StatusBase.init)
@@ -170,10 +171,11 @@ function createRestash(options) {
                 status: u,
                 payload
             });
-            const nextState = { ...state.data, ...prevPayload, ...payload };
+            const nextData = { ...state.data, ...prevPayload, ...payload };
+            prevState.current = { status: u || state.status, data: nextData };
             if (options.persistent)
-                utils_1.setStorage(options.persistent, nextState);
-            return nextState;
+                utils_1.setStorage(options.persistent, nextData);
+            return nextData;
         };
         const restash = {
             dispatch,
@@ -181,10 +183,10 @@ function createRestash(options) {
                 return mounted.current;
             },
             get status() {
-                return state.status;
+                return prevState.current.status;
             },
             get state() {
-                return state.data;
+                return prevState.current.data;
             },
             get key() {
                 return key || null;
