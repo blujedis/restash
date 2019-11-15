@@ -181,7 +181,6 @@ export function createRestash<
     const [state, setState] = useStoreBase();
     const prevState = useRef(state);
 
-
     useEffect(() => {
       mounted.current = true;
       if (state.status === StatusBase.init)

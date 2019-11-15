@@ -50,9 +50,6 @@ const StoreAt: FC = () => {
         </select>
       </div>
       <JsonData data={state} />
-      <pre>
-        {JSON.stringify(restash.state, null, 2)}
-      </pre>
     </div>
   );
 
