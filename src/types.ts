@@ -2,12 +2,12 @@ import { Reducer, ReactNode } from 'react';
 
 // HELPERS //
 
-export enum Status {
+export enum StatusBase {
   init = 'init',
   mounted = 'mounted'
 }
 
-export type StatusTypes = keyof typeof Status;
+export type StatusBaseTypes = keyof typeof StatusBase;
 
 export enum Action {
   status = 'status',
@@ -42,6 +42,19 @@ export interface IStoreOptions<S extends object, A extends IAction = IAction> {
 
 // RESTASH //
 
+export enum Status {
+  init = 'init',
+  mounted = 'mounted'
+}
+
+export type StatusTypes = keyof typeof Status;
+
+export interface IProvider<T extends object, A extends IAction = IAction> {
+  initialState?: T;
+  reducer?: Reducer<T, A>;
+  children?: ReactNode;
+}
+
 export interface IRestashAction<T extends string = ActionTypes, P = any> {
   type: T;
   payload?: P;
@@ -52,14 +65,14 @@ export interface IRestashOptions<
   U extends string> extends Omit<IStoreOptions<S>, 'reducer'> {
   middleware?: Middleware;
   statuses?: U[];
-  persist?: string; // when not null persists to local storage if available.
+  persistent?: string; // when not null persists to local storage if available.
 }
 
 export interface IRestash<S, U extends string, D = Dispatch<S, U>> {
   dispatch: D;
   readonly mounted: boolean;
   readonly state: S;
-  readonly status: U | StatusTypes;
+  readonly status: U | StatusBaseTypes;
   readonly key: string | null;
 }
 

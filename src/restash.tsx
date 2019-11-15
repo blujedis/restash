@@ -2,9 +2,10 @@
 import { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage } from './utils';
-import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, Status, StatusTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
 import { isUndefined } from 'util';
 
+const STATE_KEY = '__RESTASH_APP_STATE__';
 const contexts = new Set<string>();
 
 /**
@@ -34,6 +35,19 @@ export function applyMiddleware(...middlewares: Middleware[]) {
   return handler as Middleware;
 }
 
+/**
+ * Creates a context for persisting data in your application, createContext is used by
+ * both createStore and createRestash.
+ * 
+ * @example
+ * const store = createContext<S, A>(unique_key, {
+ *   initialState: options.initialState,
+ *   reducer: options.reducer
+ * });
+ * 
+ * @param name the name of the context to be created.
+ * @param options context options used to initialize.
+ */
 export function createContext<S extends object, A extends IAction>(
   name: string,
   options: IContextOptions<S, A>) {
@@ -43,9 +57,23 @@ export function createContext<S extends object, A extends IAction>(
 }
 
 /**
- * Creates a simple persistent store.
+ * Creates store using default or provided reducer and dispatch action which contains
+ * one property "payload" for your data.
  * 
- * @param initialState the initial state of the store.
+ * @example
+ * import { createStore } from 'restash';
+ * const { useStore } = createStore({ initialState: {} });
+ * const App = () => {
+ *  const [state, dispatch] = useStore();
+ *  return (
+ *    <pre>
+ *      {JSON.stringify(state, null, 2)}
+ *    </pre>
+ *  );
+ * };
+ * 
+ * 
+ * @param options base options to initialize context.
  */
 export function createStore<S extends object, A extends IAction>(options?: IStoreOptions<S, A>) {
 
@@ -64,8 +92,7 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
 
   // Hook must be wrapped.
   const useStore = () => {
-    const [state, dispatch] = useContext(Context);
-    return [state, dispatch] as [S, React.Dispatch<A>];
+    return useContext(Context);
   };
 
   return {
@@ -77,16 +104,34 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
 
 }
 
+/**
+ * Creates Restash store instance with simple opinionated reducer for typical persistent tasks.
+ * 
+ * @example
+ * import { createRestash } from 'restash';
+ * const { useStore } = createRestash({ initialState: {}, persist: 'MyApp' });
+ * const App = () => {
+ *  const [state, dispatch, restash] = useStore();
+ *  return (
+ *    <pre>
+ *      {JSON.stringify(state, null, 2)}
+ *    </pre>
+ *  );
+ * };
+ * 
+ * 
+ * @param options options used to initialize Restash.
+ */
 export function createRestash<
   S extends object,
   U extends string>(options?: IRestashOptions<S, U>) {
 
-  type Statuses = U | StatusTypes;
+  type Statuses = U | StatusBaseTypes;
   type State = IStoreState<S, Statuses>;
 
   // Check for persisent state
-  if (options.persist) {
-    const state = getStorage<S>(options.persist);
+  if (options.persistent) {
+    const state = getStorage<S>(options.persistent);
     if (state)
       options.initialState = { ...options.initialState, ...state };
   }
@@ -110,7 +155,7 @@ export function createRestash<
   };
 
   const storeState: State = {
-    status: Status.init,
+    status: StatusBase.init,
     data: options.initialState
   };
 
@@ -134,10 +179,10 @@ export function createRestash<
 
     useEffect(() => {
       mounted.current = true;
-      if (state.status !== Status.mounted)
+      if (state.status !== StatusBase.mounted)
         setState({
           type: Action.status,
-          payload: Status.mounted
+          payload: StatusBase.mounted
         });
       return () => mounted.current = false;
     }, []);
@@ -162,8 +207,8 @@ export function createRestash<
 
       const nextState = { ...state.data, ...prevPayload, ...payload };
 
-      if (options.persist)
-        setStorage(options.persist, nextState);
+      if (options.persistent)
+        setStorage(options.persistent, nextState);
 
       return nextState;
 

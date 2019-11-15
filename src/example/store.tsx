@@ -4,27 +4,29 @@ import JsonData from './jsondata';
 
 const Store: FC = () => {
 
-  const [state, setState, restash] = useStore();
-  // const [stateAt, setStateAt] = useStore('age');
+  const [state, dispatch] = useStore();
 
-  const onClick = () => {
-    setState({ firstName: 'Larry' });
-    setState({ age: 47 });
+  const changeState = (key) => {
+    return (e) => {
+      dispatch({ [key]: e.target.value });
+    };
   };
 
   return (
     <div>
-      <h2 style={{ marginBottom: '12px' }}>Store</h2>
+      <h2 style={{ marginBottom: '12px' }}>Use Store</h2>
       <hr style={{ marginBottom: '20px' }} />
+      <p style={{ padding: '12px', backgroundColor: '#eee', width: '50%' }}>
+        Simple example wiring up input elements to state values
+        changing the state on blur of each field.
+      </p>
       <div style={{ marginBottom: '12px' }}>
-        Status: {restash.status}
+        First Name: <input type="text" onBlur={changeState('firstName')} defaultValue={state.firstName} />
       </div>
-      <div>
-        <button type="button" onClick={onClick}>Set Larry</button>
+      <div style={{ marginBottom: '12px' }}>
+        Last Name: <input type="text" onBlur={changeState('lastName')} defaultValue={state.lastName} />
       </div>
-      <pre>
-        {JSON.stringify(state, null, 2)}
-      </pre>
+      <JsonData data={state} />
     </div>
   );
 

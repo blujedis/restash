@@ -9,7 +9,7 @@ const JsonData: FC<{ data: any, label?: string }> = ({ data, label }) => {
   }, [data]);
 
   return (
-    <div>
+    <div style={{ marginTop: '32px' }}>
       <h3>{label || 'Current State'}</h3>
       <hr />
       <pre>{JSON.stringify(data, null, 2)}</pre>
