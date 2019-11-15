@@ -177,17 +177,19 @@ export function createRestash<
   function useStore<K extends KeyOf<S>>(key?: K) {
 
     const mounted = useRef(false);
-  
+
     const [state, setState] = useStoreBase();
     const prevState = useRef(state);
 
     useEffect(() => {
       mounted.current = true;
-      if (state.status === StatusBase.init)
+      if (state.status === StatusBase.init) {
         setState({
           type: null,
           status: StatusBase.mounted
         });
+        prevState.current.status = StatusBase.mounted;
+      }
       return () => mounted.current = false;
     }, []);
 
@@ -230,7 +232,7 @@ export function createRestash<
         return prevState.current.status;
       },
       get state() {
-        return prevState.current.data; 
+        return prevState.current.data;
       },
       get key() {
         return key || null;
