@@ -195,7 +195,7 @@ const Home = () => {
 
 ## Docs
 
-See [https://blujedis.github.io/komo/](https://blujedis.github.io/komo/)
+See [https://blujedis.github.io/restash/](https://blujedis.github.io/restash/)
 
 ## Change
 
