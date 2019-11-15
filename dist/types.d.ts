@@ -5,7 +5,6 @@ export declare enum StatusBase {
 }
 export declare type StatusBaseTypes = keyof typeof StatusBase;
 export declare enum Action {
-    status = "status",
     data = "data"
 }
 export declare type ActionTypes = keyof typeof Action;
@@ -39,6 +38,7 @@ export interface IProvider<T extends object, A extends IAction = IAction> {
 }
 export interface IRestashAction<T extends string = ActionTypes, P = any> {
     type: T;
+    status?: any;
     payload?: P;
 }
 export interface IRestashOptions<S extends object, U extends string> extends Omit<IStoreOptions<S>, 'reducer'> {

@@ -103,7 +103,7 @@ const Home = () => {
 };
 ```
 
-### Initialize with Middleware
+### Middleware, Persistence & Statuses
 
 Initializing with middleware is very similar to [Redux](https://redux.js.org/). You create your middleware then call a helper method called **applyMiddleware** then pass to your options. By default Restash supports thunks which are useful for async tasks.
 
@@ -124,9 +124,26 @@ const initialState = {
 const middleware = applyMiddleware(logger());
 
 const options {
+
+  // The initial data state.
   initialState,
+
+  // The middleware to process before updating state.
   middleware,
-  persistent: 'some_unique_name' // this will cause state to persist within localStorage.
+
+  // This is required when using Restash in an SSR environment.
+  // Your state will load from this key. If present Restash
+  // will load it.
+  ssrKey: 'some_unique_ssr_key',
+
+  // this will cause state to persist within localStorage.
+  // when your app loads it will again look for this key.
+  persistent: 'some_unique_name' 
+
+  // Statuses are used as the second dispatch argument.
+  // The enable triggering things based on their state.
+  statuses: ['start', 'progress', 'error', 'complete']
+
 };
 
 const { Provider, useStore } = createRestash(options);
@@ -136,3 +153,55 @@ export {
   useStore
 }
 ```
+
+### Status
+
+Restash includes a handy second arg on dispatch that allows you to set the status on dispatching an event. This is useful for updating your view based on this status. For example when making an async data requests.
+
+NOTE: this examples assumes you have added **statuses** as shown above in our options in the previous section.
+
+```tsx
+const Home = () => {
+
+  // The third arg here is the restash store.
+  // you can use this to get state, status 
+  // you can also use this is middleware.
+  const [state, dispatch, restash] = useStore();
+
+  const changeStatus = (e) => {
+    dispatch(null, e.target.value);
+  };
+
+  return (
+    <div>
+     <h3 style={{ marginBottom: '12px' }}>Current Status</h3>
+      <hr style={{ marginBottom: '20px' }} />
+      <div style={{ color: '#fff', backgroundColor: 'darkblue', padding: '6px', display: 'inline' }}>
+        <span>{(restash.status || '').toUpperCase()}</span> &nbsp;
+        <select defaultValue={restash.status} onChange={changeStatus}>
+          <option value="">Please Select</option>
+          <option>mounted</option>
+          <option>start</option>
+          <option>progress</option>
+          <option>error</option>
+          <option>complete</option>
+        </select>
+      </div>
+    </div>
+  );
+
+};
+```
+
+## Docs
+
+See [https://blujedis.github.io/komo/](https://blujedis.github.io/komo/)
+
+## Change
+
+See [CHANGE.md](CHANGE.md)
+
+## License
+
+See [LICENSE.md](LICENSE)
+

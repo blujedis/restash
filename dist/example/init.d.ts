@@ -7,7 +7,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
         home: string;
         mobile: string;
     };
-}>, string>, import("react").Dispatch<import("../types").IRestashAction<"status" | "data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("../types").IStoreState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("../types").IStoreState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -15,7 +15,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
         home: string;
         mobile: string;
     };
-}>, string>, import("react").Dispatch<import("../types").IRestashAction<"status" | "data", any>>]>>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IStoreState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IStoreState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -23,7 +23,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
         home: string;
         mobile: string;
     };
-}>, string>, import("../types").IRestashAction<"status" | "data", any>>) => JSX.Element, useStore: {
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("../types").IRestashAction<"data", any>>) => JSX.Element, useStore: {
     <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): [Partial<{
         firstName: string;
         lastName: string;
@@ -40,7 +40,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>, string, K>, import("../types").IRestash<Partial<{
+    }>, "progress" | "start" | "error" | "complete", K>, import("../types").IRestash<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -48,7 +48,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>[K], string, import("../types").DispatchAt<Partial<{
+    }>[K], "progress" | "start" | "error" | "complete", import("../types").DispatchAt<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -56,7 +56,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>, string, K>>];
+    }>, "progress" | "start" | "error" | "complete", K>>];
     (): [Partial<{
         firstName: string;
         lastName: string;
@@ -73,7 +73,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>, string>, import("../types").IRestash<Partial<{
+    }>, "progress" | "start" | "error" | "complete">, import("../types").IRestash<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -81,7 +81,7 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>, string, import("../types").Dispatch<Partial<{
+    }>, "progress" | "start" | "error" | "complete", import("../types").Dispatch<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -89,6 +89,6 @@ declare const Context: import("react").Context<[import("../types").IStoreState<P
             home: string;
             mobile: string;
         };
-    }>, string>>];
+    }>, "progress" | "start" | "error" | "complete">>];
 };
 export { Context, Consumer, Provider, useStore };

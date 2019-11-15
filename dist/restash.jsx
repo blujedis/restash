@@ -4,7 +4,6 @@ const react_1 = require("react");
 const context_1 = require("./context");
 const utils_1 = require("./utils");
 const types_1 = require("./types");
-const util_1 = require("util");
 const STATE_KEY = '__RESTASH_APP_STATE__';
 const contexts = new Set();
 /**
@@ -126,13 +125,13 @@ function createRestash(options) {
             options.initialState = { ...options.initialState, ...state };
     }
     const reducer = (s, a) => {
-        if (util_1.isUndefined(a))
-            return s;
-        let nextState = s;
+        let nextState = {};
+        if (a.status)
+            nextState.status = a.status;
         if (a.type === types_1.Action.data)
-            nextState = { ...s, ...{ data: { ...s.data, ...a.payload } } };
-        if (a.type === types_1.Action.status)
-            nextState = { ...s, ...{ [types_1.Action.status]: a.payload } };
+            nextState.data = { ...s.data, ...a.payload };
+        nextState = { ...s, ...{ status: nextState.status }, data: { ...s.data, ...nextState.data } };
+        console.log(nextState);
         return nextState;
     };
     const storeState = {
@@ -152,10 +151,10 @@ function createRestash(options) {
         const [state, setState] = useStoreBase();
         react_1.useEffect(() => {
             mounted.current = true;
-            if (state.status !== types_1.StatusBase.mounted)
+            if (state.status === types_1.StatusBase.init)
                 setState({
-                    type: types_1.Action.status,
-                    payload: types_1.StatusBase.mounted
+                    type: null,
+                    status: types_1.StatusBase.mounted
                 });
             return () => mounted.current = false;
         }, []);
@@ -170,6 +169,7 @@ function createRestash(options) {
             prevPayload = payload;
             setState({
                 type: types_1.Action.data,
+                status: u,
                 payload
             });
             const nextState = { ...state.data, ...prevPayload, ...payload };

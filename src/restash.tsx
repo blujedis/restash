@@ -144,17 +144,17 @@ export function createRestash<
 
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
-    if (isUndefined(a))
-      return s;
+    let nextState = {} as any;
 
-    let nextState = s;
+    if (a.status)
+      nextState.status = a.status;
 
     if (a.type === Action.data)
-      nextState = { ...s, ...{ data: { ...s.data, ...a.payload } } };
+      nextState.data = { ...s.data, ...a.payload };
 
+    nextState = { ...s, ...{ status: nextState.status }, data: { ...s.data, ...nextState.data } };
 
-    if (a.type === Action.status)
-      nextState = { ...s, ...{ [Action.status]: a.payload } };
+    console.log(nextState);
 
     return nextState;
 
@@ -185,10 +185,10 @@ export function createRestash<
 
     useEffect(() => {
       mounted.current = true;
-      if (state.status !== StatusBase.mounted)
+      if (state.status === StatusBase.init)
         setState({
-          type: Action.status,
-          payload: StatusBase.mounted
+          type: null,
+          status: StatusBase.mounted
         });
       return () => mounted.current = false;
     }, []);
@@ -208,6 +208,7 @@ export function createRestash<
 
       setState({
         type: Action.data,
+        status: u,
         payload
       });
 

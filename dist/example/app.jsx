@@ -15,7 +15,7 @@ const NotFound = (props) => {
 };
 const App = () => {
     return (<wouter_1.Router>
-      <div style={{ padding: '24px' }}>
+      <div style={{ padding: '24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"' }}>
         <div>
           <menu_1.default />
         </div>

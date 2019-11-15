@@ -10,7 +10,6 @@ export enum StatusBase {
 export type StatusBaseTypes = keyof typeof StatusBase;
 
 export enum Action {
-  status = 'status',
   data = 'data'
 }
 
@@ -58,6 +57,7 @@ export interface IProvider<T extends object, A extends IAction = IAction> {
 
 export interface IRestashAction<T extends string = ActionTypes, P = any> {
   type: T;
+  status?: any; // may allow numeric in future.
   payload?: P;
 }
 

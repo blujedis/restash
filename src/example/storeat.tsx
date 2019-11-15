@@ -5,7 +5,7 @@ import JsonData from './jsondata';
 const StoreAt: FC = () => {
 
   const [state, dispatch] = useStore();
-  const [stateAt, dispatchAt] = useStore('lastName');
+  const [stateAt, dispatchAt, restash] = useStore('lastName');
 
   const changeState = (key) => {
     return (e) => {
@@ -16,6 +16,11 @@ const StoreAt: FC = () => {
   const changeStateAt = (e) => {
     dispatchAt(e.target.value);
   };
+
+  const changeStatus = (e) => {
+    dispatch(null, e.target.value);
+  };
+
 
   return (
     <div>
@@ -30,6 +35,19 @@ const StoreAt: FC = () => {
       </div>
       <div style={{ marginBottom: '12px' }}>
         Last Name: <input type="text" onBlur={changeStateAt} defaultValue={stateAt} /> (Using State at Key)
+      </div>
+      <h3 style={{ marginBottom: '12px' }}>Current Status</h3>
+      <hr style={{ marginBottom: '20px' }} />
+      <div style={{ color: '#fff', backgroundColor: 'darkblue', padding: '6px', display: 'inline' }}>
+        <span>{(restash.status || '').toUpperCase()}</span> &nbsp;
+        <select defaultValue={restash.status} onChange={changeStatus}>
+          <option value="">Please Select</option>
+          <option>mounted</option>
+          <option>start</option>
+          <option>progress</option>
+          <option>error</option>
+          <option>complete</option>
+        </select>
       </div>
       <JsonData data={state} />
     </div>

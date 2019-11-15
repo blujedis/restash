@@ -8,7 +8,6 @@ var StatusBase;
 })(StatusBase = exports.StatusBase || (exports.StatusBase = {}));
 var Action;
 (function (Action) {
-    Action["status"] = "status";
     Action["data"] = "data";
 })(Action = exports.Action || (exports.Action = {}));
 // RESTASH //

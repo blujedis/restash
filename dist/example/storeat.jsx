@@ -8,7 +8,7 @@ const init_1 = require("./init");
 const jsondata_1 = __importDefault(require("./jsondata"));
 const StoreAt = () => {
     const [state, dispatch] = init_1.useStore();
-    const [stateAt, dispatchAt] = init_1.useStore('lastName');
+    const [stateAt, dispatchAt, restash] = init_1.useStore('lastName');
     const changeState = (key) => {
         return (e) => {
             dispatch({ [key]: e.target.value });
@@ -16,6 +16,9 @@ const StoreAt = () => {
     };
     const changeStateAt = (e) => {
         dispatchAt(e.target.value);
+    };
+    const changeStatus = (e) => {
+        dispatch(null, e.target.value);
     };
     return (<div>
       <h2 style={{ marginBottom: '12px' }}>Use Store At</h2>
@@ -29,6 +32,19 @@ const StoreAt = () => {
       </div>
       <div style={{ marginBottom: '12px' }}>
         Last Name: <input type="text" onBlur={changeStateAt} defaultValue={stateAt}/> (Using State at Key)
+      </div>
+      <h3 style={{ marginBottom: '12px' }}>Current Status</h3>
+      <hr style={{ marginBottom: '20px' }}/>
+      <div style={{ color: '#fff', backgroundColor: 'darkblue', padding: '6px', display: 'inline' }}>
+        <span>{(restash.status || '').toUpperCase()}</span> &nbsp;
+        <select defaultValue={restash.status} onChange={changeStatus}>
+          <option value="">Please Select</option>
+          <option>mounted</option>
+          <option>start</option>
+          <option>progress</option>
+          <option>error</option>
+          <option>complete</option>
+        </select>
       </div>
       <jsondata_1.default data={state}/>
     </div>);
