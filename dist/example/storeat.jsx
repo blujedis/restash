@@ -47,9 +47,6 @@ const StoreAt = () => {
         </select>
       </div>
       <jsondata_1.default data={state}/>
-      <pre>
-        {JSON.stringify(restash.state, null, 2)}
-      </pre>
     </div>);
 };
 exports.default = StoreAt;

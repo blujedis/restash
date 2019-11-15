@@ -150,11 +150,13 @@ function createRestash(options) {
         const prevState = react_1.useRef(state);
         react_1.useEffect(() => {
             mounted.current = true;
-            if (state.status === types_1.StatusBase.init)
+            if (state.status === types_1.StatusBase.init) {
                 setState({
                     type: null,
                     status: types_1.StatusBase.mounted
                 });
+                prevState.current.status = types_1.StatusBase.mounted;
+            }
             return () => mounted.current = false;
         }, []);
         const dispatch = (s, u) => {
