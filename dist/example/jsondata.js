@@ -13,11 +13,10 @@ const JsonData = ({ data, label }) => {
     react_1.useEffect(() => {
         _data = data || {};
     }, [data]);
-    return (<div style={{ marginTop: '32px' }}>
-      <h3>{label || 'Current State'}</h3>
-      <hr />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>);
+    return (react_1.default.createElement("div", { style: { marginTop: '32px' } },
+        react_1.default.createElement("h3", null, label || 'Current State'),
+        react_1.default.createElement("hr", null),
+        react_1.default.createElement("pre", null, JSON.stringify(data, null, 2))));
 };
 exports.default = JsonData;
-//# sourceMappingURL=jsondata.jsx.map
+//# sourceMappingURL=jsondata.js.map

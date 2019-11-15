@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction } from './types';
 /**
  * Gets a unique key based on number of loaded contexts.
@@ -26,9 +26,9 @@ export declare function applyMiddleware(...middlewares: Middleware[]): Middlewar
  * @param options context options used to initialize.
  */
 export declare function createContext<S extends object, A extends IAction>(name: string, options: IContextOptions<S, A>): {
-    Context: import("react").Context<[S, import("react").Dispatch<A>]>;
+    Context: React.Context<[S, React.Dispatch<A>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<S, A>) => JSX.Element;
-    Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[S, import("react").Dispatch<A>]>>;
+    Consumer: React.ExoticComponent<React.ConsumerProps<[S, React.Dispatch<A>]>>;
 };
 /**
  * Creates store using default or provided reducer and dispatch action which contains
@@ -50,10 +50,10 @@ export declare function createContext<S extends object, A extends IAction>(name:
  * @param options base options to initialize context.
  */
 export declare function createStore<S extends object, A extends IAction>(options?: IStoreOptions<S, A>): {
-    Context: import("react").Context<[S, import("react").Dispatch<A>]>;
+    Context: React.Context<[S, React.Dispatch<A>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<S, A>) => JSX.Element;
-    Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[S, import("react").Dispatch<A>]>>;
-    useStore: () => [S, import("react").Dispatch<A>];
+    Consumer: React.ExoticComponent<React.ConsumerProps<[S, React.Dispatch<A>]>>;
+    useStore: () => [S, React.Dispatch<A>];
 };
 /**
  * Creates Restash store instance with simple opinionated reducer for typical persistent tasks.
@@ -74,9 +74,9 @@ export declare function createStore<S extends object, A extends IAction>(options
  * @param options options used to initialize Restash.
  */
 export declare function createRestash<S extends object, U extends string>(options?: IRestashOptions<S, U>): {
-    Context: import("react").Context<[IRestashState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>;
+    Context: React.Context<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
-    Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>>;
+    Consumer: React.ExoticComponent<React.ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>>;
     useStore: {
         <K extends Extract<keyof S, string>>(key: K): [S[K], DispatchAt<S, U, K>, import("./types").IRestash<S[K], U, DispatchAt<S, U, K>>];
         (): [S, import("./types").Dispatch<S, U>, import("./types").IRestash<S, U, import("./types").Dispatch<S, U>>];

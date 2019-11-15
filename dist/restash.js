@@ -209,4 +209,4 @@ function createRestash(options) {
     };
 }
 exports.createRestash = createRestash;
-//# sourceMappingURL=restash.jsx.map
+//# sourceMappingURL=restash.js.map

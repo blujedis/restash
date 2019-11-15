@@ -12,9 +12,7 @@ function initContext(options) {
     const Context = react_1.createContext(null);
     const Provider = ({ reducer, initialState, children }) => {
         const providerReducer = react_1.useReducer(options.reducer || reducer, { ...initialState, ...options.initialState });
-        return (<Context.Provider value={providerReducer}>
-        {children}
-      </Context.Provider>);
+        return (react_1.default.createElement(Context.Provider, { value: providerReducer }, children));
     };
     const Consumer = Context.Consumer;
     return {
@@ -24,4 +22,4 @@ function initContext(options) {
     };
 }
 exports.initContext = initContext;
-//# sourceMappingURL=context.jsx.map
+//# sourceMappingURL=context.js.map

@@ -1,5 +1,5 @@
 
-import { useContext, useRef, Reducer, useEffect, useReducer } from 'react';
+import React, { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined } from './utils';
 import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
