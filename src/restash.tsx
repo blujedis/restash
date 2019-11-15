@@ -1,7 +1,7 @@
 
 import { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
-import { thunkify, unwrap, isPlainObject, setStorage, getStorage } from './utils';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState } from './utils';
 import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IStoreState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
 import { isUndefined } from 'util';
 
@@ -80,6 +80,12 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
   options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
 
   const key = getKey();
+
+  // Load initial state for SSR environments.
+  if (options.ssrKey) {
+    const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
+    options.initialState = getInitialState(options.initialState, ssrKey);
+  }
 
   const store = createContext<S, A>(key, {
     initialState: options.initialState,
@@ -249,4 +255,3 @@ export function createRestash<
   };
 
 }
-

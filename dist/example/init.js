@@ -15,7 +15,7 @@ const middleware = __1.applyMiddleware(__1.logger());
 const { Context, Consumer, Provider, useStore } = __1.createRestash({
     initialState,
     middleware,
-    persist: 'Restash'
+    persistent: 'Restash'
 });
 exports.Context = Context;
 exports.Consumer = Consumer;

@@ -38,6 +38,7 @@ export interface IContextOptions<T extends object, A extends IAction> {
 export interface IStoreOptions<S extends object, A extends IAction = IAction> {
   initialState?: S;
   reducer?: Reducer<S, A>;
+  ssrKey?: string | boolean; // a key used to load intital state in SSR environments.
 }
 
 // RESTASH //

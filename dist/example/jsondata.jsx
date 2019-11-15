@@ -13,7 +13,7 @@ const JsonData = ({ data, label }) => {
     react_1.useEffect(() => {
         _data = data || {};
     }, [data]);
-    return (<div>
+    return (<div style={{ marginTop: '32px' }}>
       <h3>{label || 'Current State'}</h3>
       <hr />
       <pre>{JSON.stringify(data, null, 2)}</pre>

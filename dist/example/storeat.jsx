@@ -6,17 +6,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const init_1 = require("./init");
 const jsondata_1 = __importDefault(require("./jsondata"));
-const Store = () => {
+const StoreAt = () => {
     const [state, dispatch] = init_1.useStore();
+    const [stateAt, dispatchAt] = init_1.useStore('lastName');
     const changeState = (key) => {
         return (e) => {
             dispatch({ [key]: e.target.value });
         };
     };
+    const changeStateAt = (e) => {
+        dispatchAt(e.target.value);
+    };
     return (<div>
-      <h2 style={{ marginBottom: '12px' }}>Use Store</h2>
+      <h2 style={{ marginBottom: '12px' }}>Use Store At</h2>
       <hr style={{ marginBottom: '20px' }}/>
-      <p style={{ padding: '12px', backgroundColor: '#BB8FCE', width: '50%' }}>
+      <p style={{ padding: '12px', backgroundColor: '#5DADE2', width: '50%' }}>
         Simple example wiring up input elements to state values
         changing the state on blur of each field.
       </p>
@@ -24,10 +28,10 @@ const Store = () => {
         First Name: <input type="text" onBlur={changeState('firstName')} defaultValue={state.firstName}/>
       </div>
       <div style={{ marginBottom: '12px' }}>
-        Last Name: <input type="text" onBlur={changeState('lastName')} defaultValue={state.lastName}/>
+        Last Name: <input type="text" onBlur={changeStateAt} defaultValue={stateAt}/> (Using State at Key)
       </div>
       <jsondata_1.default data={state}/>
     </div>);
 };
-exports.default = Store;
-//# sourceMappingURL=store.jsx.map
+exports.default = StoreAt;
+//# sourceMappingURL=storeat.jsx.map

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const wouter_1 = require("wouter");
 const store_1 = __importDefault(require("./store"));
-const theme_1 = __importDefault(require("./theme"));
+const storeat_1 = __importDefault(require("./storeat"));
 const menu_1 = __importDefault(require("./menu"));
 const NotFound = (props) => {
     return (<div>
@@ -21,7 +21,7 @@ const App = () => {
         </div>
         <wouter_1.Switch>
           <wouter_1.Route path="/" component={store_1.default}/>
-          <wouter_1.Route path="/theme" component={theme_1.default}/>
+          <wouter_1.Route path="/storeat" component={storeat_1.default}/>
           <wouter_1.Route path="/:404*" component={NotFound}/>
         </wouter_1.Switch>
       </div>

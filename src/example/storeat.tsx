@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { useStore } from './init';
 import JsonData from './jsondata';
 
-const Store: FC = () => {
+const StoreAt: FC = () => {
 
   const [state, dispatch] = useStore();
+  const [stateAt, dispatchAt] = useStore('lastName');
 
   const changeState = (key) => {
     return (e) => {
@@ -12,11 +13,15 @@ const Store: FC = () => {
     };
   };
 
+  const changeStateAt = (e) => {
+    dispatchAt(e.target.value);
+  };
+
   return (
     <div>
-      <h2 style={{ marginBottom: '12px' }}>Use Store</h2>
+      <h2 style={{ marginBottom: '12px' }}>Use Store At</h2>
       <hr style={{ marginBottom: '20px' }} />
-      <p style={{ padding: '12px', backgroundColor: '#BB8FCE', width: '50%' }}>
+      <p style={{ padding: '12px', backgroundColor: '#5DADE2', width: '50%' }}>
         Simple example wiring up input elements to state values
         changing the state on blur of each field.
       </p>
@@ -24,7 +29,7 @@ const Store: FC = () => {
         First Name: <input type="text" onBlur={changeState('firstName')} defaultValue={state.firstName} />
       </div>
       <div style={{ marginBottom: '12px' }}>
-        Last Name: <input type="text" onBlur={changeState('lastName')} defaultValue={state.lastName} />
+        Last Name: <input type="text" onBlur={changeStateAt} defaultValue={stateAt} /> (Using State at Key)
       </div>
       <JsonData data={state} />
     </div>
@@ -32,4 +37,4 @@ const Store: FC = () => {
 
 };
 
-export default Store;
+export default StoreAt;

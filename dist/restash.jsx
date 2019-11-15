@@ -5,6 +5,7 @@ const context_1 = require("./context");
 const utils_1 = require("./utils");
 const types_1 = require("./types");
 const util_1 = require("util");
+const STATE_KEY = '__RESTASH_APP_STATE__';
 const contexts = new Set();
 /**
  * Gets a unique key based on number of loaded contexts.
@@ -33,6 +34,19 @@ function applyMiddleware(...middlewares) {
     return handler;
 }
 exports.applyMiddleware = applyMiddleware;
+/**
+ * Creates a context for persisting data in your application, createContext is used by
+ * both createStore and createRestash.
+ *
+ * @example
+ * const store = createContext<S, A>(unique_key, {
+ *   initialState: options.initialState,
+ *   reducer: options.reducer
+ * });
+ *
+ * @param name the name of the context to be created.
+ * @param options context options used to initialize.
+ */
 function createContext(name, options) {
     if (contexts.has(name))
         return null;
@@ -41,13 +55,32 @@ function createContext(name, options) {
 }
 exports.createContext = createContext;
 /**
- * Creates a simple persistent store.
+ * Creates store using default or provided reducer and dispatch action which contains
+ * one property "payload" for your data.
  *
- * @param initialState the initial state of the store.
+ * @example
+ * import { createStore } from 'restash';
+ * const { useStore } = createStore({ initialState: {} });
+ * const App = () => {
+ *  const [state, dispatch] = useStore();
+ *  return (
+ *    <pre>
+ *      {JSON.stringify(state, null, 2)}
+ *    </pre>
+ *  );
+ * };
+ *
+ *
+ * @param options base options to initialize context.
  */
 function createStore(options) {
     options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
     const key = getKey();
+    // Load initial state for SSR environments.
+    if (options.ssrKey) {
+        const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
+        options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
+    }
     const store = createContext(key, {
         initialState: options.initialState,
         reducer: options.reducer
@@ -57,8 +90,7 @@ function createStore(options) {
     const { Context, Provider, Consumer } = store;
     // Hook must be wrapped.
     const useStore = () => {
-        const [state, dispatch] = react_1.useContext(Context);
-        return [state, dispatch];
+        return react_1.useContext(Context);
     };
     return {
         Context,
@@ -68,10 +100,28 @@ function createStore(options) {
     };
 }
 exports.createStore = createStore;
+/**
+ * Creates Restash store instance with simple opinionated reducer for typical persistent tasks.
+ *
+ * @example
+ * import { createRestash } from 'restash';
+ * const { useStore } = createRestash({ initialState: {}, persist: 'MyApp' });
+ * const App = () => {
+ *  const [state, dispatch, restash] = useStore();
+ *  return (
+ *    <pre>
+ *      {JSON.stringify(state, null, 2)}
+ *    </pre>
+ *  );
+ * };
+ *
+ *
+ * @param options options used to initialize Restash.
+ */
 function createRestash(options) {
     // Check for persisent state
-    if (options.persist) {
-        const state = utils_1.getStorage(options.persist);
+    if (options.persistent) {
+        const state = utils_1.getStorage(options.persistent);
         if (state)
             options.initialState = { ...options.initialState, ...state };
     }
@@ -86,7 +136,7 @@ function createRestash(options) {
         return nextState;
     };
     const storeState = {
-        status: types_1.Status.init,
+        status: types_1.StatusBase.init,
         data: options.initialState
     };
     const store = createStore({
@@ -102,10 +152,10 @@ function createRestash(options) {
         const [state, setState] = useStoreBase();
         react_1.useEffect(() => {
             mounted.current = true;
-            if (state.status !== types_1.Status.mounted)
+            if (state.status !== types_1.StatusBase.mounted)
                 setState({
                     type: types_1.Action.status,
-                    payload: types_1.Status.mounted
+                    payload: types_1.StatusBase.mounted
                 });
             return () => mounted.current = false;
         }, []);
@@ -123,8 +173,8 @@ function createRestash(options) {
                 payload
             });
             const nextState = { ...state.data, ...prevPayload, ...payload };
-            if (options.persist)
-                utils_1.setStorage(options.persist, nextState);
+            if (options.persistent)
+                utils_1.setStorage(options.persistent, nextState);
             return nextState;
         };
         const restash = {

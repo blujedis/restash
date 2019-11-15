@@ -67,9 +67,120 @@
 				<p align="left">
 					<a href="http://github.com/blujedis/restash"><img src="https://raw.githubusercontent.com/blujedis/restash/master/fixtures/logo.png" width="225" /></a>
 				</p>
-				<blockquote>
-					<p>Work in Progress Check Back Soon</p>
-				</blockquote>
+				<p>Restash is a simple <a href="https://reactjs.org/">React</a> context store which uses <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a> behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. Restash was developed using <a href="https://www.typescriptlang.org/">Typescript</a> which gives you great code help if you are using an editor supporting it.</p>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting Started</h2>
+				</a>
+				<pre><code class="language-sh">$ npm install restash -s</code></pre>
+				<p>OR</p>
+				<pre><code class="language-sh">$ yarn add restash</code></pre>
+				<a href="#restash" id="restash" style="color: inherit; text-decoration: none;">
+					<h2>Restash</h2>
+				</a>
+				<p>It&#39;s best or most flexibile if you break up your setup in a few small parts. Exposing the <strong>Provider</strong> to wrap your application, a store or init file to configure your store and finally using the exposed hook.</p>
+				<a href="#initialize-restash" id="initialize-restash" style="color: inherit; text-decoration: none;">
+					<h3>Initialize Restash</h3>
+				</a>
+				<p>After providing your context above initialize Restash in a file called for example <code>restash.tsx</code> for example. Then call <code>createRestash</code> passing our options and then export our new Restash store.</p>
+				<pre><code class="language-tsx">import { createRestash } from &#39;restash&#39;;
+
+const initialState = {
+  firstName: &#39;Milton&#39;,
+  lastName: &#39;Waddams&#39;
+};
+
+const { Provider, useStore } = createRestash({initialState});
+
+export {
+  Provider,
+  useStore
+}</code></pre>
+				<a href="#provide-context" id="provide-context" style="color: inherit; text-decoration: none;">
+					<h3>Provide Context</h3>
+				</a>
+				<p>Using our export from above expose the <code>Provider</code> and wrap our application so it knows about our context.</p>
+				<pre><code class="language-tsx">import { Provider } from &#39;./restash&#39;;
+
+// NOTE: you can also provide the initialState and reducer
+// as params to your provider if you wish. If you provide
+// a reducer or inital state in your &quot;createRestash&quot; init
+// options those will be favored over params here.
+
+const App = () =&gt; {
+  return (
+    &lt;Provider&gt;
+        // Your App Here
+    &lt;/Provider&gt;
+  );  
+}</code></pre>
+				<a href="#using-hook" id="using-hook" style="color: inherit; text-decoration: none;">
+					<h3>Using Hook</h3>
+				</a>
+				<p>We can now use our hook that&#39;s been created by our new Restash store.</p>
+				<pre><code class="language-tsx">import { useStore } from &#39;./restash&#39;;
+
+const Home = () =&gt; {
+
+  const [state, dispatch] = useStore();
+
+  const changeState = (key) =&gt; {
+    return (e) =&gt; {
+      dispatch({ [key]: e.target.value });
+    };
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h2 style={{ marginBottom: &#39;12px&#39; }}&gt;Use Store&lt;/h2&gt;
+      &lt;hr style={{ marginBottom: &#39;20px&#39; }} /&gt;
+      &lt;p style={{ padding: &#39;12px&#39;, backgroundColor: &#39;#eee&#39;, width: &#39;50%&#39; }}&gt;
+        Simple example wiring up input elements to state values
+        changing the state on blur of each field.
+      &lt;/p&gt;
+      &lt;div style={{ marginBottom: &#39;12px&#39; }}&gt;
+        First Name: &lt;input type=&quot;text&quot; onBlur={changeState(&#39;firstName&#39;)} defaultValue={state.firstName} /&gt;
+      &lt;/div&gt;
+      &lt;div style={{ marginBottom: &#39;12px&#39; }}&gt;
+        Last Name: &lt;input type=&quot;text&quot; onBlur={changeState(&#39;lastName&#39;)} defaultValue={state.lastName} /&gt;
+      &lt;/div&gt;
+      &lt;h3 style={{marginTop: &#39;32px&#39;}}&gt;Current State&lt;/h3&gt;
+      &lt;pre&gt;
+        {JSON.stringify(state, null, 2)}
+      &lt;/pre&gt;
+    &lt;/div&gt;
+  );
+
+};</code></pre>
+				<a href="#initialize-with-middleware" id="initialize-with-middleware" style="color: inherit; text-decoration: none;">
+					<h3>Initialize with Middleware</h3>
+				</a>
+				<p>Initializing with middleware is very similar to <a href="https://redux.js.org/">Redux</a>. You create your middleware then call a helper method called <strong>applyMiddleware</strong> then pass to your options. By default Restash supports thunks which are useful for async tasks.</p>
+				<p>Restash currently comes with only one middleware. That being a simple console logger. Redux middleware should work however in many cases.</p>
+				<pre><code class="language-tsx">import { createRestash, logger } from &#39;restash&#39;;
+
+const initialState = {
+  firstName: &#39;Milton&#39;,
+  lastName: &#39;Waddams&#39;
+};
+
+// The only logger options are that of styles
+// for colorizing and styling in your console.
+// see source for details.
+
+const middleware = applyMiddleware(logger());
+
+const options {
+  initialState,
+  middleware,
+  persistent: &#39;some_unique_name&#39; // this will cause state to persist within localStorage.
+};
+
+const { Provider, useStore } = createRestash(options);
+
+export {
+  Provider,
+  useStore
+}</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -100,7 +211,7 @@
 						<a href="modules/_example_store_.html">"example/store"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_example_theme_.html">"example/theme"</a>
+						<a href="modules/_example_storeat_.html">"example/storeat"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_index_.html">"index"</a>
