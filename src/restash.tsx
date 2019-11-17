@@ -2,7 +2,7 @@
 import React, { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined } from './utils';
-import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action } from './types';
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
 const CONTEXTS = new Set<string>();
@@ -129,7 +129,7 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
  */
 export function createRestash<
   S extends object,
-  U extends string>(options?: IRestashOptions<S, U>) {
+  U extends string = DefaultStatusTypes>(options?: IRestashOptions<S, U>) {
 
   type Statuses = U | StatusBaseTypes;
   type State = IRestashState<S, Statuses>;

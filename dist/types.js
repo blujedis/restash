@@ -25,4 +25,11 @@ var Action;
      */
     Action["data"] = "data";
 })(Action = exports.Action || (exports.Action = {}));
+var DefaultStatus;
+(function (DefaultStatus) {
+    DefaultStatus["start"] = "start";
+    DefaultStatus["progress"] = "progress";
+    DefaultStatus["error"] = "error";
+    DefaultStatus["complete"] = "complete";
+})(DefaultStatus = exports.DefaultStatus || (exports.DefaultStatus = {}));
 //# sourceMappingURL=types.js.map

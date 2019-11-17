@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction } from './types';
+import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction, DefaultStatusTypes } from './types';
 /**
  * Gets a unique key based on number of loaded contexts.
  *
@@ -73,7 +73,7 @@ export declare function createStore<S extends object, A extends IAction>(options
  *
  * @param options options used to initialize Restash.
  */
-export declare function createRestash<S extends object, U extends string>(options?: IRestashOptions<S, U>): {
+export declare function createRestash<S extends object, U extends string = DefaultStatusTypes>(options?: IRestashOptions<S, U>): {
     Context: React.Context<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
     Consumer: React.ExoticComponent<React.ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>>;

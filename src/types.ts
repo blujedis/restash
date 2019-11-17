@@ -134,6 +134,15 @@ export interface IRestashAction<T extends string = ActionTypes, P = any> {
 
 }
 
+export enum DefaultStatus {
+  start = 'start',
+  progress = 'progress',
+  error = 'error',
+  complete = 'complete'
+}
+
+export type DefaultStatusTypes = keyof typeof DefaultStatus;
+
 /**
  * Options used to create Restash context.
  */
