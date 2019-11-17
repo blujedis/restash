@@ -78,7 +78,7 @@ function createStore(options) {
     // Load initial state for SSR environments.
     if (options.ssrKey) {
         const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
-        options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
+        options.initialState = utils_1.getInitialState(options.initialState, ssrKey) || {};
     }
     const store = createContext(key, {
         initialState: options.initialState,
@@ -124,6 +124,7 @@ function createRestash(options) {
         if (state)
             options.initialState = { ...options.initialState, ...state };
     }
+    options.initialState = options.initialState || {};
     const reducer = (s, a) => {
         let nextState = {};
         nextState.status = utils_1.isUndefined(a.status) || a.status === '' ? types_1.StatusBase.mounted : a.status;

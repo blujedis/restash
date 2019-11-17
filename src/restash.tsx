@@ -83,7 +83,7 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
   // Load initial state for SSR environments.
   if (options.ssrKey) {
     const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
-    options.initialState = getInitialState(options.initialState, ssrKey);
+    options.initialState = getInitialState(options.initialState, ssrKey) || {};
   }
 
   const store = createContext<S, A>(key, {
@@ -140,6 +140,8 @@ export function createRestash<
     if (state)
       options.initialState = { ...options.initialState, ...state };
   }
+
+  options.initialState = options.initialState || {} as any;
 
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
