@@ -83,7 +83,7 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
   // Load initial state for SSR environments.
   if (options.ssrKey) {
     const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
-    options.initialState = getInitialState(options.initialState, ssrKey) || {};
+    options.initialState = getInitialState(options.initialState, ssrKey);
   }
 
   const store = createContext<S, A>(key, {

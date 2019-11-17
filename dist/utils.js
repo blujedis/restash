@@ -22,8 +22,8 @@ function getInitialState(initialState, stateKey) {
     if (initialState)
         return initialState;
     if (typeof window === 'undefined' || (window && !window[stateKey]))
-        return null;
-    return window[stateKey] || null;
+        return {};
+    return window[stateKey] || {};
 }
 exports.getInitialState = getInitialState;
 /**

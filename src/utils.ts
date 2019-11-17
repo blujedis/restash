@@ -20,8 +20,8 @@ export function validateState<S = any>(initialState: S) {
 export function getInitialState<S = any>(initialState: S, stateKey: string) {
   if (initialState) return initialState;
   if (typeof window === 'undefined' || (window && !(window as any)[stateKey]))
-    return null;
-  return (window as any)[stateKey] || null;
+    return {};
+  return (window as any)[stateKey] || {};
 }
 
 /**
