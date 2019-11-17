@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare const Context: import("react").Context<[import("../types").IRestashState<Partial<{
+declare const Context: import("react").Context<[import("..").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -7,7 +7,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("../types").IRestashState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("..").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -15,7 +15,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IRestashState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("..").IProvider<import("..").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -23,7 +23,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("../types").IRestashAction<"data", any>>) => JSX.Element, useStore: {
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("..").IRestashAction<"data", any>>) => JSX.Element, useStore: {
     <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): [Partial<{
         firstName: string;
         lastName: string;
@@ -32,7 +32,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>[K], import("../types").DispatchAt<Partial<{
+    }>[K], import("..").DispatchAt<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -40,7 +40,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete", K>, import("../types").IRestash<Partial<{
+    }>, "progress" | "start" | "error" | "complete", K>, import("..").IRestash<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -48,7 +48,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>[K], "progress" | "start" | "error" | "complete", import("../types").DispatchAt<Partial<{
+    }>[K], "progress" | "start" | "error" | "complete", import("..").DispatchAt<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -65,7 +65,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>, import("../types").Dispatch<Partial<{
+    }>, import("..").Dispatch<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -73,7 +73,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete">, import("../types").IRestash<Partial<{
+    }>, "progress" | "start" | "error" | "complete">, import("..").IRestash<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -81,7 +81,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete", import("../types").Dispatch<Partial<{
+    }>, "progress" | "start" | "error" | "complete", import("..").Dispatch<Partial<{
         firstName: string;
         lastName: string;
         age: number;
