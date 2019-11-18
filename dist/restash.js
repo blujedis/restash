@@ -98,11 +98,18 @@ function createRestash(options) {
     // Check for persisent state
     if (options.persistent && utils_1.isWindow()) {
         const state = utils_1.getStorage(options.persistent);
-        if (state)
+        // If local storage state exists favor it.
+        if (state) {
             options.initialState = { ...options.initialState, ...state };
+        }
+        // Otherwise load from window state if avail.
+        else if (options.ssrKey) {
+            const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
+            options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
+        }
     }
     // Load initial state for SSR environments.
-    if (options.ssrKey && utils_1.isWindow()) {
+    if (!options.persistent && options.ssrKey && utils_1.isWindow()) {
         const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
         options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
     }
