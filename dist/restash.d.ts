@@ -1,12 +1,6 @@
 import React from 'react';
 import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction, DefaultStatusTypes } from './types';
 /**
- * Gets a unique key based on number of loaded contexts.
- *
- * @param key the store key.
- */
-export declare function getKey(key?: string): string;
-/**
  * Applies middleware wrapping for dispatch
  *
  * @param middlewares and array of middlewares to be applied.
@@ -17,15 +11,14 @@ export declare function applyMiddleware(...middlewares: Middleware[]): Middlewar
  * both createStore and createRestash.
  *
  * @example
- * const store = createContext<S, A>(unique_key, {
+ * const store = createContext<S, A>({
  *   initialState: options.initialState,
  *   reducer: options.reducer
  * });
  *
- * @param name the name of the context to be created.
  * @param options context options used to initialize.
  */
-export declare function createContext<S extends object, A extends IAction>(name: string, options: IContextOptions<S, A>): {
+export declare function createContext<S extends object, A extends IAction>(options: IContextOptions<S, A>): {
     Context: React.Context<[S, React.Dispatch<A>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<S, A>) => JSX.Element;
     Consumer: React.ExoticComponent<React.ConsumerProps<[S, React.Dispatch<A>]>>;
@@ -78,7 +71,7 @@ export declare function createRestash<S extends object, U extends string = Defau
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
     Consumer: React.ExoticComponent<React.ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>>;
     useStore: {
-        <K extends Extract<keyof S, string>>(key: K): [S[K], DispatchAt<S, U, K>, import("./types").IRestash<S[K], U, DispatchAt<S, U, K>>];
+        <K extends Extract<keyof S, string>>(key: K): [S[K], DispatchAt<S, U, K>];
         (): [S, import("./types").Dispatch<S, U>, import("./types").IRestash<S, U, import("./types").Dispatch<S, U>>];
     };
 };

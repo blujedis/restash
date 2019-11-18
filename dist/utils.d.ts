@@ -92,3 +92,7 @@ export declare function setStorage(key: string, value: object): void;
  * @param key the storage key to retrieve.
  */
 export declare function getStorage<S extends object>(key: string): S;
+/**
+ * Returns true if window is defined.
+ */
+export declare function isWindow(): boolean;

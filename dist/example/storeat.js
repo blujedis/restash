@@ -7,8 +7,8 @@ const react_1 = __importDefault(require("react"));
 const init_1 = require("./init");
 const jsondata_1 = __importDefault(require("./jsondata"));
 const StoreAt = () => {
-    const [state, dispatch] = init_1.useStore();
-    const [stateAt, dispatchAt, restash] = init_1.useStore('lastName');
+    const [state, dispatch, restash] = init_1.useStore();
+    const [stateAt, dispatchAt] = init_1.useStore('lastName');
     const changeState = (key) => {
         return (e) => {
             dispatch({ [key]: e.target.value });

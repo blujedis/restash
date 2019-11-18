@@ -5,17 +5,6 @@ const context_1 = require("./context");
 const utils_1 = require("./utils");
 const types_1 = require("./types");
 const STATE_KEY = '__RESTASH_APP_STATE__';
-const CONTEXTS = new Set();
-/**
- * Gets a unique key based on number of loaded contexts.
- *
- * @param key the store key.
- */
-function getKey(key = 'RESTASH_STORE') {
-    const len = [...CONTEXTS.values()].filter(v => v === key).length;
-    return key + '_' + len;
-}
-exports.getKey = getKey;
 /**
  * Applies middleware wrapping for dispatch
  *
@@ -38,18 +27,14 @@ exports.applyMiddleware = applyMiddleware;
  * both createStore and createRestash.
  *
  * @example
- * const store = createContext<S, A>(unique_key, {
+ * const store = createContext<S, A>({
  *   initialState: options.initialState,
  *   reducer: options.reducer
  * });
  *
- * @param name the name of the context to be created.
  * @param options context options used to initialize.
  */
-function createContext(name, options) {
-    if (typeof window !== 'undefined' && CONTEXTS.has(name))
-        return null;
-    CONTEXTS.add(name);
+function createContext(options) {
     return context_1.initContext(options);
 }
 exports.createContext = createContext;
@@ -74,18 +59,10 @@ exports.createContext = createContext;
  */
 function createStore(options) {
     options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
-    const key = getKey();
-    // Load initial state for SSR environments.
-    if (options.ssrKey) {
-        const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
-        options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
-    }
-    const store = createContext(key, {
+    const store = createContext({
         initialState: options.initialState,
         reducer: options.reducer
     });
-    if (!store)
-        return;
     const { Context, Provider, Consumer } = store;
     // Hook must be wrapped.
     const useStore = () => {
@@ -119,12 +96,16 @@ exports.createStore = createStore;
  */
 function createRestash(options) {
     // Check for persisent state
-    if (options.persistent) {
+    if (options.persistent && utils_1.isWindow()) {
         const state = utils_1.getStorage(options.persistent);
         if (state)
             options.initialState = { ...options.initialState, ...state };
     }
-    options.initialState = options.initialState || {};
+    // Load initial state for SSR environments.
+    if (options.ssrKey && utils_1.isWindow()) {
+        const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
+        options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
+    }
     const reducer = (s, a) => {
         let nextState = {};
         nextState.status = utils_1.isUndefined(a.status) || a.status === '' ? types_1.StatusBase.mounted : a.status;
@@ -199,7 +180,7 @@ function createRestash(options) {
         const withoutMiddleware = (...args) => dispatch.apply(null, args);
         const dispatcher = (!options.middleware ? withoutMiddleware : withMiddleware);
         if (key)
-            return [state.data[key], dispatcher, restash];
+            return [state.data[key], dispatcher];
         return [state.data, dispatcher, restash];
     }
     return {

@@ -19,11 +19,9 @@ exports.validateState = validateState;
  * @param stateKey the key on the window to use if avail (ssr ONLY).
  */
 function getInitialState(initialState, stateKey) {
-    if (initialState)
-        return initialState;
     if (typeof window === 'undefined' || (window && !window[stateKey]))
-        return {};
-    return window[stateKey] || {};
+        return null;
+    return window[stateKey];
 }
 exports.getInitialState = getInitialState;
 /**
@@ -191,4 +189,11 @@ function getStorage(key) {
     return tryParseJSON(localStorage.getItem(key));
 }
 exports.getStorage = getStorage;
+/**
+ * Returns true if window is defined.
+ */
+function isWindow() {
+    return typeof window !== 'undefined';
+}
+exports.isWindow = isWindow;
 //# sourceMappingURL=utils.js.map

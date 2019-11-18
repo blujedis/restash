@@ -40,23 +40,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete", K>, import("..").IRestash<Partial<{
-        firstName: string;
-        lastName: string;
-        age: number;
-        numbers: {
-            home: string;
-            mobile: string;
-        };
-    }>[K], "progress" | "start" | "error" | "complete", import("..").DispatchAt<Partial<{
-        firstName: string;
-        lastName: string;
-        age: number;
-        numbers: {
-            home: string;
-            mobile: string;
-        };
-    }>, "progress" | "start" | "error" | "complete", K>>];
+    }>, "progress" | "start" | "error" | "complete", K>];
     (): [Partial<{
         firstName: string;
         lastName: string;

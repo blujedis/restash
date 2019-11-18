@@ -75,10 +75,6 @@ export interface IStoreOptions<S extends object, A extends IAction = IAction> {
      * The reducer used for dispatching store state.
      */
     reducer?: Reducer<S, A>;
-    /**
-     * A key used to load intital state in SSR environments from window if available.
-     */
-    ssrKey?: string | boolean;
 }
 /**
  * The dispatch action interface for Restash.
@@ -121,6 +117,10 @@ export interface IRestashOptions<S extends object, U extends string> extends Omi
      * will be loaded.
      */
     persistent?: string;
+    /**
+     * A key used to load intital state in SSR environments from window if available.
+     */
+    ssrKey?: string | boolean;
 }
 /**
  * The combined Restash store state passed to middleware.
@@ -181,3 +181,4 @@ export interface IRestashState<S extends object, U extends string> {
  * The type/interface for the exposed Restash hook.
  */
 export declare type RestashHook<S, U extends string, D = Dispatch<S, U>> = [S, D, IRestash<S, U, D>];
+export declare type RestashAtHook<S, U extends string, D = Dispatch<S, U>> = [S, D];
