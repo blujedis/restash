@@ -103,10 +103,6 @@ export interface IStoreOptions<S extends object, A extends IAction = IAction> {
    */
   reducer?: Reducer<S, A>;
 
-  /**
-   * A key used to load intital state in SSR environments from window if available.
-   */
-  ssrKey?: string | boolean;
 
 }
 
@@ -165,7 +161,12 @@ export interface IRestashOptions<
    * will be loaded.
    */
   persistent?: string; // when not null persists to local storage if available.
-  
+
+  /**
+   * A key used to load intital state in SSR environments from window if available.
+   */
+  ssrKey?: string | boolean;
+
 }
 
 /**
@@ -225,9 +226,9 @@ export type MiddlewareDispatch = <S, U extends string>(state: S, status?: U) => 
 export type Middleware =
   <S, U extends string>(store: IRestash<S, U>) => (next: Dispatch<S, U>) => (payload: any) => S;
 
-  /**
-   * Restash store state.
-   */
+/**
+ * Restash store state.
+ */
 export interface IRestashState<S extends object, U extends string> {
 
   /**
@@ -247,3 +248,6 @@ export interface IRestashState<S extends object, U extends string> {
  */
 export type RestashHook<S, U extends string, D = Dispatch<S, U>> =
   [S, D, IRestash<S, U, D>];
+
+export type RestashAtHook<S, U extends string, D = Dispatch<S, U>> =
+  [S, D];

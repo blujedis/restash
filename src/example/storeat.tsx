@@ -4,8 +4,8 @@ import JsonData from './jsondata';
 
 const StoreAt: FC = () => {
 
-  const [state, dispatch] = useStore();
-  const [stateAt, dispatchAt, restash] = useStore('lastName');
+  const [state, dispatch, restash] = useStore();
+  const [stateAt, dispatchAt] = useStore('lastName');
 
   const changeState = (key) => {
     return (e) => {

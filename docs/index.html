@@ -233,6 +233,52 @@ export {
   );
 
 };</code></pre>
+				<a href="#server-side-react-ssr" id="server-side-react-ssr" style="color: inherit; text-decoration: none;">
+					<h2>Server Side React (SSR)</h2>
+				</a>
+				<p>To use Restash with server side react you&#39;ll need to expose your state to the window of the application. This is common practice with other libs such as Redux. Here&#39;s an example using Restash with NextJS.</p>
+				<p>First ensure you&#39;ve enabled Restash for use with SSR. You can other pass <strong>true</strong> to use the default SSR key or pass your own string.</p>
+				<pre><code class="language-jsx"><span class="hljs-keyword">const</span> { Provider, useStore } = createRestash({
+  <span class="hljs-attr">ssrKey</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// or your own key such as __APP_STATE__</span>
+});</code></pre>
+				<p>Using the default SSR key or the one you provided expose that to a custom _document.jsx (or _docuemnt.tsx) page in your NextJS <code>/pages</code> directory.</p>
+				<pre><code class="language-jsx"><span class="hljs-keyword">const</span> state = <span class="hljs-built_in">JSON</span>.stringify({ some_initial_state });
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">dangerouslySetInnerHTML</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">__html:</span> `<span class="hljs-attr">window.</span>${<span class="hljs-attr">SSR_KEY</span>} = <span class="hljs-string">${state};</span>` }} /&gt;</span></span></code></pre>
+				<a href="#see-below-for-complete-example" id="see-below-for-complete-example" style="color: inherit; text-decoration: none;">
+					<h3>See Below for Complete Example</h3>
+				</a>
+				<pre><code class="language-jsx">
+<span class="hljs-keyword">const</span> SSR_KEY = <span class="hljs-string">'__APP_STATE__'</span>; <span class="hljs-comment">// or use default __RESTASH_APP_STATE__</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDocument</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Document</span> </span>{
+
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> getInitialProps(ctx) {
+    <span class="hljs-keyword">const</span> { res } = ctx;
+    <span class="hljs-keyword">const</span> app = res &amp;&amp; res.meta ? res.meta : {};
+    <span class="hljs-keyword">const</span> initialProps = <span class="hljs-keyword">await</span> Document.getInitialProps(ctx);
+    <span class="hljs-keyword">return</span> { ...initialProps, app };
+  }
+
+  render() {
+
+    <span class="hljs-keyword">const</span> { app } = <span class="hljs-keyword">this</span>.props;
+    <span class="hljs-keyword">const</span> state = <span class="hljs-built_in">JSON</span>.stringify({ ...DEFAULTS, ...app });
+
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Html</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Head</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">dangerouslySetInnerHTML</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">__html:</span> `<span class="hljs-attr">window.</span>${<span class="hljs-attr">SSR_KEY</span>} = <span class="hljs-string">${state};</span>` }} /&gt;</span><span class="javascript">
+        &lt;body&gt;
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Main</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">NextScript</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>
+      <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">Html</span>&gt;</span></span>
+    );
+  }
+
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MyDocument;</span></span></code></pre>
 				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
 					<h2>Docs</h2>
 				</a>

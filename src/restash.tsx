@@ -1,21 +1,10 @@
 
 import React, { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
-import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined } from './utils';
-import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes } from './types';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow } from './utils';
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes, RestashAtHook } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
-const CONTEXTS = new Set<string>();
-
-/**
- * Gets a unique key based on number of loaded contexts.
- * 
- * @param key the store key.
- */
-export function getKey(key: string = 'RESTASH_STORE') {
-  const len = [...CONTEXTS.values()].filter(v => v === key).length;
-  return key + '_' + len;
-}
 
 /**
  * Applies middleware wrapping for dispatch
@@ -39,19 +28,15 @@ export function applyMiddleware(...middlewares: Middleware[]) {
  * both createStore and createRestash.
  * 
  * @example
- * const store = createContext<S, A>(unique_key, {
+ * const store = createContext<S, A>({
  *   initialState: options.initialState,
  *   reducer: options.reducer
  * });
  * 
- * @param name the name of the context to be created.
  * @param options context options used to initialize.
  */
 export function createContext<S extends object, A extends IAction>(
-  name: string,
   options: IContextOptions<S, A>) {
-  if (typeof window !== 'undefined' && CONTEXTS.has(name)) return null;
-  CONTEXTS.add(name);
   return initContext(options);
 }
 
@@ -78,20 +63,10 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
 
   options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
 
-  const key = getKey();
-
-  // Load initial state for SSR environments.
-  if (options.ssrKey) {
-    const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
-    options.initialState = getInitialState(options.initialState, ssrKey);
-  }
-
-  const store = createContext<S, A>(key, {
+  const store = createContext<S, A>({
     initialState: options.initialState,
     reducer: options.reducer
   });
-
-  if (!store) return;
 
   const { Context, Provider, Consumer } = store;
 
@@ -135,13 +110,17 @@ export function createRestash<
   type State = IRestashState<S, Statuses>;
 
   // Check for persisent state
-  if (options.persistent) {
+  if (options.persistent && isWindow()) {
     const state = getStorage<S>(options.persistent);
     if (state)
       options.initialState = { ...options.initialState, ...state };
   }
 
-  options.initialState = options.initialState || {} as any;
+  // Load initial state for SSR environments.
+  if (options.ssrKey && isWindow()) {
+    const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
+    options.initialState = getInitialState(options.initialState, ssrKey);
+  }
 
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
@@ -174,7 +153,7 @@ export function createRestash<
 
   let prevPayload = {};
 
-  function useStore<K extends KeyOf<S>>(key: K): RestashHook<S[K], U, DispatchAt<S, U, K>>;
+  function useStore<K extends KeyOf<S>>(key: K): RestashAtHook<S[K], U, DispatchAt<S, U, K>>;
   function useStore(): RestashHook<S, U>;
   function useStore<K extends KeyOf<S>>(key?: K) {
 
@@ -246,7 +225,7 @@ export function createRestash<
     const dispatcher = (!options.middleware ? withoutMiddleware : withMiddleware);
 
     if (key)
-      return [state.data[key] as any, dispatcher, restash];
+      return [state.data[key] as any, dispatcher];
 
     return [state.data, dispatcher, restash];
 

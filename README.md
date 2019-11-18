@@ -193,6 +193,62 @@ const Home = () => {
 };
 ```
 
+## Server Side React (SSR)
+
+To use Restash with server side react you'll need to expose your state to the window of the application. This is common practice with other libs such as Redux. Here's an example using Restash with NextJS.
+
+First ensure you've enabled Restash for use with SSR. You can other pass **true** to use the default SSR key or pass your own string.
+
+```jsx
+const { Provider, useStore } = createRestash({
+  ssrKey: true // or your own key such as __APP_STATE__
+});
+```
+
+Using the default SSR key or the one you provided expose that to a custom _document.jsx (or _docuemnt.tsx) page in your NextJS <code>/pages</code> directory.
+
+```jsx
+const state = JSON.stringify({ some_initial_state });
+<script dangerouslySetInnerHTML={{ __html: `window.${SSR_KEY} = ${state};` }} />
+```
+
+### See Below for Complete Example
+
+```jsx
+
+const SSR_KEY = '__APP_STATE__'; // or use default __RESTASH_APP_STATE__
+
+class MyDocument extends Document {
+
+  static async getInitialProps(ctx) {
+    const { res } = ctx;
+    const app = res && res.meta ? res.meta : {};
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps, app };
+  }
+
+  render() {
+
+    const { app } = this.props;
+    const state = JSON.stringify({ ...DEFAULTS, ...app });
+
+    return (
+      <Html>
+        <Head />
+        <script dangerouslySetInnerHTML={{ __html: `window.${SSR_KEY} = ${state};` }} />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+
+}
+
+export default MyDocument;
+```
+
 ## Docs
 
 See [https://blujedis.github.io/restash/](https://blujedis.github.io/restash/)
