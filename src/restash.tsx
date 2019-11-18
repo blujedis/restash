@@ -50,7 +50,7 @@ export function applyMiddleware(...middlewares: Middleware[]) {
 export function createContext<S extends object, A extends IAction>(
   name: string,
   options: IContextOptions<S, A>) {
-  if (CONTEXTS.has(name)) return null;
+  if (typeof window !== 'undefined' && CONTEXTS.has(name)) return null;
   CONTEXTS.add(name);
   return initContext(options);
 }

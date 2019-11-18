@@ -1,6 +1,6 @@
 {
   "name": "restash",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Simple react context storage",
   "main": "dist/index.js",
   "scripts": {

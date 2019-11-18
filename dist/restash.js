@@ -47,7 +47,7 @@ exports.applyMiddleware = applyMiddleware;
  * @param options context options used to initialize.
  */
 function createContext(name, options) {
-    if (CONTEXTS.has(name))
+    if (typeof window !== 'undefined' && CONTEXTS.has(name))
         return null;
     CONTEXTS.add(name);
     return context_1.initContext(options);
