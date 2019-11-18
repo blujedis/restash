@@ -113,6 +113,9 @@ function createRestash(options) {
         const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
         options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
     }
+    if (typeof options.initialState !== 'object')
+        options.initialState = {};
+    options.initialState = options.initialState || {};
     const reducer = (s, a) => {
         let nextState = {};
         nextState.status = utils_1.isUndefined(a.status) || a.status === '' ? types_1.StatusBase.mounted : a.status;

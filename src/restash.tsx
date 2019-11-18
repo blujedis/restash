@@ -129,6 +129,11 @@ export function createRestash<
     options.initialState = getInitialState(options.initialState, ssrKey);
   }
 
+  if (typeof options.initialState !== 'object')
+    options.initialState = {} as any;
+
+  options.initialState = options.initialState || {} as any;
+
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
     let nextState = {} as any;
