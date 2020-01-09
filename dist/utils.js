@@ -21,7 +21,7 @@ exports.validateState = validateState;
 function getInitialState(initialState, stateKey) {
     if (typeof window === 'undefined' || (window && !window[stateKey]))
         return null;
-    return window[stateKey];
+    return { ...window[stateKey] };
 }
 exports.getInitialState = getInitialState;
 /**
@@ -167,11 +167,18 @@ exports.tryParseJSON = tryParseJSON;
  *
  * @param key the key used to set storage.
  * @param value the value to be set.
+ * @param filters an array of keys to filter from persisted object.
  */
-function setStorage(key, value) {
+function setStorage(key, value, filters = []) {
     if (typeof localStorage === 'undefined')
         return;
     setImmediate(() => {
+        if (filters.length)
+            value = Object.keys(value).reduce((result, k) => {
+                if (filters.includes(k))
+                    result[k] = value[k];
+                return result;
+            }, {});
         const stringified = tryStringifyJSON(value);
         if (stringified)
             localStorage.setItem(key, stringified);
@@ -182,13 +189,32 @@ exports.setStorage = setStorage;
  * Gets state from storage.
  *
  * @param key the storage key to retrieve.
+ * @param filters array of keys to filter.
  */
-function getStorage(key) {
+function getStorage(key, filters = []) {
     if (typeof localStorage === 'undefined')
         return null;
-    return tryParseJSON(localStorage.getItem(key));
+    const parsed = tryParseJSON(localStorage.getItem(key));
+    if (!filters.length || !parsed)
+        return parsed;
+    return Object.keys(parsed).reduce((result, k) => {
+        if (filters.includes(k))
+            result[k] = parsed[k];
+        return result;
+    }, {});
 }
 exports.getStorage = getStorage;
+function clearStorage(key, filters = []) {
+    if (typeof localStorage === 'undefined')
+        return false;
+    if (!filters.length) {
+        localStorage.removeItem(key);
+        return true;
+    }
+    setStorage(key, getStorage(key), filters);
+    return true;
+}
+exports.clearStorage = clearStorage;
 /**
  * Returns true if window is defined.
  */

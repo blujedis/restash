@@ -97,7 +97,7 @@ exports.createStore = createStore;
 function createRestash(options) {
     // Check for persisent state
     if (options.persistent && utils_1.isWindow()) {
-        const state = utils_1.getStorage(options.persistent);
+        const state = utils_1.getStorage(options.persistent, options.persistentKeys);
         // If local storage state exists favor it.
         if (state) {
             options.initialState = { ...options.initialState, ...state };
@@ -107,6 +107,8 @@ function createRestash(options) {
             const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
             options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
         }
+        // Set the initial state.
+        utils_1.setStorage(options.persistent, options.initialState, options.persistentKeys);
     }
     // Load initial state for SSR environments.
     if (!options.persistent && options.ssrKey && utils_1.isWindow()) {
@@ -136,6 +138,9 @@ function createRestash(options) {
         return;
     const { Context, Provider, Consumer, useStore: useStoreBase } = store;
     let prevPayload = {};
+    function clearPersistence(filters = []) {
+        return utils_1.clearStorage(options.persistent, filters);
+    }
     function useStore(key) {
         const mounted = react_1.useRef(false);
         const [state, setState] = useStoreBase();
@@ -168,7 +173,7 @@ function createRestash(options) {
             const nextData = { ...state.data, ...prevPayload, ...payload };
             prevState.current = { status: u || state.status, data: nextData };
             if (options.persistent)
-                utils_1.setStorage(options.persistent, nextData);
+                utils_1.setStorage(options.persistent, nextData, options.persistentKeys);
             return nextData;
         };
         const restash = {
@@ -197,7 +202,8 @@ function createRestash(options) {
         Context,
         Provider,
         Consumer,
-        useStore
+        useStore,
+        clearPersistence
     };
 }
 exports.createRestash = createRestash;

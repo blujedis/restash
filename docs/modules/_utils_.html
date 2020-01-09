@@ -73,6 +73,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_utils_.html#clearstorage" class="tsd-kind-icon">clear<wbr>Storage</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_utils_.html#getinitialstate" class="tsd-kind-icon">get<wbr>Initial<wbr>State</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_utils_.html#getstorage" class="tsd-kind-icon">get<wbr>Storage</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#isempty" class="tsd-kind-icon">is<wbr>Empty</a></li>
@@ -84,7 +85,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#issymbol" class="tsd-kind-icon">is<wbr>Symbol</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#isundefined" class="tsd-kind-icon">is<wbr>Undefined</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#iswindow" class="tsd-kind-icon">is<wbr>Window</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#setstorage" class="tsd-kind-icon">set<wbr>Storage</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_utils_.html#setstorage" class="tsd-kind-icon">set<wbr>Storage</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#thunkify" class="tsd-kind-icon">thunkify</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#tryparsejson" class="tsd-kind-icon">try<wbr>ParseJSON</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#trystringifyjson" class="tsd-kind-icon">try<wbr>StringifyJSON</a></li>
@@ -98,6 +99,38 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="clearstorage" class="tsd-anchor"></a>
+					<h3>clear<wbr>Storage</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Storage&lt;S&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filters<span class="tsd-signature-symbol">?: </span><a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L212">src/utils.ts:212</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>S<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> filters: <a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="getinitialstate" class="tsd-anchor"></a>
 					<h3>get<wbr>Initial<wbr>State</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
@@ -107,7 +140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L20">utils.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L21">src/utils.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,13 +177,13 @@
 					<a name="getstorage" class="tsd-anchor"></a>
 					<h3>get<wbr>Storage</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Storage&lt;S&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Storage&lt;S&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filters<span class="tsd-signature-symbol">?: </span><a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L190">utils.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L199">src/utils.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -172,6 +205,12 @@
 										<p>the storage key to retrieve.</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> filters: <a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>array of keys to filter.</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">S</span></h4>
 						</li>
@@ -187,7 +226,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L126">utils.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L127">src/utils.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -218,7 +257,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L95">utils.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L96">src/utils.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L86">utils.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L87">src/utils.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,7 +319,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L104">utils.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L105">src/utils.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -311,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L114">utils.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L115">src/utils.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -342,7 +381,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L59">utils.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L60">src/utils.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -373,7 +412,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L68">utils.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L69">src/utils.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -404,7 +443,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L77">utils.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L78">src/utils.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L199">utils.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L226">src/utils.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -447,17 +486,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="setstorage" class="tsd-anchor"></a>
 					<h3>set<wbr>Storage</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Storage<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Storage&lt;S&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span>, filters<span class="tsd-signature-symbol">?: </span><a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L175">utils.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L177">src/utils.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -465,6 +504,12 @@
 									<p>Persists state to storage.</p>
 								</div>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>S<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -474,9 +519,15 @@
 									</div>
 								</li>
 								<li>
-									<h5>value: <span class="tsd-signature-type">object</span></h5>
+									<h5>value: <span class="tsd-signature-type">S</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the value to be set.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> filters: <a href="_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>an array of keys to filter from persisted object.</p>
 									</div>
 								</li>
 							</ul>
@@ -494,7 +545,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L29">utils.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L30">src/utils.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -516,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L160">utils.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L161">src/utils.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -547,7 +598,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L146">utils.ts:146</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L147">src/utils.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -581,7 +632,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L43">utils.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L44">src/utils.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -603,7 +654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/utils.ts#L7">utils.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/utils.ts#L8">src/utils.ts:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -639,30 +690,33 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_context_.html">"context"</a>
+						<a href="_context_.html">&quot;context&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_index_.html">"index"</a>
+						<a href="_index_.html">&quot;index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_middleware_index_.html">"middleware/index"</a>
+						<a href="_middleware_index_.html">&quot;middleware/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_middleware_logger_.html">"middleware/logger"</a>
+						<a href="_middleware_logger_.html">&quot;middleware/logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_restash_.html">"restash"</a>
+						<a href="_restash_.html">&quot;restash&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_types_.html">"types"</a>
+						<a href="_types_.html">&quot;types&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_utils_.html">"utils"</a>
+						<a href="_utils_.html">&quot;utils&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_utils_.html#clearstorage" class="tsd-kind-icon">clear<wbr>Storage</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_utils_.html#getinitialstate" class="tsd-kind-icon">get<wbr>Initial<wbr>State</a>
 					</li>
@@ -696,7 +750,7 @@
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_utils_.html#iswindow" class="tsd-kind-icon">is<wbr>Window</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_utils_.html#setstorage" class="tsd-kind-icon">set<wbr>Storage</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">

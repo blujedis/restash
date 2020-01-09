@@ -118,6 +118,11 @@ export interface IRestashOptions<S extends object, U extends string> extends Omi
      */
     persistent?: string;
     /**
+     * Array of keys in store that should be persisted.
+     * when not defined all are stored at persistent key.
+     */
+    persistentKeys?: KeyOf<S>[];
+    /**
      * A key used to load intital state in SSR environments from window if available.
      */
     ssrKey?: string | boolean;

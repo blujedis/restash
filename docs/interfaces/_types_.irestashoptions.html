@@ -109,6 +109,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.irestashoptions.html#middleware" class="tsd-kind-icon">middleware</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.irestashoptions.html#persistent" class="tsd-kind-icon">persistent</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.irestashoptions.html#persistentkeys" class="tsd-kind-icon">persistent<wbr>Keys</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.irestashoptions.html#ssrkey" class="tsd-kind-icon">ssr<wbr>Key</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.irestashoptions.html#statuses" class="tsd-kind-icon">statuses</a></li>
 							</ul>
@@ -124,7 +125,7 @@
 					<div class="tsd-signature tsd-kind-icon">middleware<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#middleware" class="tsd-signature-type">Middleware</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/types.ts#L152">types.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/types.ts#L152">src/types.ts:152</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -139,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">persistent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/types.ts#L163">types.ts:163</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/types.ts#L163">src/types.ts:163</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -150,12 +151,28 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="persistentkeys" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> persistent<wbr>Keys</h3>
+					<div class="tsd-signature tsd-kind-icon">persistent<wbr>Keys<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#keyof" class="tsd-signature-type">KeyOf</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/types.ts#L169">src/types.ts:169</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of keys in store that should be persisted.
+							when not defined all are stored at persistent key.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="ssrkey" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ssr<wbr>Key</h3>
 					<div class="tsd-signature tsd-kind-icon">ssr<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/types.ts#L168">types.ts:168</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/types.ts#L174">src/types.ts:174</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -170,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">statuses<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blujedis/restash/blob/b966311/src/types.ts#L157">types.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/blujedis/restash/blob/553148b/src/types.ts#L157">src/types.ts:157</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,25 +205,25 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_context_.html">"context"</a>
+						<a href="../modules/_context_.html">&quot;context&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_index_.html">"index"</a>
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_middleware_index_.html">"middleware/index"</a>
+						<a href="../modules/_middleware_index_.html">&quot;middleware/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_middleware_logger_.html">"middleware/logger"</a>
+						<a href="../modules/_middleware_logger_.html">&quot;middleware/logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_restash_.html">"restash"</a>
+						<a href="../modules/_restash_.html">&quot;restash&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_types_.html">"types"</a>
+						<a href="../modules/_types_.html">&quot;types&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_utils_.html">"utils"</a>
+						<a href="../modules/_utils_.html">&quot;utils&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -246,6 +263,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_types_.irestashoptions.html#persistent" class="tsd-kind-icon">persistent</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.irestashoptions.html#persistentkeys" class="tsd-kind-icon">persistent<wbr>Keys</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_types_.irestashoptions.html#ssrkey" class="tsd-kind-icon">ssr<wbr>Key</a>

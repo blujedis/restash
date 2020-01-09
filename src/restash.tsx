@@ -1,7 +1,7 @@
 
 import React, { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
-import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow } from './utils';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow, clearStorage } from './utils';
 import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes, RestashAtHook } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
@@ -111,7 +111,7 @@ export function createRestash<
 
   // Check for persisent state
   if (options.persistent && isWindow()) {
-    const state = getStorage<S>(options.persistent);
+    const state = getStorage<S>(options.persistent, options.persistentKeys);
     // If local storage state exists favor it.
     if (state) {
       options.initialState = { ...options.initialState, ...state };
@@ -121,6 +121,10 @@ export function createRestash<
       const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
       options.initialState = getInitialState(options.initialState, ssrKey);
     }
+
+    // Set the initial state.
+    setStorage<S>(options.persistent, options.initialState, options.persistentKeys);
+
   }
 
   // Load initial state for SSR environments.
@@ -164,6 +168,10 @@ export function createRestash<
   const { Context, Provider, Consumer, useStore: useStoreBase } = store;
 
   let prevPayload = {};
+
+  function clearPersistence<K extends KeyOf<S>>(filters: K[] = []) {
+    return clearStorage<S>(options.persistent, filters);
+  }
 
   function useStore<K extends KeyOf<S>>(key: K): RestashAtHook<S[K], U, DispatchAt<S, U, K>>;
   function useStore(): RestashHook<S, U>;
@@ -210,7 +218,7 @@ export function createRestash<
       prevState.current = { status: u || state.status, data: nextData };
 
       if (options.persistent)
-        setStorage(options.persistent, nextData);
+        setStorage(options.persistent, nextData, options.persistentKeys);
 
       return nextData;
 
@@ -247,7 +255,8 @@ export function createRestash<
     Context,
     Provider,
     Consumer,
-    useStore
+    useStore,
+    clearPersistence
   };
 
 }

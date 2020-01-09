@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, DispatchAt, IRestashAction, DefaultStatusTypes } from './types';
+import { IAction, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, RestashHook, DispatchAt, IRestashAction, DefaultStatusTypes, RestashAtHook } from './types';
 /**
  * Applies middleware wrapping for dispatch
  *
@@ -21,7 +21,7 @@ export declare function applyMiddleware(...middlewares: Middleware[]): Middlewar
 export declare function createContext<S extends object, A extends IAction>(options: IContextOptions<S, A>): {
     Context: React.Context<[S, React.Dispatch<A>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<S, A>) => JSX.Element;
-    Consumer: React.ExoticComponent<React.ConsumerProps<[S, React.Dispatch<A>]>>;
+    Consumer: React.Consumer<[S, React.Dispatch<A>]>;
 };
 /**
  * Creates store using default or provided reducer and dispatch action which contains
@@ -45,7 +45,7 @@ export declare function createContext<S extends object, A extends IAction>(optio
 export declare function createStore<S extends object, A extends IAction>(options?: IStoreOptions<S, A>): {
     Context: React.Context<[S, React.Dispatch<A>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<S, A>) => JSX.Element;
-    Consumer: React.ExoticComponent<React.ConsumerProps<[S, React.Dispatch<A>]>>;
+    Consumer: React.Consumer<[S, React.Dispatch<A>]>;
     useStore: () => [S, React.Dispatch<A>];
 };
 /**
@@ -69,9 +69,10 @@ export declare function createStore<S extends object, A extends IAction>(options
 export declare function createRestash<S extends object, U extends string = DefaultStatusTypes>(options?: IRestashOptions<S, U>): {
     Context: React.Context<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>;
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
-    Consumer: React.ExoticComponent<React.ConsumerProps<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>>;
+    Consumer: React.Consumer<[IRestashState<S, "init" | "mounted" | U>, React.Dispatch<IRestashAction<"data", any>>]>;
     useStore: {
-        <K extends Extract<keyof S, string>>(key: K): [S[K], DispatchAt<S, U, K>];
-        (): [S, import("./types").Dispatch<S, U>, import("./types").IRestash<S, U, import("./types").Dispatch<S, U>>];
+        <K extends Extract<keyof S, string>>(key: K): RestashAtHook<S[K], U, DispatchAt<S, U, K>>;
+        (): RestashHook<S, U, import("./types").Dispatch<S, U>>;
     };
+    clearPersistence: <K_1 extends Extract<keyof S, string>>(filters?: K_1[]) => boolean;
 };

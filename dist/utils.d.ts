@@ -1,3 +1,4 @@
+import { KeyOf } from "./types";
 /**
  * Validates iniital state type.
  *
@@ -84,14 +85,17 @@ export declare function tryParseJSON(value: string): any;
  *
  * @param key the key used to set storage.
  * @param value the value to be set.
+ * @param filters an array of keys to filter from persisted object.
  */
-export declare function setStorage(key: string, value: object): void;
+export declare function setStorage<S extends object>(key: string, value: S, filters?: KeyOf<S>[]): void;
 /**
  * Gets state from storage.
  *
  * @param key the storage key to retrieve.
+ * @param filters array of keys to filter.
  */
-export declare function getStorage<S extends object>(key: string): S;
+export declare function getStorage<S extends object>(key: string, filters?: KeyOf<S>[]): S;
+export declare function clearStorage<S extends object>(key: string, filters?: KeyOf<S>[]): boolean;
 /**
  * Returns true if window is defined.
  */

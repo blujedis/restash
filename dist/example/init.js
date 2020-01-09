@@ -12,14 +12,16 @@ const _initialState = {
 };
 const initialState = _initialState;
 const middleware = __1.applyMiddleware(__1.logger());
-const { Context, Consumer, Provider, useStore } = __1.createRestash({
+const { Context, Consumer, Provider, useStore, clearPersistence } = __1.createRestash({
     initialState,
     middleware,
     persistent: 'Restash',
+    persistentKeys: ['firstName', 'lastName'],
     statuses: ['start', 'progress', 'error', 'complete']
 });
 exports.Context = Context;
 exports.Consumer = Consumer;
 exports.Provider = Provider;
 exports.useStore = useStore;
+exports.clearPersistence = clearPersistence;
 //# sourceMappingURL=init.js.map

@@ -1,3 +1,4 @@
+import { KeyOf } from "./types";
 
 /**
  * Validates iniital state type.
@@ -20,7 +21,7 @@ export function validateState<S = any>(initialState: S) {
 export function getInitialState<S = any>(initialState: S, stateKey: string) {
   if (typeof window === 'undefined' || (window && !(window as any)[stateKey]))
     return null;
-  return (window as any)[stateKey];
+  return { ...(window as any)[stateKey] };
 }
 
 /**
@@ -171,11 +172,18 @@ export function tryParseJSON(value: string) {
  * 
  * @param key the key used to set storage.
  * @param value the value to be set.
+ * @param filters an array of keys to filter from persisted object.
  */
-export function setStorage(key: string, value: object) {
+export function setStorage<S extends object>(key: string, value: S, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return;
   setImmediate(() => {
+    if (filters.length)
+      value = Object.keys(value).reduce((result, k) => {
+        if (filters.includes(k as KeyOf<S>))
+          result[k] = value[k];
+        return result;
+      }, {} as S);
     const stringified = tryStringifyJSON(value);
     if (stringified)
       localStorage.setItem(key, stringified);
@@ -186,11 +194,30 @@ export function setStorage(key: string, value: object) {
  * Gets state from storage.
  * 
  * @param key the storage key to retrieve.
+ * @param filters array of keys to filter.
  */
-export function getStorage<S extends object>(key: string) {
+export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return null;
-  return tryParseJSON(localStorage.getItem(key)) as S;
+  const parsed = tryParseJSON(localStorage.getItem(key)) as S;
+  if (!filters.length || !parsed)
+    return parsed;
+  return Object.keys(parsed).reduce((result, k) => {
+    if (filters.includes(k as KeyOf<S>)) 
+      result[k] = parsed[k];
+    return result;
+  }, {} as S);
+}
+
+export function clearStorage<S extends object>(key: string, filters: KeyOf<S>[] = []) {
+  if (typeof localStorage === 'undefined')
+    return false;
+  if (!filters.length) {
+    localStorage.removeItem(key);
+    return true;
+  }
+  setStorage<S>(key, getStorage<S>(key), filters);
+  return true;
 }
 
 /**

@@ -7,7 +7,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Consumer: import("react").ExoticComponent<import("react").ConsumerProps<[import("..").IRestashState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Consumer: import("react").Consumer<[import("..").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -15,7 +15,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         home: string;
         mobile: string;
     };
-}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>>, Provider: ({ reducer, initialState, children }: import("..").IProvider<import("..").IRestashState<Partial<{
+}>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Provider: ({ reducer, initialState, children }: import("..").IProvider<import("..").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -24,7 +24,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         mobile: string;
     };
 }>, "init" | "mounted" | "progress" | "start" | "error" | "complete">, import("..").IRestashAction<"data", any>>) => JSX.Element, useStore: {
-    <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): [Partial<{
+    <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): import("..").RestashAtHook<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -32,7 +32,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>[K], import("..").DispatchAt<Partial<{
+    }>[K], "progress" | "start" | "error" | "complete", import("..").DispatchAt<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -40,24 +40,8 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete", K>];
-    (): [Partial<{
-        firstName: string;
-        lastName: string;
-        age: number;
-        numbers: {
-            home: string;
-            mobile: string;
-        };
-    }>, import("..").Dispatch<Partial<{
-        firstName: string;
-        lastName: string;
-        age: number;
-        numbers: {
-            home: string;
-            mobile: string;
-        };
-    }>, "progress" | "start" | "error" | "complete">, import("..").IRestash<Partial<{
+    }>, "progress" | "start" | "error" | "complete", K>>;
+    (): import("..").RestashHook<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -73,6 +57,6 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>, "progress" | "start" | "error" | "complete">>];
-};
-export { Context, Consumer, Provider, useStore };
+    }>, "progress" | "start" | "error" | "complete">>;
+}, clearPersistence: <K extends "firstName" | "lastName" | "age" | "numbers">(filters?: K[]) => boolean;
+export { Context, Consumer, Provider, useStore, clearPersistence };

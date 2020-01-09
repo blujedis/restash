@@ -16,10 +16,11 @@ const initialState = _initialState as InitialState;
 
 const middleware = applyMiddleware(logger());
 
-const { Context, Consumer, Provider, useStore } = createRestash({
+const { Context, Consumer, Provider, useStore, clearPersistence } = createRestash({
   initialState,
   middleware,
   persistent: 'Restash',
+  persistentKeys: ['firstName', 'lastName'],
   statuses: ['start', 'progress', 'error', 'complete']
 });
 
@@ -27,5 +28,6 @@ export {
   Context,
   Consumer,
   Provider,
-  useStore
+  useStore,
+  clearPersistence
 };

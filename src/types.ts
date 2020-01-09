@@ -160,7 +160,13 @@ export interface IRestashOptions<
    * When truthy indicates that you wish state to be persisted. On next load the previous states
    * will be loaded.
    */
-  persistent?: string; // when not null persists to local storage if available.
+  persistent?: string; // key in localStorage to persist to.
+
+  /**
+   * Array of keys in store that should be persisted.
+   * when not defined all are stored at persistent key.
+   */
+  persistentKeys?: KeyOf<S>[]; 
 
   /**
    * A key used to load intital state in SSR environments from window if available.
