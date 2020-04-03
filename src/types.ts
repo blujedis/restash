@@ -144,7 +144,7 @@ export type DefaultStatusTypes = keyof typeof DefaultStatus;
  */
 export interface IRestashOptions<
   S extends object,
-  U extends string> extends Omit<IStoreOptions<S>, 'reducer'> {
+  U extends string = DefaultStatusTypes> extends Omit<IStoreOptions<S>, 'reducer'> {
 
   /**
    * Optional middleware to be run prior to dispatching.

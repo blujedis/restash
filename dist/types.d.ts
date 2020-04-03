@@ -103,7 +103,7 @@ export declare type DefaultStatusTypes = keyof typeof DefaultStatus;
 /**
  * Options used to create Restash context.
  */
-export interface IRestashOptions<S extends object, U extends string> extends Omit<IStoreOptions<S>, 'reducer'> {
+export interface IRestashOptions<S extends object, U extends string = DefaultStatusTypes> extends Omit<IStoreOptions<S>, 'reducer'> {
     /**
      * Optional middleware to be run prior to dispatching.
      */
