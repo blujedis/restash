@@ -209,7 +209,7 @@ export function createRestash<
 
       setState({
         type: Action.data,
-        status: u,
+        status: u || state.status,
         payload
       });
 

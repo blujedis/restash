@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createRestash = exports.createStore = exports.createContext = exports.applyMiddleware = void 0;
 const react_1 = require("react");
 const context_1 = require("./context");
 const utils_1 = require("./utils");
@@ -167,7 +168,7 @@ function createRestash(options) {
             prevPayload = payload;
             setState({
                 type: types_1.Action.data,
-                status: u,
+                status: u || state.status,
                 payload
             });
             const nextData = { ...state.data, ...prevPayload, ...payload };

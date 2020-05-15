@@ -1,8 +1,11 @@
 {
   "name": "restash",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Simple react context storage",
   "main": "dist/index.js",
+  "publishConfig": {
+    "registry": " https://registry.npmjs.org "
+  },
   "scripts": {
     "clean": "rimraf ./dist",
     "build:ts": "tsc --project tsconfig.prod.json",
@@ -68,9 +71,9 @@
     "tslint-react": "^4.1.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.6.4",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2",
     "wouter": "^2.3.1"
   },

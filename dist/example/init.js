@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearPersistence = exports.useStore = exports.Provider = exports.Consumer = exports.Context = void 0;
 const __1 = require("../");
 const _initialState = {
     firstName: 'Bob',
