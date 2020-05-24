@@ -109,9 +109,16 @@ export function createRestash<
   type Statuses = U | StatusBaseTypes;
   type State = IRestashState<S, Statuses>;
 
+  if (options.persistentKeys) {
+    if (!Array.isArray(options.persistentKeys))
+      options.persistentKeys = [options.persistentKeys];
+    options.persistent = options.persistent || options.persistentKeys.join('-');
+  }
+
   // Check for persisent state
-  if (options.persistent && isWindow()) {
-    const state = getStorage<S>(options.persistent, options.persistentKeys);
+  if (isWindow() && options.persistent) {
+
+    const state = getStorage<S>(options.persistent, options.persistentKeys as KeyOf<S>[]);
     // If local storage state exists favor it.
     if (state) {
       options.initialState = { ...options.initialState, ...state };
@@ -123,12 +130,12 @@ export function createRestash<
     }
 
     // Set the initial state.
-    setStorage<S>(options.persistent, options.initialState, options.persistentKeys);
+    setStorage<S>(options.persistent, options.initialState, options.persistentKeys as KeyOf<S>[]);
 
   }
 
   // Load initial state for SSR environments.
-  if (!options.persistent && options.ssrKey && isWindow()) {
+  if (isWindow() && !options.persistent && options.ssrKey) {
     const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
     options.initialState = getInitialState(options.initialState, ssrKey);
   }
@@ -218,7 +225,7 @@ export function createRestash<
       prevState.current = { status: u || state.status, data: nextData };
 
       if (options.persistent)
-        setStorage(options.persistent, nextData, options.persistentKeys);
+        setStorage(options.persistent, nextData, options.persistentKeys as KeyOf<S>[]);
 
       return nextData;
 

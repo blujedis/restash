@@ -121,7 +121,7 @@ export interface IRestashOptions<S extends object, U extends string = DefaultSta
      * Array of keys in store that should be persisted.
      * when not defined all are stored at persistent key.
      */
-    persistentKeys?: KeyOf<S>[];
+    persistentKeys?: KeyOf<S> | KeyOf<S>[];
     /**
      * A key used to load intital state in SSR environments from window if available.
      */

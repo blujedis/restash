@@ -96,8 +96,13 @@ exports.createStore = createStore;
  * @param options options used to initialize Restash.
  */
 function createRestash(options) {
+    if (options.persistentKeys) {
+        if (!Array.isArray(options.persistentKeys))
+            options.persistentKeys = [options.persistentKeys];
+        options.persistent = options.persistent || options.persistentKeys.join('-');
+    }
     // Check for persisent state
-    if (options.persistent && utils_1.isWindow()) {
+    if (utils_1.isWindow() && options.persistent) {
         const state = utils_1.getStorage(options.persistent, options.persistentKeys);
         // If local storage state exists favor it.
         if (state) {
@@ -112,7 +117,7 @@ function createRestash(options) {
         utils_1.setStorage(options.persistent, options.initialState, options.persistentKeys);
     }
     // Load initial state for SSR environments.
-    if (!options.persistent && options.ssrKey && utils_1.isWindow()) {
+    if (utils_1.isWindow() && !options.persistent && options.ssrKey) {
         const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
         options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
     }
