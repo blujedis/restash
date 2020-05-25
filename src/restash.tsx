@@ -249,7 +249,7 @@ export function createRestash<
 
     const withMiddleware = (...args: any) => (options.middleware)(restash)(args);
     const withoutMiddleware = (...args: any) => dispatch.apply(null, args);
-    const dispatcher = useMemo(() => (!options.middleware ? withoutMiddleware : withMiddleware), null);
+    const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
 
     if (key)
       return [state.data[key] as any, dispatcher];

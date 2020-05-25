@@ -1,9 +1,5 @@
 # Restash Changes
 
-## 05-24-2020 (0.1.20)
-
-- Change dispatcher to useMemo
-
 ## 05-24-2020 (0.1.19)
 
 - When "persistentKeys" are set generate "perisistent" key if not defined.

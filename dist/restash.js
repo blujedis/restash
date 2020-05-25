@@ -199,7 +199,7 @@ function createRestash(options) {
         };
         const withMiddleware = (...args) => (options.middleware)(restash)(args);
         const withoutMiddleware = (...args) => dispatch.apply(null, args);
-        const dispatcher = react_1.useMemo(() => (!options.middleware ? withoutMiddleware : withMiddleware), null);
+        const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
         if (key)
             return [state.data[key], dispatcher];
         return [state.data, dispatcher, restash];
