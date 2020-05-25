@@ -1,5 +1,5 @@
 
-import React, { useContext, useRef, Reducer, useEffect } from 'react';
+import { useContext, useRef, Reducer, useEffect, useMemo } from 'react';
 import { initContext } from './context';
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow, clearStorage } from './utils';
 import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes, RestashAtHook } from './types';
@@ -249,7 +249,7 @@ export function createRestash<
 
     const withMiddleware = (...args: any) => (options.middleware)(restash)(args);
     const withoutMiddleware = (...args: any) => dispatch.apply(null, args);
-    const dispatcher = (!options.middleware ? withoutMiddleware : withMiddleware);
+    const dispatcher = useMemo(() => (!options.middleware ? withoutMiddleware : withMiddleware), null);
 
     if (key)
       return [state.data[key] as any, dispatcher];
