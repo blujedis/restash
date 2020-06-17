@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isWindow = exports.clearStorage = exports.getStorage = exports.setStorage = exports.tryParseJSON = exports.tryStringifyJSON = exports.isEmpty = exports.isPlainObject = exports.isObject = exports.isFunction = exports.isNullOrUndefined = exports.isUndefined = exports.isSymbol = exports.isString = exports.unwrap = exports.thunkify = exports.getInitialState = exports.validateState = void 0;
+if (typeof window !== 'undefined')
+    window.setImmediate = window.setImmediate || window.setTimeout;
 /**
  * Validates iniital state type.
  *

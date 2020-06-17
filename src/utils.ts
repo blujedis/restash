@@ -1,5 +1,8 @@
 import { KeyOf } from "./types";
 
+if (typeof window !== 'undefined')
+  (window.setImmediate as any) = window.setImmediate || window.setTimeout;
+
 /**
  * Validates iniital state type.
  * 
@@ -203,7 +206,7 @@ export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = 
   if (!filters.length || !parsed)
     return parsed;
   return Object.keys(parsed).reduce((result, k) => {
-    if (filters.includes(k as KeyOf<S>)) 
+    if (filters.includes(k as KeyOf<S>))
       result[k] = parsed[k];
     return result;
   }, {} as S);
