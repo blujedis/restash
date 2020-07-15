@@ -23,8 +23,8 @@ exports.validateState = validateState;
  */
 function getInitialState(initialState, stateKey) {
     if (typeof window === 'undefined' || (window && !window[stateKey]))
-        return null;
-    return { ...window[stateKey] };
+        return initialState || {};
+    return { ...initialState, ...window[stateKey] };
 }
 exports.getInitialState = getInitialState;
 /**

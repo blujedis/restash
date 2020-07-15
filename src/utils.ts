@@ -22,9 +22,9 @@ export function validateState<S = any>(initialState: S) {
  * @param stateKey the key on the window to use if avail (ssr ONLY).
  */
 export function getInitialState<S = any>(initialState: S, stateKey: string) {
-  if (typeof window === 'undefined' || (window && !(window as any)[stateKey]))
-    return null;
-  return { ...(window as any)[stateKey] };
+  if (typeof window === 'undefined' || (window && !window[stateKey]))
+    return initialState || {};
+  return { ...initialState, ...window[stateKey] };
 }
 
 /**
