@@ -10,7 +10,8 @@ const entry = `./${src}/example`;
 module.exports = {
 
   mode: 'development',
-  devtool: 'cheap-module-eval-source-map',
+  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: `${entry}`,
 
   devServer: {
@@ -19,15 +20,17 @@ module.exports = {
 
   output: {
     path: resolve(`${dist}`),
-    filename: `bundle.[hash].js`,
+    filename: `bundle.[fullhash].js`,
     publicPath: '/'
   },
 
   plugins: [
 
-    new CopyWebpackPlugin([
-      { from: resolve(`${pub}`), to: resolve(`${dist}`) }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: resolve(`${pub}`), to: resolve(`${dist}`) }
+      ]
+    }),
 
     new HtmlWebpackPlugin({
       title: 'Restash',

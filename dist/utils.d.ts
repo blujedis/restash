@@ -1,4 +1,4 @@
-import { KeyOf } from "./types";
+import { KeyOf } from './types';
 /**
  * Validates iniital state type.
  *
@@ -95,6 +95,12 @@ export declare function setStorage<S extends object>(key: string, value: S, filt
  * @param filters array of keys to filter.
  */
 export declare function getStorage<S extends object>(key: string, filters?: KeyOf<S>[]): S;
+/**
+ * Clears entire storage for store or clears by defined filter key.
+ *
+ * @param key the storage key for the store.
+ * @param filters key filters to set.
+ */
 export declare function clearStorage<S extends object>(key: string, filters?: KeyOf<S>[]): boolean;
 /**
  * Returns true if window is defined.

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare const Context: import("react").Context<[import("..").IRestashState<Partial<{
+declare const Context: import("react").Context<[import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -7,7 +7,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         home: string;
         mobile: string;
     };
-}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Consumer: import("react").Consumer<[import("..").IRestashState<Partial<{
+}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Consumer: import("react").Consumer<[import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -15,7 +15,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         home: string;
         mobile: string;
     };
-}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("react").Dispatch<import("..").IRestashAction<"data", any>>]>, Provider: ({ reducer, initialState, children }: import("..").IProvider<import("..").IRestashState<Partial<{
+}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("react").Dispatch<import("../types").IRestashAction<"data", any>>]>, Provider: ({ reducer, initialState, children }: import("../types").IProvider<import("../types").IRestashState<Partial<{
     firstName: string;
     lastName: string;
     age: number;
@@ -23,8 +23,8 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
         home: string;
         mobile: string;
     };
-}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("..").IRestashAction<"data", any>>) => JSX.Element, useStore: {
-    <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): import("..").RestashAtHook<Partial<{
+}>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("../types").IRestashAction<"data", any>>) => JSX.Element, useStore: {
+    <K extends "firstName" | "lastName" | "age" | "numbers">(key: K): import("../types").RestashAtHook<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -32,7 +32,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>[K], "start" | "progress" | "error" | "complete", import("..").DispatchAt<Partial<{
+    }>[K], "start" | "progress" | "error" | "complete", import("../types").DispatchAt<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -41,7 +41,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             mobile: string;
         };
     }>, "start" | "progress" | "error" | "complete", K>>;
-    (): import("..").RestashHook<Partial<{
+    (): import("../types").RestashHook<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -49,7 +49,7 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             home: string;
             mobile: string;
         };
-    }>, "start" | "progress" | "error" | "complete", import("..").Dispatch<Partial<{
+    }>, "start" | "progress" | "error" | "complete", import("../types").Dispatch<Partial<{
         firstName: string;
         lastName: string;
         age: number;
@@ -58,5 +58,5 @@ declare const Context: import("react").Context<[import("..").IRestashState<Parti
             mobile: string;
         };
     }>, "start" | "progress" | "error" | "complete">>;
-}, clearPersistence: <K extends "firstName" | "lastName" | "age" | "numbers">(filters?: K[]) => boolean;
+}, clearPersistence: <K extends "firstName" | "lastName" | "age" | "numbers">(...filters: K[]) => boolean;
 export { Context, Consumer, Provider, useStore, clearPersistence };

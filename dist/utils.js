@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isWindow = exports.clearStorage = exports.getStorage = exports.setStorage = exports.tryParseJSON = exports.tryStringifyJSON = exports.isEmpty = exports.isPlainObject = exports.isObject = exports.isFunction = exports.isNullOrUndefined = exports.isUndefined = exports.isSymbol = exports.isString = exports.unwrap = exports.thunkify = exports.getInitialState = exports.validateState = void 0;
-if (typeof window !== 'undefined')
-    window.setImmediate = window.setImmediate || window.setTimeout;
 /**
  * Validates iniital state type.
  *
@@ -175,7 +173,7 @@ exports.tryParseJSON = tryParseJSON;
 function setStorage(key, value, filters = []) {
     if (typeof localStorage === 'undefined')
         return;
-    setImmediate(() => {
+    setTimeout(() => {
         if (filters.length)
             value = Object.keys(value).reduce((result, k) => {
                 if (filters.includes(k))
@@ -207,6 +205,12 @@ function getStorage(key, filters = []) {
     }, {});
 }
 exports.getStorage = getStorage;
+/**
+ * Clears entire storage for store or clears by defined filter key.
+ *
+ * @param key the storage key for the store.
+ * @param filters key filters to set.
+ */
 function clearStorage(key, filters = []) {
     if (typeof localStorage === 'undefined')
         return false;

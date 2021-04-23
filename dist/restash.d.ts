@@ -74,5 +74,5 @@ export declare function createRestash<S extends object, U extends string = Defau
         <K extends Extract<keyof S, string>>(key: K): RestashAtHook<S[K], U, DispatchAt<S, U, K>>;
         (): RestashHook<S, U, import("./types").Dispatch<S, U>>;
     };
-    clearPersistence: <K_1 extends Extract<keyof S, string>>(filters?: K_1[]) => boolean;
+    clearPersistence: <K_1 extends Extract<keyof S, string>>(...filters: K_1[]) => boolean;
 };

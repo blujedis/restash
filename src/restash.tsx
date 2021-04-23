@@ -176,7 +176,7 @@ export function createRestash<
 
   let prevPayload = {};
 
-  function clearPersistence<K extends KeyOf<S>>(filters: K[] = []) {
+  function clearPersistence<K extends KeyOf<S>>(...filters: K[]) {
     return clearStorage<S>(options.persistent, filters);
   }
 
@@ -198,7 +198,9 @@ export function createRestash<
         });
         prevState.current.status = StatusBase.mounted;
       }
-      return () => mounted.current = false;
+      return () => {
+        mounted.current = false;
+      };
     }, []);
 
     const dispatch = (s, u?) => {
@@ -207,7 +209,8 @@ export function createRestash<
 
       if (key) {
         payload = { [key]: s };
-        if (isPlainObject(state.data[key]) && isPlainObject(s))
+        // If is an object merge if contains keys.
+        if (isPlainObject(state.data[key]) && isPlainObject(s) && Object.keys(s).length)
           payload = { [key]: { ...state.data[key], ...s } };
       }
 
@@ -223,6 +226,8 @@ export function createRestash<
       const nextData = { ...state.data, ...prevPayload, ...payload };
 
       prevState.current = { status: u || state.status, data: nextData };
+
+      console.log(nextData);
 
       if (options.persistent)
         setStorage(options.persistent, nextData, options.persistentKeys as KeyOf<S>[]);

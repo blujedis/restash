@@ -185,5 +185,12 @@ export interface IRestashState<S extends object, U extends string> {
 /**
  * The type/interface for the exposed Restash hook.
  */
-export declare type RestashHook<S, U extends string, D = Dispatch<S, U>> = [S, D, IRestash<S, U, D>];
-export declare type RestashAtHook<S, U extends string, D = Dispatch<S, U>> = [S, D];
+export declare type RestashHook<S, U extends string, D = Dispatch<S, U>> = [
+    S,
+    D,
+    IRestash<S, U, D>
+];
+export declare type RestashAtHook<S, U extends string, D = Dispatch<S, U>> = [
+    S,
+    D
+];

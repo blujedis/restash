@@ -144,7 +144,7 @@ function createRestash(options) {
         return;
     const { Context, Provider, Consumer, useStore: useStoreBase } = store;
     let prevPayload = {};
-    function clearPersistence(filters = []) {
+    function clearPersistence(...filters) {
         return utils_1.clearStorage(options.persistent, filters);
     }
     function useStore(key) {
@@ -160,13 +160,16 @@ function createRestash(options) {
                 });
                 prevState.current.status = types_1.StatusBase.mounted;
             }
-            return () => mounted.current = false;
+            return () => {
+                mounted.current = false;
+            };
         }, []);
         const dispatch = (s, u) => {
             let payload = s;
             if (key) {
                 payload = { [key]: s };
-                if (utils_1.isPlainObject(state.data[key]) && utils_1.isPlainObject(s))
+                // If is an object merge if contains keys.
+                if (utils_1.isPlainObject(state.data[key]) && utils_1.isPlainObject(s) && Object.keys(s).length)
                     payload = { [key]: { ...state.data[key], ...s } };
             }
             // Ensures logs are accurate with latest payload reflected.
@@ -178,6 +181,7 @@ function createRestash(options) {
             });
             const nextData = { ...state.data, ...prevPayload, ...payload };
             prevState.current = { status: u || state.status, data: nextData };
+            console.log(nextData);
             if (options.persistent)
                 utils_1.setStorage(options.persistent, nextData, options.persistentKeys);
             return nextData;

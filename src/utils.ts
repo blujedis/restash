@@ -1,7 +1,4 @@
-import { KeyOf } from "./types";
-
-if (typeof window !== 'undefined')
-  (window.setImmediate as any) = window.setImmediate || window.setTimeout;
+import { KeyOf } from './types';
 
 /**
  * Validates iniital state type.
@@ -180,7 +177,7 @@ export function tryParseJSON(value: string) {
 export function setStorage<S extends object>(key: string, value: S, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return;
-  setImmediate(() => {
+  setTimeout(() => {
     if (filters.length)
       value = Object.keys(value).reduce((result, k) => {
         if (filters.includes(k as KeyOf<S>))
@@ -212,6 +209,12 @@ export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = 
   }, {} as S);
 }
 
+/**
+ * Clears entire storage for store or clears by defined filter key.
+ * 
+ * @param key the storage key for the store.
+ * @param filters key filters to set.
+ */
 export function clearStorage<S extends object>(key: string, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return false;
