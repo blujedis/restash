@@ -1,8 +1,11 @@
 
-import { useContext, useRef, Reducer, useEffect, useMemo } from 'react';
+import { useContext, useRef, Reducer, useEffect } from 'react';
 import { initContext } from './context';
+import { get, set } from 'dot-prop';
+
 import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow, clearStorage } from './utils';
-import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, DispatchAt, IRestashAction, Action, DefaultStatusTypes, RestashAtHook } from './types';
+
+import { IAction, MiddlewareDispatch, IContextOptions, Middleware, IRestashOptions, IStoreOptions, IRestashState, StatusBase, StatusBaseTypes, RestashHook, KeyOf, IRestashAction, Action, DefaultStatusTypes, Path, PathValue } from './types';
 
 const STATE_KEY = '__RESTASH_APP_STATE__';
 
@@ -35,7 +38,7 @@ export function applyMiddleware(...middlewares: Middleware[]) {
  * 
  * @param options context options used to initialize.
  */
-export function createContext<S extends object, A extends IAction>(
+export function createContext<S extends Record<string, any>, A extends IAction>(
   options: IContextOptions<S, A>) {
   return initContext(options);
 }
@@ -59,7 +62,7 @@ export function createContext<S extends object, A extends IAction>(
  * 
  * @param options base options to initialize context.
  */
-export function createStore<S extends object, A extends IAction>(options?: IStoreOptions<S, A>) {
+export function createStore<S extends Record<string, any>, A extends IAction>(options?: IStoreOptions<S, A>) {
 
   options.reducer = options.reducer || ((s, a) => ({ ...s, ...a.payload }));
 
@@ -103,7 +106,7 @@ export function createStore<S extends object, A extends IAction>(options?: IStor
  * @param options options used to initialize Restash.
  */
 export function createRestash<
-  S extends object,
+  S extends Record<string, any>,
   U extends string = DefaultStatusTypes>(options?: IRestashOptions<S, U>) {
 
   type Statuses = U | StatusBaseTypes;
@@ -141,22 +144,24 @@ export function createRestash<
   }
 
   if (typeof options.initialState !== 'object')
-    options.initialState = {} as any;
+    options.initialState = {} as S;
 
-  options.initialState = options.initialState || {} as any;
+  options.initialState = options.initialState || {} as S;
 
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
-    let nextState = {} as any;
+    let nextState = {} as State;
+    const clone = { ...s };
 
     nextState.status = isUndefined(a.status) || a.status === '' ? StatusBase.mounted : a.status;
 
     if (a.type === Action.data)
-      nextState.data = { ...s.data, ...a.payload };
+      nextState.data = { ...clone.data, ...a.payload };
 
-    nextState = { ...s, ...{ status: nextState.status }, data: { ...s.data, ...nextState.data } };
+    const data = { ...clone.data, ...nextState.data };
+    const status = nextState.status;
 
-    return nextState;
+    return { ...clone, status, data };
 
   };
 
@@ -170,19 +175,36 @@ export function createRestash<
     reducer
   });
 
-  if (!store) return;
+  if (!store)
+    return;
 
   const { Context, Provider, Consumer, useStore: useStoreBase } = store;
 
   let prevPayload = {};
 
-  function clearPersistence<K extends KeyOf<S>>(...filters: K[]) {
-    return clearStorage<S>(options.persistent, filters);
+  /**
+   * Clears persistence, when keys are present clears only those persisted keys.
+   * 
+   * @param keys keys that should be cleared.
+   */
+  function clearPersistence<K extends KeyOf<S>>(...keys: K[]) {
+    return clearStorage<S>(options.persistent, keys);
   }
 
-  function useStore<K extends KeyOf<S>>(key: K): RestashAtHook<S[K], U, DispatchAt<S, U, K>>;
+  /**
+   * Constrains store hook to a specific key.
+   * 
+   * @param key the store key to constrain hook at.
+   */
+  function useStore<K extends Path<S>>(
+    key: K): RestashHook<PathValue<S, K>, U>;
+
+  /**
+   * The default store hook.
+   */
   function useStore(): RestashHook<S, U>;
-  function useStore<K extends KeyOf<S>>(key?: K) {
+
+  function useStore(key?) {
 
     const mounted = useRef(false);
 
@@ -205,16 +227,53 @@ export function createRestash<
 
     const dispatch = (s, u?) => {
 
-      let payload = s as any;
+      let payload = s;
+
+      // Note when changing status alone state may be null.
+      if (!key && !isPlainObject(payload) && payload !== null)
+        throw new Error(`Expected typeof "object" but got ${typeof payload}`);
 
       if (key) {
-        payload = { [key]: s };
-        // If is an object merge if contains keys.
-        if (isPlainObject(state.data[key]) && isPlainObject(s) && Object.keys(s).length)
-          payload = { [key]: { ...state.data[key], ...s } };
+
+        const segments = key.split('.');
+        const parentKey = segments.slice(0, -1).join('.');
+        const childKey = segments.slice(-1);
+        let parent = get(state.data, parentKey);
+        const current = get(state.data, key) as Record<string, any>;
+
+        // ONLY use parent if an object.
+        if (!isPlainObject(parent))
+          parent = undefined;
+
+        // Current location is not an object.
+        // Check if parent is, if so use it
+        // so we don't lose other keys.
+        if (!isPlainObject(current)) {
+          if (parent) {
+            parent[childKey] = s;
+            payload = set({}, parentKey, parent);
+          }
+          else {
+            payload = set({}, key, s);
+          }
+        }
+
+        // Target is object.
+        else {
+
+          if (!isPlainObject(s))
+            throw new Error(`Restash detected type mismatch for path ${key}.`);
+
+          s = { ...current, ...s };
+
+          payload = set({}, key, s);
+
+        }
+
       }
 
-      // Ensures logs are accurate with latest payload reflected.
+      // Ensures logs are accurate with 
+      // latest payload reflected.
       prevPayload = payload;
 
       setState({
@@ -227,10 +286,8 @@ export function createRestash<
 
       prevState.current = { status: u || state.status, data: nextData };
 
-      console.log(nextData);
-
       if (options.persistent)
-        setStorage(options.persistent, nextData, options.persistentKeys as KeyOf<S>[]);
+        setStorage(options.persistent, nextData, options.persistentKeys as string[]);
 
       return nextData;
 
@@ -257,7 +314,7 @@ export function createRestash<
     const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
 
     if (key)
-      return [state.data[key] as any, dispatcher];
+      return [get(state.data, key), dispatcher];
 
     return [state.data, dispatcher, restash];
 

@@ -2,6 +2,26 @@ import { Reducer, ReactNode } from 'react';
 
 // HELPERS //
 
+type ParsePath<T, Key extends keyof T> =
+  Key extends string ? T[Key] extends Record<string, any>
+  ? | `${Key}.${ParsePath<T[Key], Exclude<keyof T[Key], keyof any[]>> & string}`
+  | `${Key}.${Exclude<keyof T[Key], keyof any[]> & string}`
+  : never
+  : never;
+
+type ParsePathKey<T> = ParsePath<T, keyof T> | keyof T;
+
+export type Path<T> = ParsePathKey<T> extends string | keyof T ? ParsePathKey<T> : keyof T;
+
+export type PathValue<T, P extends Path<T>> =
+  P extends `${infer Key}.${infer Rest}`
+  ? Key extends keyof T ? Rest extends Path<T[Key]>
+  ? PathValue<T[Key], Rest>
+  : never
+  : never
+  : P extends keyof T ? T[P]
+  : never;
+
 /**
  * Base enum for initializing status.
  */
@@ -143,7 +163,7 @@ export type DefaultStatusTypes = keyof typeof DefaultStatus;
  * Options used to create Restash context.
  */
 export interface IRestashOptions<
-  S extends object,
+  S extends Record<string, any>,
   U extends string = DefaultStatusTypes> extends Omit<IStoreOptions<S>, 'reducer'> {
 
   /**
@@ -166,7 +186,7 @@ export interface IRestashOptions<
    * Array of keys in store that should be persisted.
    * when not defined all are stored at persistent key.
    */
-  persistentKeys?: KeyOf<S> | KeyOf<S>[]; 
+  persistentKeys?: KeyOf<S> | KeyOf<S>[];
 
   /**
    * A key used to load intital state in SSR environments from window if available.
@@ -216,10 +236,19 @@ export type Dispatch<S, U extends string> = (state: S, status?: U) => S;
 /**
  * Dispatch interface used when dispatching at a specific key in state.
  */
-export type DispatchAt<
-  S,
-  U extends string,
-  K extends KeyOf<S>> = (state: S[K], status?: U) => S;
+// export type DispatchAt<
+//   S,
+//   U extends string,
+//   K extends KeyOf<S>> = (state: S[K], status?: U) => S;
+
+/**
+ * The type/interface for the exposed Restash hook.
+ */
+export type RestashHook<S, U extends string, D = Dispatch<S, U>> =
+  [S, D, IRestash<S, U, D>];
+
+// export type RestashAtHook<S, U extends string, D = Dispatch<S, U>> =
+//   [S, D];
 
 /**
  * Intermediary type for middleware dispatch.
@@ -249,11 +278,6 @@ export interface IRestashState<S extends object, U extends string> {
 
 }
 
-/**
- * The type/interface for the exposed Restash hook.
- */
-export type RestashHook<S, U extends string, D = Dispatch<S, U>> =
-  [S, D, IRestash<S, U, D>];
-
-export type RestashAtHook<S, U extends string, D = Dispatch<S, U>> =
-  [S, D];
+export type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends Array<infer R> ? Array<DeepPartial<R>> : DeepPartial<T[K]>
+};

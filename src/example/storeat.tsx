@@ -5,7 +5,7 @@ import JsonData from './jsondata';
 const StoreAt: FC = () => {
 
   const [state, dispatch, restash] = useStore();
-  const [stateAt, dispatchAt] = useStore('lastName');
+  const [stateAt, dispatchAt] = useStore('numbers.mobile');
 
   const changeState = (key) => {
     return (e) => {
@@ -20,7 +20,6 @@ const StoreAt: FC = () => {
   const changeStatus = (e) => {
     dispatch(null, e.target.value);
   };
-
 
   return (
     <div>

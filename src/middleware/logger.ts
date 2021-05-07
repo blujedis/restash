@@ -1,8 +1,6 @@
 import { Middleware } from '../types';
 import { isUndefined } from '../utils';
 
-// tslint:disable no-console
-
 const _styles = {
   head: 'color: #666',
   stat: 'color: mediumpurple',

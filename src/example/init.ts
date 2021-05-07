@@ -1,4 +1,4 @@
-import { createStore, createRestash, logger, applyMiddleware } from '../';
+import { createStore, createRestash, logger, applyMiddleware, DeepPartial } from '../';
 
 const _initialState = {
   firstName: 'Bob',
@@ -11,7 +11,7 @@ const _initialState = {
 };
 
 // Cast to partial.
-type InitialState = Partial<typeof _initialState>;
+type InitialState = DeepPartial<typeof _initialState>;
 const initialState = _initialState as InitialState;
 
 const middleware = applyMiddleware(logger());
@@ -20,7 +20,7 @@ const { Context, Consumer, Provider, useStore, clearPersistence } = createRestas
   initialState,
   middleware,
   persistent: 'Restash',
-  persistentKeys: ['firstName', 'lastName'],
+  persistentKeys: ['firstName', 'lastName', 'numbers'],
   statuses: ['start', 'progress', 'error', 'complete']
 });
 

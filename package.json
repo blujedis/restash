@@ -1,11 +1,12 @@
 {
   "name": "restash",
-  "version": "0.1.23",
-  "description": "Simple React context storage",
-  "main": "dist/index.js",
+  "version": "0.1.24",
+  "description": "Simple React context, Redux alternative.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build:ts": "tsc --project tsconfig.prod.json",
+    "build:ts": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "build": "npm run clean && npm run build:ts",
     "watch": "tsc -b -w",
     "start": "webpack serve --config ./build/webpack",
@@ -27,13 +28,9 @@
   "keywords": [
     "React",
     "Context",
-    "React",
-    "Storage",
-    "react-recon",
+    "Redux",
+    "Consumer",
     "cache",
-    "storage",
-    "simple",
-    "storage",
     "Provider"
   ],
   "author": "Blujedis <blujedicorp@gmail.com>",
@@ -55,10 +52,14 @@
     "@types/node": "^14.14.41",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
     "babel-loader": "^8.2.2",
     "babel-preset-minify": "^0.5.1",
     "copy-webpack-plugin": "^8.1.1",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -74,6 +75,7 @@
     "wouter": "^2.7.4"
   },
   "dependencies": {
+    "dot-prop": "^6.0.1",
     "lodash.isequal": "^4.5.0"
   }
 }

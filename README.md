@@ -3,7 +3,35 @@
   <a href="http://github.com/blujedis/restash"><img src="https://raw.githubusercontent.com/blujedis/restash/master/fixtures/logo.png" width="225" /></a>
 </p>
 
-Restash is a simple [React](https://reactjs.org/) context store which uses [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. Restash was developed using [Typescript](https://www.typescriptlang.org/) which gives you great code help if you are using an editor supporting it.
+Restash is a simple [React](https://reactjs.org/) context store which uses [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. 
+
+## NEW!!
+
+Restash now supports dot notation for properties! The below will give you 
+
+```tsx
+// Consider this state
+const state = {
+  person: {
+    firstName: 'Milton',
+    lastName: 'Waddams',
+    numbers: {
+      home: '8985551212',
+      mobile: '8985551234'
+    }
+  }
+};
+
+const [nestedState, setNestedState] = useStore('person.numbers.mobile');
+
+// Nested state here will be equal to '8985551234';
+// Update it as follows.
+
+const updateState = (value) => {
+  setNestedState(value);
+};
+
+```
 
 ## Getting Started
 
@@ -168,6 +196,12 @@ const Home = () => {
   // you can also use this is middleware.
   const [state, dispatch, restash] = useStore();
 
+  // Although we're not updating the state here
+  // you could update it along with the status.
+  // This can really be handy stepping through 
+  // a stepper or remembering and updating a 
+  // status filling out a form. Once you get
+  // the hang of it, can be quite useful.
   const changeStatus = (e) => {
     dispatch(null, e.target.value);
   };
@@ -213,6 +247,8 @@ const state = JSON.stringify({ some_initial_state });
 ```
 
 ### See Below for Complete Example
+
+The Below example is for [NextJS]() but you should be able to easily adapt to any SSR environemnt. The trick with SSR is to bind your state to a window prop as you see above and also below inside our script tag within the head element.
 
 ```jsx
 

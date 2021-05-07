@@ -144,7 +144,7 @@ export function isEmpty(value: unknown) {
  * 
  * @param value the value to stringify.
  */
-export function tryStringifyJSON(value: object) {
+export function tryStringifyJSON(value: Record<string, any>) {
   try {
     return JSON.stringify(value);
   }
@@ -174,17 +174,18 @@ export function tryParseJSON(value: string) {
  * @param value the value to be set.
  * @param filters an array of keys to filter from persisted object.
  */
-export function setStorage<S extends object>(key: string, value: S, filters: KeyOf<S>[] = []) {
+export function setStorage<S extends Record<string, any>>(key: string, value: S, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return;
   setTimeout(() => {
     if (filters.length)
       value = Object.keys(value).reduce((result, k) => {
         if (filters.includes(k as KeyOf<S>))
-          result[k] = value[k];
+          result[k as keyof S] = value[k];
         return result;
       }, {} as S);
     const stringified = tryStringifyJSON(value);
+    console.log(stringified);
     if (stringified)
       localStorage.setItem(key, stringified);
   });
@@ -196,7 +197,7 @@ export function setStorage<S extends object>(key: string, value: S, filters: Key
  * @param key the storage key to retrieve.
  * @param filters array of keys to filter.
  */
-export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = []) {
+export function getStorage<S extends Record<string, any>>(key: string, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return null;
   const parsed = tryParseJSON(localStorage.getItem(key)) as S;
@@ -204,7 +205,7 @@ export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = 
     return parsed;
   return Object.keys(parsed).reduce((result, k) => {
     if (filters.includes(k as KeyOf<S>))
-      result[k] = parsed[k];
+      result[k as keyof S] = parsed[k];
     return result;
   }, {} as S);
 }
@@ -215,7 +216,7 @@ export function getStorage<S extends object>(key: string, filters: KeyOf<S>[] = 
  * @param key the storage key for the store.
  * @param filters key filters to set.
  */
-export function clearStorage<S extends object>(key: string, filters: KeyOf<S>[] = []) {
+export function clearStorage<S extends Record<string, any>>(key: string, filters: KeyOf<S>[] = []) {
   if (typeof localStorage === 'undefined')
     return false;
   if (!filters.length) {

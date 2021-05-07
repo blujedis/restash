@@ -61,7 +61,33 @@
 				<p align="left">
 					<a href="http://github.com/blujedis/restash"><img src="https://raw.githubusercontent.com/blujedis/restash/master/fixtures/logo.png" width="225" /></a>
 				</p>
-				<p>Restash is a simple <a href="https://reactjs.org/">React</a> context store which uses <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a> behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. Restash was developed using <a href="https://www.typescriptlang.org/">Typescript</a> which gives you great code help if you are using an editor supporting it.</p>
+				<p>Restash is a simple <a href="https://reactjs.org/">React</a> context store which uses <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a> behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. </p>
+				<a href="#new" id="new" style="color: inherit; text-decoration: none;">
+					<h2>NEW!!</h2>
+				</a>
+				<p>Restash now supports dot notation for properties! The below will give you </p>
+				<pre><code class="language-tsx"><span style="color: #008000">// Consider this state</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">person:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">firstName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Milton&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">lastName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Waddams&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">numbers:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">home:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;8985551212&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">mobile:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;8985551234&#039;</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">nestedState</span><span style="color: #000000">, </span><span style="color: #0070C1">setNestedState</span><span style="color: #000000">] = </span><span style="color: #795E26">useStore</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;person.numbers.mobile&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Nested state here will be equal to &#039;8985551234&#039;;</span>
+<span style="color: #008000">// Update it as follows.</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">updateState</span><span style="color: #000000"> = (</span><span style="color: #001080">value</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">setNestedState</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
+<span style="color: #000000">};</span>
+
+</code></pre>
 				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
 					<h2>Getting Started</h2>
 				</a>
@@ -210,6 +236,12 @@
 <span style="color: #000000">  </span><span style="color: #008000">// you can also use this is middleware.</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">state</span><span style="color: #000000">, </span><span style="color: #0070C1">dispatch</span><span style="color: #000000">, </span><span style="color: #0070C1">restash</span><span style="color: #000000">] = </span><span style="color: #795E26">useStore</span><span style="color: #000000">();</span>
 
+<span style="color: #000000">  </span><span style="color: #008000">// Although we&#039;re not updating the state here</span>
+<span style="color: #000000">  </span><span style="color: #008000">// you could update it along with the status.</span>
+<span style="color: #000000">  </span><span style="color: #008000">// This can really be handy stepping through </span>
+<span style="color: #000000">  </span><span style="color: #008000">// a stepper or remembering and updating a </span>
+<span style="color: #000000">  </span><span style="color: #008000">// status filling out a form. Once you get</span>
+<span style="color: #000000">  </span><span style="color: #008000">// the hang of it, can be quite useful.</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">changeStatus</span><span style="color: #000000"> = (</span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">    </span><span style="color: #795E26">dispatch</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
 <span style="color: #000000">  };</span>
@@ -250,6 +282,7 @@
 				<a href="#see-below-for-complete-example" id="see-below-for-complete-example" style="color: inherit; text-decoration: none;">
 					<h3>See Below for Complete Example</h3>
 				</a>
+				<p>The Below example is for <a href="">NextJS</a> but you should be able to easily adapt to any SSR environemnt. The trick with SSR is to bind your state to a window prop as you see above and also below inside our script tag within the head element.</p>
 				<pre><code class="language-jsx">
 <span style="color: #000000">const SSR_KEY = &#039;__APP_STATE__&#039;; // or use default __RESTASH_APP_STATE__</span>
 

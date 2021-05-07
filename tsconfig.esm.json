@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ES2020",
+    "isolatedModules": false,
+    "declaration": true,
+    "allowJs": false,
+    "noEmit": false,
+    "jsx": "react",
+    "outDir": "dist/esm"
+  }
+}
