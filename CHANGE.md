@@ -1,5 +1,9 @@
 # Restash Changes
 
+## 06-27-2021
+
+- Remove unnecessary console message :(
+
 ## 04-21-2021
 
 - update packages, update webpack for demo.

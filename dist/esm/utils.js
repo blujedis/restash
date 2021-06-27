@@ -164,7 +164,6 @@ export function setStorage(key, value, filters = []) {
                 return result;
             }, {});
         const stringified = tryStringifyJSON(value);
-        console.log(stringified);
         if (stringified)
             localStorage.setItem(key, stringified);
     });

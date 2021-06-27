@@ -1,6 +1,6 @@
 {
   "name": "restash",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "Simple React context, Redux alternative.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

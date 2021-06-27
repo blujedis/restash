@@ -185,7 +185,6 @@ export function setStorage<S extends Record<string, any>>(key: string, value: S,
         return result;
       }, {} as S);
     const stringified = tryStringifyJSON(value);
-    console.log(stringified);
     if (stringified)
       localStorage.setItem(key, stringified);
   });
