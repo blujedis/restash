@@ -150,7 +150,7 @@ export function createRestash<
 
   const reducer: Reducer<State, IRestashAction> = (s, a) => {
 
-    let nextState = {} as State;
+    const nextState = {} as State;
     const clone = { ...s };
 
     nextState.status = isUndefined(a.status) || a.status === '' ? StatusBase.mounted : a.status;
@@ -310,7 +310,7 @@ export function createRestash<
     };
 
     const withMiddleware = (...args: any) => (options.middleware)(restash)(args);
-    const withoutMiddleware = (...args: any) => dispatch.apply(null, args);
+    const withoutMiddleware = (...args: [any, any]) => dispatch(...args);
     const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
 
     if (key)

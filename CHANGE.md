@@ -1,5 +1,9 @@
 # Restash Changes
 
+## 08-25-2021
+
+- Update packages.
+
 ## 06-27-2021
 
 - Remove unnecessary console message :(

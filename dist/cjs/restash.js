@@ -126,7 +126,7 @@ function createRestash(options) {
         options.initialState = {};
     options.initialState = options.initialState || {};
     const reducer = (s, a) => {
-        let nextState = {};
+        const nextState = {};
         const clone = { ...s };
         nextState.status = utils_1.isUndefined(a.status) || a.status === '' ? types_1.StatusBase.mounted : a.status;
         if (a.type === types_1.Action.data)
@@ -236,7 +236,7 @@ function createRestash(options) {
             }
         };
         const withMiddleware = (...args) => (options.middleware)(restash)(args);
-        const withoutMiddleware = (...args) => dispatch.apply(null, args);
+        const withoutMiddleware = (...args) => dispatch(...args);
         const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
         if (key)
             return [dot_prop_1.get(state.data, key), dispatcher];

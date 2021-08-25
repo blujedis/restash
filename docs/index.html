@@ -271,50 +271,50 @@
 				</a>
 				<p>To use Restash with server side react you&#39;ll need to expose your state to the window of the application. This is common practice with other libs such as Redux. Here&#39;s an example using Restash with NextJS.</p>
 				<p>First ensure you&#39;ve enabled Restash for use with SSR. You can other pass <strong>true</strong> to use the default SSR key or pass your own string.</p>
-				<pre><code class="language-jsx"><span style="color: #000000">const { Provider, useStore } = createRestash({</span>
-<span style="color: #000000">  ssrKey: true // or your own key such as __APP_STATE__</span>
+				<pre><code class="language-jsx"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Provider</span><span style="color: #000000">, </span><span style="color: #0070C1">useStore</span><span style="color: #000000"> } = </span><span style="color: #795E26">createRestash</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">ssrKey:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// or your own key such as __APP_STATE__</span>
 <span style="color: #000000">});</span>
 </code></pre>
 				<p>Using the default SSR key or the one you provided expose that to a custom _document.jsx (or _docuemnt.tsx) page in your NextJS <code>/pages</code> directory.</p>
-				<pre><code class="language-jsx"><span style="color: #000000">const state = JSON.stringify({ some_initial_state });</span>
-<span style="color: #000000">&lt;script dangerouslySetInnerHTML={{ __html: `window.${SSR_KEY} = ${state};` }} /&gt;</span>
+				<pre><code class="language-jsx"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">({ </span><span style="color: #001080">some_initial_state</span><span style="color: #000000"> });</span>
+<span style="color: #800000">&lt;script</span><span style="color: #000000"> </span><span style="color: #FF0000">dangerouslySetInnerHTML</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">__html:</span><span style="color: #000000FF"> </span><span style="color: #A31515">`window.</span><span style="color: #0000FF">${</span><span style="color: #0070C1">SSR_KEY</span><span style="color: #0000FF">}</span><span style="color: #A31515"> = </span><span style="color: #0000FF">${</span><span style="color: #001080">state</span><span style="color: #0000FF">}</span><span style="color: #A31515">;`</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
 </code></pre>
 				<a href="#see-below-for-complete-example" id="see-below-for-complete-example" style="color: inherit; text-decoration: none;">
 					<h3>See Below for Complete Example</h3>
 				</a>
 				<p>The Below example is for <a href="">NextJS</a> but you should be able to easily adapt to any SSR environemnt. The trick with SSR is to bind your state to a window prop as you see above and also below inside our script tag within the head element.</p>
 				<pre><code class="language-jsx">
-<span style="color: #000000">const SSR_KEY = &#039;__APP_STATE__&#039;; // or use default __RESTASH_APP_STATE__</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">SSR_KEY</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;__APP_STATE__&#039;</span><span style="color: #000000">; </span><span style="color: #008000">// or use default __RESTASH_APP_STATE__</span>
 
-<span style="color: #000000">class MyDocument extends Document {</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyDocument</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Document</span><span style="color: #000000"> {</span>
 
-<span style="color: #000000">  static async getInitialProps(ctx) {</span>
-<span style="color: #000000">    const { res } = ctx;</span>
-<span style="color: #000000">    const app = res &amp;&amp; res.meta ? res.meta : {};</span>
-<span style="color: #000000">    const initialProps = await Document.getInitialProps(ctx);</span>
-<span style="color: #000000">    return { ...initialProps, app };</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">static</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #795E26">getInitialProps</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">res</span><span style="color: #000000"> } = </span><span style="color: #001080">ctx</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">app</span><span style="color: #000000"> = </span><span style="color: #001080">res</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #001080">meta</span><span style="color: #000000"> ? </span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #001080">meta</span><span style="color: #000000"> : {};</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">initialProps</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">Document</span><span style="color: #000000">.</span><span style="color: #795E26">getInitialProps</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { ...</span><span style="color: #001080">initialProps</span><span style="color: #000000">, </span><span style="color: #001080">app</span><span style="color: #000000"> };</span>
 <span style="color: #000000">  }</span>
 
-<span style="color: #000000">  render() {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">render</span><span style="color: #000000">() {</span>
 
-<span style="color: #000000">    const { app } = this.props;</span>
-<span style="color: #000000">    const state = JSON.stringify({ ...DEFAULTS, ...app });</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">app</span><span style="color: #000000"> } = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">props</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">({ ...</span><span style="color: #0070C1">DEFAULTS</span><span style="color: #000000">, ...</span><span style="color: #001080">app</span><span style="color: #000000"> });</span>
 
-<span style="color: #000000">    return (</span>
-<span style="color: #000000">      &lt;Html&gt;</span>
-<span style="color: #000000">        &lt;Head /&gt;</span>
-<span style="color: #000000">        &lt;script dangerouslySetInnerHTML={{ __html: `window.${SSR_KEY} = ${state};` }} /&gt;</span>
-<span style="color: #000000">        &lt;body&gt;</span>
-<span style="color: #000000">          &lt;Main /&gt;</span>
-<span style="color: #000000">          &lt;NextScript /&gt;</span>
-<span style="color: #000000">        &lt;/body&gt;</span>
-<span style="color: #000000">      &lt;/Html&gt;</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Html</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Head</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;script</span><span style="color: #000000"> </span><span style="color: #FF0000">dangerouslySetInnerHTML</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">__html:</span><span style="color: #000000FF"> </span><span style="color: #A31515">`window.</span><span style="color: #0000FF">${</span><span style="color: #0070C1">SSR_KEY</span><span style="color: #0000FF">}</span><span style="color: #A31515"> = </span><span style="color: #0000FF">${</span><span style="color: #001080">state</span><span style="color: #0000FF">}</span><span style="color: #A31515">;`</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;body&gt;</span>
+<span style="color: #000000">          </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Main</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<span style="color: #000000">          </span><span style="color: #800000">&lt;</span><span style="color: #267F99">NextScript</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;/body&gt;</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;/</span><span style="color: #267F99">Html</span><span style="color: #800000">&gt;</span>
 <span style="color: #000000">    );</span>
 <span style="color: #000000">  }</span>
 
 <span style="color: #000000">}</span>
 
-<span style="color: #000000">export default MyDocument;</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #001080">MyDocument</span><span style="color: #000000">;</span>
 </code></pre>
 				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
 					<h2>Docs</h2>
@@ -334,7 +334,7 @@
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class=" ">
-						<a href="modules.html">Exports</a>
+						<a href="modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/context.html">context</a>
