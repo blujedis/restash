@@ -175,7 +175,7 @@ export function tryParseJSON(value: string) {
  * @param filters an array of keys to filter from persisted object.
  */
 export function setStorage<S extends Record<string, any>>(key: string, value: S, filters: KeyOf<S>[] = []) {
-  if (typeof localStorage === 'undefined')
+  if (typeof localStorage === 'undefined' || typeof value === 'undefined' || value === null)
     return;
   setTimeout(() => {
     if (filters.length)

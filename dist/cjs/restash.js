@@ -200,9 +200,11 @@ function createRestash(options) {
                 }
                 // Target is object.
                 else {
-                    if (!utils_1.isPlainObject(s))
-                        throw new Error(`Restash detected type mismatch for path ${key}.`);
-                    s = { ...current, ...s };
+                    // if (!isPlainObject(s))
+                    //   throw new Error(`Restash detected type mismatch for path ${key}.`);
+                    // deprecate above allow for setting null/undefined values.
+                    if (utils_1.isPlainObject(s))
+                        s = { ...current, ...s };
                     payload = dot_prop_1.set({}, key, s);
                 }
             }

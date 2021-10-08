@@ -171,7 +171,7 @@ exports.tryParseJSON = tryParseJSON;
  * @param filters an array of keys to filter from persisted object.
  */
 function setStorage(key, value, filters = []) {
-    if (typeof localStorage === 'undefined')
+    if (typeof localStorage === 'undefined' || typeof value === 'undefined' || value === null)
         return;
     setTimeout(() => {
         if (filters.length)

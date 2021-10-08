@@ -260,12 +260,11 @@ export function createRestash<
 
         // Target is object.
         else {
-
-          if (!isPlainObject(s))
-            throw new Error(`Restash detected type mismatch for path ${key}.`);
-
-          s = { ...current, ...s };
-
+          // if (!isPlainObject(s))
+          //   throw new Error(`Restash detected type mismatch for path ${key}.`);
+          // deprecate above allow for setting null/undefined values.
+          if (isPlainObject(s))
+            s = { ...current, ...s };
           payload = set({}, key, s);
 
         }
