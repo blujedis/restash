@@ -1,6 +1,6 @@
 {
   "name": "restash",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simple React context store, set it or get it.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -39,8 +39,8 @@
   },
   "homepage": "https://github.com/blujedis/restash#readme",
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
