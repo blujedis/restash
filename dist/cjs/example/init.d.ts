@@ -25,7 +25,7 @@ declare const Context: import("react").Context<[import("../types").IRestashState
         mobile: string;
     };
 }>, "start" | "progress" | "error" | "complete" | "init" | "mounted">, import("../types").IRestashAction<"data", any>>) => JSX.Element, useStore: {
-    <K extends "firstName" | "lastName" | "age" | "numbers" | "numbers.mobile" | "numbers.home">(key: K): import("../types").RestashHook<import("../types").PathValue<DeepPartial<{
+    <K extends "firstName" | "lastName" | "age" | "numbers" | "numbers.mobile" | "numbers.home">(key: K, value?: any): import("../types").RestashHook<import("../types").PathValue<DeepPartial<{
         firstName: string;
         lastName: string;
         age: number;

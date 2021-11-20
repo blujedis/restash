@@ -149,17 +149,20 @@ export function createRestash(options) {
     function clearPersistence(...keys) {
         return clearStorage(options.persistent, keys);
     }
-    function useStore(key) {
+    function useStore(key, val) {
         const mounted = useRef(false);
         const [state, setState] = useStoreBase();
         const prevState = useRef(state);
         useEffect(() => {
             mounted.current = true;
             if (state.status === StatusBase.init) {
-                setState({
+                const obj = {
                     type: null,
                     status: StatusBase.mounted
-                });
+                };
+                if (typeof val !== 'undefined')
+                    obj.data = set({ ...state }, key, val);
+                setState(obj);
                 prevState.current.status = StatusBase.mounted;
             }
             return () => {
@@ -235,7 +238,7 @@ export function createRestash(options) {
         const withoutMiddleware = (...args) => dispatch(...args);
         const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
         if (key)
-            return [get(state.data, key), dispatcher];
+            return [get(state.data, key), dispatcher, restash];
         return [state.data, dispatcher, restash];
     }
     return {

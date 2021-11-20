@@ -71,7 +71,7 @@ export declare function createRestash<S extends Record<string, any>, U extends s
     Provider: ({ reducer, initialState, children }: import("./types").IProvider<IRestashState<S, "init" | "mounted" | U>, IRestashAction<"data", any>>) => JSX.Element;
     Consumer: import("react").Consumer<[IRestashState<S, "init" | "mounted" | U>, import("react").Dispatch<IRestashAction<"data", any>>]>;
     useStore: {
-        <K extends Path<S>>(key: K): RestashHook<PathValue<S, K>, U, import("./types").Dispatch<PathValue<S, K>, U>>;
+        <K extends Path<S>>(key: K, value?: any): RestashHook<PathValue<S, K>, U, import("./types").Dispatch<PathValue<S, K>, U>>;
         (): RestashHook<S, U, import("./types").Dispatch<S, U>>;
     };
     clearPersistence: <K_1 extends Extract<keyof S, string>>(...keys: K_1[]) => boolean;

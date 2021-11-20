@@ -1,6 +1,6 @@
 {
   "name": "restash",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Simple React context store, set it or get it.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

@@ -1,5 +1,9 @@
 # Restash Changes
 
+## 11-19-2021
+
+- Allow use store at hook to provide initial value.
+
 ## 08-25-2021
 
 - Update packages.

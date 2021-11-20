@@ -195,16 +195,17 @@ export function createRestash<
    * Constrains store hook to a specific key.
    * 
    * @param key the store key to constrain hook at.
+   * @param value the default value for the key.
    */
   function useStore<K extends Path<S>>(
-    key: K): RestashHook<PathValue<S, K>, U>;
+    key: K, value?: any): RestashHook<PathValue<S, K>, U>;
 
   /**
    * The default store hook.
    */
   function useStore(): RestashHook<S, U>;
 
-  function useStore(key?) {
+  function useStore(key?, val?) {
 
     const mounted = useRef(false);
 
@@ -214,10 +215,13 @@ export function createRestash<
     useEffect(() => {
       mounted.current = true;
       if (state.status === StatusBase.init) {
-        setState({
+        const obj = {
           type: null,
           status: StatusBase.mounted
-        });
+        } as any;
+        if (typeof val !== 'undefined')
+          obj.data = set({...state}, key, val);
+        setState(obj);
         prevState.current.status = StatusBase.mounted;
       }
       return () => {
@@ -313,7 +317,7 @@ export function createRestash<
     const dispatcher = !options.middleware ? withoutMiddleware : withMiddleware;
 
     if (key)
-      return [get(state.data, key), dispatcher];
+      return [get(state.data, key), dispatcher, restash];
 
     return [state.data, dispatcher, restash];
 
