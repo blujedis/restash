@@ -1,4 +1,4 @@
-import { KeyOf } from './types';
+import { Path } from './types';
 /**
  * Validates iniital state type.
  *
@@ -81,27 +81,42 @@ export declare function tryStringifyJSON(value: Record<string, any>): string | f
  */
 export declare function tryParseJSON(value: string): any;
 /**
+ * Merges store initial state with the persistent state.
+ *
+ * @param initialState the state the store was initialized with.
+ * @param persistentState the persistent state from localStorage.
+ */
+export declare function mergeStore<S extends Record<string, any>>(initialState: S, persistentState: Record<string, any>): S;
+/**
+ * Iterates store value and filters out provided keys.
+ *
+ * @param value the current store value.
+ * @param strategy whether to include the filters or exclude them.
+ * @param filters the values to be filtered.
+ */
+export declare function filterKeys<S extends Record<string, any>>(value: S, strategy: 'include' | 'exclude', filters: (Path<S> | string)[]): any;
+/**
  * Persists state to storage.
  *
  * @param key the key used to set storage.
  * @param value the value to be set.
  * @param filters an array of keys to filter from persisted object.
  */
-export declare function setStorage<S extends Record<string, any>>(key: string, value: S, filters?: KeyOf<S>[]): void;
+export declare function setStorage<S extends Record<string, any>>(key: string, value: S, filters?: Path<S>[]): void;
 /**
  * Gets state from storage.
  *
  * @param key the storage key to retrieve.
  * @param filters array of keys to filter.
  */
-export declare function getStorage<S extends Record<string, any>>(key: string, filters?: KeyOf<S>[]): S;
+export declare function getStorage<S extends Record<string, any>>(key: string, filters?: Path<S>[]): S | Partial<S>;
 /**
  * Clears entire storage for store or clears by defined filter key.
  *
  * @param key the storage key for the store.
  * @param filters key filters to set.
  */
-export declare function clearStorage<S extends Record<string, any>>(key: string, filters?: KeyOf<S>[]): boolean;
+export declare function clearStorage<S extends Record<string, any>>(key: string, filters?: (Path<S> | string)[]): boolean;
 /**
  * Returns true if window is defined.
  */

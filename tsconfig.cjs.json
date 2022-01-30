@@ -8,6 +8,7 @@
     "allowJs": false,
     "noEmit": false,
     "jsx": "react",
-    "outDir": "dist/cjs"
+    "outDir": "dist/cjs",
+    "sourceMap": true
   }
 }

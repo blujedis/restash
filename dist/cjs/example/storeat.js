@@ -28,7 +28,7 @@ const StoreAt = () => {
             "First Name: ",
             react_1.default.createElement("input", { type: "text", onBlur: changeState('firstName'), defaultValue: state.firstName })),
         react_1.default.createElement("div", { style: { marginBottom: '12px' } },
-            "Last Name: ",
+            "Mobile Number: ",
             react_1.default.createElement("input", { type: "text", onBlur: changeStateAt, defaultValue: stateAt }),
             " (Using State at Key)"),
         react_1.default.createElement("h3", { style: { marginBottom: '12px' } }, "Current Status"),

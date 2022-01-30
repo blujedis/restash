@@ -74,5 +74,8 @@ export declare function createRestash<S extends Record<string, any>, U extends s
         <K extends Path<S>>(key: K, value?: any): RestashHook<PathValue<S, K>, U, import("./types").Dispatch<PathValue<S, K>, U>>;
         (): RestashHook<S, U, import("./types").Dispatch<S, U>>;
     };
-    clearPersistence: <K_1 extends Extract<keyof S, string>>(...keys: K_1[]) => boolean;
+    clearPersistence: {
+        <K_1 extends Path<S>>(...keys: K_1[]): boolean;
+        (...keys: string[]): boolean;
+    };
 };

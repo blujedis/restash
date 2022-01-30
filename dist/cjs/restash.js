@@ -97,9 +97,11 @@ exports.createStore = createStore;
  * @param options options used to initialize Restash.
  */
 function createRestash(options) {
-    if (options.persistentKeys) {
+    if (typeof options.persistentKeys !== 'undefined') {
         if (!Array.isArray(options.persistentKeys))
             options.persistentKeys = [options.persistentKeys];
+        // use persistent key or make one from keys
+        // should this be changed to a generated uid or somethign?
         options.persistent = options.persistent || options.persistentKeys.join('-');
     }
     // Check for persisent state
@@ -107,14 +109,14 @@ function createRestash(options) {
         const state = utils_1.getStorage(options.persistent, options.persistentKeys);
         // If local storage state exists favor it.
         if (state) {
-            options.initialState = { ...options.initialState, ...state };
+            options.initialState = utils_1.mergeStore(options.initialState, state);
         }
         // Otherwise load from window state if avail.
         else if (options.ssrKey) {
             const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
             options.initialState = utils_1.getInitialState(options.initialState, ssrKey);
         }
-        // Set the initial state.
+        // Set the initial persistent state.
         utils_1.setStorage(options.persistent, options.initialState, options.persistentKeys);
     }
     // Load initial state for SSR environments.
@@ -147,11 +149,6 @@ function createRestash(options) {
         return;
     const { Context, Provider, Consumer, useStore: useStoreBase } = store;
     let prevPayload = {};
-    /**
-     * Clears persistence, when keys are present clears only those persisted keys.
-     *
-     * @param keys keys that should be cleared.
-     */
     function clearPersistence(...keys) {
         return utils_1.clearStorage(options.persistent, keys);
     }
@@ -221,8 +218,11 @@ function createRestash(options) {
             });
             const nextData = { ...state.data, ...prevPayload, ...payload };
             prevState.current = { status: u || state.status, data: nextData };
-            if (options.persistent)
+            if (options.persistent) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 utils_1.setStorage(options.persistent, nextData, options.persistentKeys);
+            }
             return nextData;
         };
         const restash = {

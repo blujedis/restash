@@ -1,398 +1,97 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Restash</title>
-	<meta name="description" content="Documentation for Restash">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">Restash</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>Restash</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<p align="left">
-					<a href="http://github.com/blujedis/restash"><img src="https://raw.githubusercontent.com/blujedis/restash/master/fixtures/logo.png" width="225" /></a>
-				</p>
-				<p>Restash is a simple <a href="https://reactjs.org/">React</a> context store which uses <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a> behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. </p>
-				<a href="#new" id="new" style="color: inherit; text-decoration: none;">
-					<h2>NEW!!</h2>
-				</a>
-				<p>Restash now supports dot notation for properties! The below will give you </p>
-				<pre><code class="language-tsx"><span style="color: #008000">// Consider this state</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">person:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">firstName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Milton&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">    </span><span style="color: #001080">lastName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Waddams&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">    </span><span style="color: #001080">numbers:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">      </span><span style="color: #001080">home:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;8985551212&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">      </span><span style="color: #001080">mobile:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;8985551234&#039;</span>
-<span style="color: #000000">    }</span>
-<span style="color: #000000">  }</span>
-<span style="color: #000000">};</span>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Restash</title><meta name="description" content="Documentation for Restash"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Restash</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>Restash</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"> <p align="left">
+  <a href="http://github.com/blujedis/restash"><img src="https://raw.githubusercontent.com/blujedis/restash/master/fixtures/logo.png" width="225" /></a>
+</p>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">nestedState</span><span style="color: #000000">, </span><span style="color: #0070C1">setNestedState</span><span style="color: #000000">] = </span><span style="color: #795E26">useStore</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;person.numbers.mobile&#039;</span><span style="color: #000000">);</span>
+<p>Restash is a simple <a href="https://reactjs.org/">React</a> context store which uses <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a> behind the scenes. The API is broken into components so that you can either use the default implementation or build up your own. </p>
 
-<span style="color: #008000">// Nested state here will be equal to &#039;8985551234&#039;;</span>
-<span style="color: #008000">// Update it as follows.</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">updateState</span><span style="color: #000000"> = (</span><span style="color: #001080">value</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #795E26">setNestedState</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
-<span style="color: #000000">};</span>
-
+<a href="#new" id="new" style="color: inherit; text-decoration: none;">
+  <h2>NEW!!</h2>
+</a>
+<p>Restash now supports dot notation for properties! The below will give you </p>
+<pre><code class="language-tsx"><span class="hl-0">// Consider this state</span><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">state</span><span class="hl-2"> = {</span><br/><span class="hl-2">  </span><span class="hl-4">person:</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-4">firstName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Milton&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-4">lastName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Waddams&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-4">numbers:</span><span class="hl-2"> {</span><br/><span class="hl-2">      </span><span class="hl-4">home:</span><span class="hl-2"> </span><span class="hl-5">&#39;8985551212&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">      </span><span class="hl-4">mobile:</span><span class="hl-2"> </span><span class="hl-5">&#39;8985551234&#39;</span><br/><span class="hl-2">    }</span><br/><span class="hl-2">  }</span><br/><span class="hl-2">};</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> [</span><span class="hl-3">nestedState</span><span class="hl-2">, </span><span class="hl-3">setNestedState</span><span class="hl-2">] = </span><span class="hl-6">useStore</span><span class="hl-2">(</span><span class="hl-5">&#39;person.numbers.mobile&#39;</span><span class="hl-2">);</span><br/><br/><span class="hl-0">// Nested state here will be equal to &#39;8985551234&#39;;</span><br/><span class="hl-0">// Update it as follows.</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">updateState</span><span class="hl-2"> = (</span><span class="hl-4">value</span><span class="hl-2">) </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-6">setNestedState</span><span class="hl-2">(</span><span class="hl-4">value</span><span class="hl-2">);</span><br/><span class="hl-2">};</span><br/>
 </code></pre>
-				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
-					<h2>Getting Started</h2>
-				</a>
-				<pre><code class="language-sh"><span style="color: #000000">$ npm install restash -s</span>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h2>Getting Started</h2>
+</a>
+<pre><code class="language-sh"><span class="hl-2">$ npm install restash -s</span>
 </code></pre>
-				<p>OR</p>
-				<pre><code class="language-sh"><span style="color: #000000">$ yarn add restash</span>
+<p>OR</p>
+<pre><code class="language-sh"><span class="hl-2">$ yarn add restash</span>
 </code></pre>
-				<a href="#restash" id="restash" style="color: inherit; text-decoration: none;">
-					<h2>Restash</h2>
-				</a>
-				<p>It&#39;s best or most flexibile if you break up your setup in a few small parts. Exposing the <strong>Provider</strong> to wrap your application, a store or init file to configure your store and finally using the exposed hook.</p>
-				<a href="#initialize-restash" id="initialize-restash" style="color: inherit; text-decoration: none;">
-					<h3>Initialize Restash</h3>
-				</a>
-				<p>After providing your context above initialize Restash in a file called for example <code>restash.tsx</code> for example. Then call <code>createRestash</code> passing our options and then export our new Restash store.</p>
-				<pre><code class="language-tsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">createRestash</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;restash&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">initialState</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">firstName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Milton&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">lastName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Waddams&#039;</span>
-<span style="color: #000000">};</span>
+<a href="#restash" id="restash" style="color: inherit; text-decoration: none;">
+  <h2>Restash</h2>
+</a>
+<p>It&#39;s best or most flexibile if you break up your setup in a few small parts. Exposing the <strong>Provider</strong> to wrap your application, a store or init file to configure your store and finally using the exposed hook.</p>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Provider</span><span style="color: #000000">, </span><span style="color: #0070C1">useStore</span><span style="color: #000000"> } = </span><span style="color: #795E26">createRestash</span><span style="color: #000000">({</span><span style="color: #001080">initialState</span><span style="color: #000000">});</span>
-
-<span style="color: #AF00DB">export</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #001080">Provider</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">useStore</span>
-<span style="color: #000000">}</span>
+<a href="#initialize-restash" id="initialize-restash" style="color: inherit; text-decoration: none;">
+  <h3>Initialize Restash</h3>
+</a>
+<p>After providing your context above initialize Restash in a file called for example <code>restash.tsx</code> for example. Then call <code>createRestash</code> passing our options and then export our new Restash store.</p>
+<pre><code class="language-tsx"><span class="hl-7">import</span><span class="hl-2"> { </span><span class="hl-4">createRestash</span><span class="hl-2"> } </span><span class="hl-7">from</span><span class="hl-2"> </span><span class="hl-5">&#39;restash&#39;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">initialState</span><span class="hl-2"> = {</span><br/><span class="hl-2">  </span><span class="hl-4">firstName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Milton&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-4">lastName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Waddams&#39;</span><br/><span class="hl-2">};</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">Provider</span><span class="hl-2">, </span><span class="hl-3">useStore</span><span class="hl-2"> } = </span><span class="hl-6">createRestash</span><span class="hl-2">({</span><span class="hl-4">initialState</span><span class="hl-2">});</span><br/><br/><span class="hl-7">export</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-4">Provider</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-4">useStore</span><br/><span class="hl-2">}</span>
 </code></pre>
-				<a href="#provide-context" id="provide-context" style="color: inherit; text-decoration: none;">
-					<h3>Provide Context</h3>
-				</a>
-				<p>Using our export from above expose the <code>Provider</code> and wrap our application so it knows about our context.</p>
-				<pre><code class="language-tsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Provider</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./restash&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #008000">// NOTE: you can also provide the initialState and reducer</span>
-<span style="color: #008000">// as params to your provider if you wish. If you provide</span>
-<span style="color: #008000">// a reducer or inital state in your &quot;createRestash&quot; init</span>
-<span style="color: #008000">// options those will be favored over params here.</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">App</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Provider</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        // Your App Here</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;/</span><span style="color: #267F99">Provider</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">  );  </span>
-<span style="color: #000000">}</span>
+<a href="#provide-context" id="provide-context" style="color: inherit; text-decoration: none;">
+  <h3>Provide Context</h3>
+</a>
+<p>Using our export from above expose the <code>Provider</code> and wrap our application so it knows about our context.</p>
+<pre><code class="language-tsx"><span class="hl-7">import</span><span class="hl-2"> { </span><span class="hl-4">Provider</span><span class="hl-2"> } </span><span class="hl-7">from</span><span class="hl-2"> </span><span class="hl-5">&#39;./restash&#39;</span><span class="hl-2">;</span><br/><br/><span class="hl-0">// NOTE: you can also provide the initialState and reducer</span><br/><span class="hl-0">// as params to your provider if you wish. If you provide</span><br/><span class="hl-0">// a reducer or inital state in your &quot;createRestash&quot; init</span><br/><span class="hl-0">// options those will be favored over params here.</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">App</span><span class="hl-2"> = () </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-7">return</span><span class="hl-2"> (</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;</span><span class="hl-9">Provider</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        // Your App Here</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;/</span><span class="hl-9">Provider</span><span class="hl-8">&gt;</span><br/><span class="hl-2">  );  </span><br/><span class="hl-2">}</span>
 </code></pre>
-				<a href="#using-hook" id="using-hook" style="color: inherit; text-decoration: none;">
-					<h3>Using Hook</h3>
-				</a>
-				<p>We can now use our hook that&#39;s been created by our new Restash store.</p>
-				<pre><code class="language-tsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">useStore</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./restash&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">Home</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">state</span><span style="color: #000000">, </span><span style="color: #0070C1">dispatch</span><span style="color: #000000">] = </span><span style="color: #795E26">useStore</span><span style="color: #000000">();</span>
-
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">changeState</span><span style="color: #000000"> = (</span><span style="color: #001080">key</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">      </span><span style="color: #795E26">dispatch</span><span style="color: #000000">({ </span><span style="color: #001080">[key]:</span><span style="color: #000000"> </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000"> });</span>
-<span style="color: #000000">    };</span>
-<span style="color: #000000">  };</span>
-
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;div&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;h2</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;12px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Use Store</span><span style="color: #800000">&lt;/h2&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;hr</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;20px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;p</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">padding:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;12px&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">backgroundColor:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;#eee&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">width:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;50%&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        Simple example wiring up input elements to state values</span>
-<span style="color: #000000">        changing the state on blur of each field.</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/p&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;12px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        First Name: </span><span style="color: #800000">&lt;input</span><span style="color: #000000"> </span><span style="color: #FF0000">type</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;text&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">onBlur</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #795E26">changeState</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;firstName&#039;</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #FF0000">defaultValue</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">state</span><span style="color: #000000FF">.</span><span style="color: #001080">firstName</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;12px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        Last Name: </span><span style="color: #800000">&lt;input</span><span style="color: #000000"> </span><span style="color: #FF0000">type</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;text&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">onBlur</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #795E26">changeState</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;lastName&#039;</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #FF0000">defaultValue</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">state</span><span style="color: #000000FF">.</span><span style="color: #001080">lastName</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;h3</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{</span><span style="color: #001080">marginTop:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;32px&#039;</span><span style="color: #000000FF">}</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Current State</span><span style="color: #800000">&lt;/h3&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;pre&gt;</span>
-<span style="color: #000000">        </span><span style="color: #0000FF">{</span><span style="color: #267F99">JSON</span><span style="color: #000000FF">.</span><span style="color: #795E26">stringify</span><span style="color: #000000FF">(</span><span style="color: #001080">state</span><span style="color: #000000FF">, </span><span style="color: #0000FF">null</span><span style="color: #000000FF">, </span><span style="color: #098658">2</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/pre&gt;</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">  );</span>
-
-<span style="color: #000000">};</span>
+<a href="#using-hook" id="using-hook" style="color: inherit; text-decoration: none;">
+  <h3>Using Hook</h3>
+</a>
+<p>We can now use our hook that&#39;s been created by our new Restash store.</p>
+<pre><code class="language-tsx"><span class="hl-7">import</span><span class="hl-2"> { </span><span class="hl-4">useStore</span><span class="hl-2"> } </span><span class="hl-7">from</span><span class="hl-2"> </span><span class="hl-5">&#39;./restash&#39;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">Home</span><span class="hl-2"> = () </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><br/><span class="hl-2">  </span><span class="hl-1">const</span><span class="hl-2"> [</span><span class="hl-3">state</span><span class="hl-2">, </span><span class="hl-3">dispatch</span><span class="hl-2">] = </span><span class="hl-6">useStore</span><span class="hl-2">();</span><br/><br/><span class="hl-2">  </span><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">changeState</span><span class="hl-2"> = (</span><span class="hl-4">key</span><span class="hl-2">) </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-7">return</span><span class="hl-2"> (</span><span class="hl-4">e</span><span class="hl-2">) </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">      </span><span class="hl-6">dispatch</span><span class="hl-2">({ </span><span class="hl-4">[key]:</span><span class="hl-2"> </span><span class="hl-4">e</span><span class="hl-2">.</span><span class="hl-4">target</span><span class="hl-2">.</span><span class="hl-4">value</span><span class="hl-2"> });</span><br/><span class="hl-2">    };</span><br/><span class="hl-2">  };</span><br/><br/><span class="hl-2">  </span><span class="hl-7">return</span><span class="hl-2"> (</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">h2</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;12px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><span class="hl-2">Use Store</span><span class="hl-8">&lt;/</span><span class="hl-10">h2</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">hr</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;20px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">p</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">padding:</span><span class="hl-12"> </span><span class="hl-5">&#39;12px&#39;</span><span class="hl-12">, </span><span class="hl-4">backgroundColor:</span><span class="hl-12"> </span><span class="hl-5">&#39;#eee&#39;</span><span class="hl-12">, </span><span class="hl-4">width:</span><span class="hl-12"> </span><span class="hl-5">&#39;50%&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        Simple example wiring up input elements to state values</span><br/><span class="hl-2">        changing the state on blur of each field.</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-10">p</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">div</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;12px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        First Name: </span><span class="hl-8">&lt;</span><span class="hl-10">input</span><span class="hl-2"> </span><span class="hl-11">type</span><span class="hl-2">=</span><span class="hl-5">&quot;text&quot;</span><span class="hl-2"> </span><span class="hl-11">onBlur</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-6">changeState</span><span class="hl-12">(</span><span class="hl-5">&#39;firstName&#39;</span><span class="hl-12">)</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-11">defaultValue</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-4">state</span><span class="hl-12">.</span><span class="hl-4">firstName</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">div</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;12px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        Last Name: </span><span class="hl-8">&lt;</span><span class="hl-10">input</span><span class="hl-2"> </span><span class="hl-11">type</span><span class="hl-2">=</span><span class="hl-5">&quot;text&quot;</span><span class="hl-2"> </span><span class="hl-11">onBlur</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-6">changeState</span><span class="hl-12">(</span><span class="hl-5">&#39;lastName&#39;</span><span class="hl-12">)</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-11">defaultValue</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-4">state</span><span class="hl-12">.</span><span class="hl-4">lastName</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">h3</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{</span><span class="hl-4">marginTop:</span><span class="hl-12"> </span><span class="hl-5">&#39;32px&#39;</span><span class="hl-12">}</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><span class="hl-2">Current State</span><span class="hl-8">&lt;/</span><span class="hl-10">h3</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">pre</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        </span><span class="hl-1">{</span><span class="hl-9">JSON</span><span class="hl-12">.</span><span class="hl-6">stringify</span><span class="hl-12">(</span><span class="hl-4">state</span><span class="hl-12">, </span><span class="hl-1">null</span><span class="hl-12">, </span><span class="hl-13">2</span><span class="hl-12">)</span><span class="hl-1">}</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-10">pre</span><span class="hl-8">&gt;</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;/</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">  );</span><br/><br/><span class="hl-2">};</span>
 </code></pre>
-				<a href="#middleware-persistence-amp-statuses" id="middleware-persistence-amp-statuses" style="color: inherit; text-decoration: none;">
-					<h3>Middleware, Persistence &amp; Statuses</h3>
-				</a>
-				<p>Initializing with middleware is very similar to <a href="https://redux.js.org/">Redux</a>. You create your middleware then call a helper method called <strong>applyMiddleware</strong> then pass to your options. By default Restash supports thunks which are useful for async tasks.</p>
-				<p>Restash currently comes with only one middleware. That being a simple console logger. Redux middleware should work however in many cases.</p>
-				<pre><code class="language-tsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">createRestash</span><span style="color: #000000">, </span><span style="color: #001080">logger</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;restash&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">initialState</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">firstName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Milton&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">lastName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Waddams&#039;</span>
-<span style="color: #000000">};</span>
-
-<span style="color: #008000">// The only logger options are that of styles</span>
-<span style="color: #008000">// for colorizing and styling in your console.</span>
-<span style="color: #008000">// see source for details.</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">middleware</span><span style="color: #000000"> = </span><span style="color: #795E26">applyMiddleware</span><span style="color: #000000">(</span><span style="color: #795E26">logger</span><span style="color: #000000">());</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">options</span><span style="color: #000000"> {</span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// The initial data state.</span>
-<span style="color: #000000">  </span><span style="color: #001080">initialState</span><span style="color: #000000">,</span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// The middleware to process before updating state.</span>
-<span style="color: #000000">  </span><span style="color: #001080">middleware</span><span style="color: #000000">,</span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// This is required when using Restash in an SSR environment.</span>
-<span style="color: #000000">  </span><span style="color: #008000">// Your state will load from this key. If present Restash</span>
-<span style="color: #000000">  </span><span style="color: #008000">// will load it.</span>
-<span style="color: #000000">  ssrKey: </span><span style="color: #A31515">&#039;some_unique_ssr_key&#039;</span><span style="color: #000000">,</span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// this will cause state to persist within localStorage.</span>
-<span style="color: #000000">  </span><span style="color: #008000">// when your app loads it will again look for this key.</span>
-<span style="color: #000000">  persistent: </span><span style="color: #A31515">&#039;some_unique_name&#039;</span><span style="color: #000000"> </span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// Statuses are used as the second dispatch argument.</span>
-<span style="color: #000000">  </span><span style="color: #008000">// The enable triggering things based on their state.</span>
-<span style="color: #000000">  statuses: [</span><span style="color: #A31515">&#039;start&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;progress&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;error&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;complete&#039;</span><span style="color: #000000">]</span>
-
-<span style="color: #000000">};</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Provider</span><span style="color: #000000">, </span><span style="color: #0070C1">useStore</span><span style="color: #000000"> } = </span><span style="color: #795E26">createRestash</span><span style="color: #000000">(</span><span style="color: #001080">options</span><span style="color: #000000">);</span>
-
-<span style="color: #AF00DB">export</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #001080">Provider</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">useStore</span>
-<span style="color: #000000">}</span>
+<a href="#middleware-persistence-amp-statuses" id="middleware-persistence-amp-statuses" style="color: inherit; text-decoration: none;">
+  <h3>Middleware, Persistence &amp; Statuses</h3>
+</a>
+<p>Initializing with middleware is very similar to <a href="https://redux.js.org/">Redux</a>. You create your middleware then call a helper method called <strong>applyMiddleware</strong> then pass to your options. By default Restash supports thunks which are useful for async tasks.</p>
+<p>Restash currently comes with only one middleware. That being a simple console logger. Redux middleware should work however in many cases.</p>
+<pre><code class="language-tsx"><span class="hl-7">import</span><span class="hl-2"> { </span><span class="hl-4">createRestash</span><span class="hl-2">, </span><span class="hl-4">logger</span><span class="hl-2"> } </span><span class="hl-7">from</span><span class="hl-2"> </span><span class="hl-5">&#39;restash&#39;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">initialState</span><span class="hl-2"> = {</span><br/><span class="hl-2">  </span><span class="hl-4">firstName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Milton&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-4">lastName:</span><span class="hl-2"> </span><span class="hl-5">&#39;Waddams&#39;</span><br/><span class="hl-2">};</span><br/><br/><span class="hl-0">// The only logger options are that of styles</span><br/><span class="hl-0">// for colorizing and styling in your console.</span><br/><span class="hl-0">// see source for details.</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">middleware</span><span class="hl-2"> = </span><span class="hl-6">applyMiddleware</span><span class="hl-2">(</span><span class="hl-6">logger</span><span class="hl-2">());</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">options</span><span class="hl-2"> {</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// The initial data state.</span><br/><span class="hl-2">  </span><span class="hl-4">initialState</span><span class="hl-2">,</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// The middleware to process before updating state.</span><br/><span class="hl-2">  </span><span class="hl-4">middleware</span><span class="hl-2">,</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// This is required when using Restash in an SSR environment.</span><br/><span class="hl-2">  </span><span class="hl-0">// Your state will load from this key. If present Restash</span><br/><span class="hl-2">  </span><span class="hl-0">// will load it.</span><br/><span class="hl-2">  </span><span class="hl-14">ssrKey</span><span class="hl-2">: </span><span class="hl-5">&#39;some_unique_ssr_key&#39;</span><span class="hl-2">,</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// this will cause state to persist within localStorage.</span><br/><span class="hl-2">  </span><span class="hl-0">// when your app loads it will again look for this key.</span><br/><span class="hl-2">  </span><span class="hl-14">persistent</span><span class="hl-2">: </span><span class="hl-5">&#39;some_unique_name&#39;</span><span class="hl-2"> </span><br/><br/><span class="hl-2">  </span><span class="hl-0">// Statuses are used as the second dispatch argument.</span><br/><span class="hl-2">  </span><span class="hl-0">// The enable triggering things based on their state.</span><br/><span class="hl-2">  </span><span class="hl-14">statuses</span><span class="hl-2">: [</span><span class="hl-5">&#39;start&#39;</span><span class="hl-2">, </span><span class="hl-5">&#39;progress&#39;</span><span class="hl-2">, </span><span class="hl-5">&#39;error&#39;</span><span class="hl-2">, </span><span class="hl-5">&#39;complete&#39;</span><span class="hl-2">]</span><br/><br/><span class="hl-2">};</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">Provider</span><span class="hl-2">, </span><span class="hl-3">useStore</span><span class="hl-2"> } = </span><span class="hl-6">createRestash</span><span class="hl-2">(</span><span class="hl-4">options</span><span class="hl-2">);</span><br/><br/><span class="hl-7">export</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-4">Provider</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-4">useStore</span><br/><span class="hl-2">}</span>
 </code></pre>
-				<a href="#status" id="status" style="color: inherit; text-decoration: none;">
-					<h3>Status</h3>
-				</a>
-				<p>Restash includes a handy second arg on dispatch that allows you to set the status on dispatching an event. This is useful for updating your view based on this status. For example when making an async data requests.</p>
-				<p>NOTE: this examples assumes you have added <strong>statuses</strong> as shown above in our options in the previous section.</p>
-				<pre><code class="language-tsx"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">Home</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 
-<span style="color: #000000">  </span><span style="color: #008000">// The third arg here is the restash store.</span>
-<span style="color: #000000">  </span><span style="color: #008000">// you can use this to get state, status </span>
-<span style="color: #000000">  </span><span style="color: #008000">// you can also use this is middleware.</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">state</span><span style="color: #000000">, </span><span style="color: #0070C1">dispatch</span><span style="color: #000000">, </span><span style="color: #0070C1">restash</span><span style="color: #000000">] = </span><span style="color: #795E26">useStore</span><span style="color: #000000">();</span>
-
-<span style="color: #000000">  </span><span style="color: #008000">// Although we&#039;re not updating the state here</span>
-<span style="color: #000000">  </span><span style="color: #008000">// you could update it along with the status.</span>
-<span style="color: #000000">  </span><span style="color: #008000">// This can really be handy stepping through </span>
-<span style="color: #000000">  </span><span style="color: #008000">// a stepper or remembering and updating a </span>
-<span style="color: #000000">  </span><span style="color: #008000">// status filling out a form. Once you get</span>
-<span style="color: #000000">  </span><span style="color: #008000">// the hang of it, can be quite useful.</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">changeStatus</span><span style="color: #000000"> = (</span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #795E26">dispatch</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
-<span style="color: #000000">  };</span>
-
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;div&gt;</span>
-<span style="color: #000000">     </span><span style="color: #800000">&lt;h3</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;12px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Current Status</span><span style="color: #800000">&lt;/h3&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;hr</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">marginBottom:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;20px&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">color:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;#fff&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">backgroundColor:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;darkblue&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">padding:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;6px&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">display:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;inline&#039;</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;span&gt;</span><span style="color: #0000FF">{</span><span style="color: #000000FF">(</span><span style="color: #001080">restash</span><span style="color: #000000FF">.</span><span style="color: #001080">status</span><span style="color: #000000FF"> </span><span style="color: #000000">||</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000FF">).</span><span style="color: #795E26">toUpperCase</span><span style="color: #000000FF">()</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/span&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">&amp;nbsp;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;select</span><span style="color: #000000"> </span><span style="color: #FF0000">defaultValue</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">restash</span><span style="color: #000000FF">.</span><span style="color: #001080">status</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #FF0000">onChange</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">changeStatus</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option</span><span style="color: #000000"> </span><span style="color: #FF0000">value</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;&quot;</span><span style="color: #800000">&gt;</span><span style="color: #000000">Please Select</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option&gt;</span><span style="color: #000000">mounted</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option&gt;</span><span style="color: #000000">start</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option&gt;</span><span style="color: #000000">progress</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option&gt;</span><span style="color: #000000">error</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;option&gt;</span><span style="color: #000000">complete</span><span style="color: #800000">&lt;/option&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;/select&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">  );</span>
-
-<span style="color: #000000">};</span>
+<a href="#status" id="status" style="color: inherit; text-decoration: none;">
+  <h3>Status</h3>
+</a>
+<p>Restash includes a handy second arg on dispatch that allows you to set the status on dispatching an event. This is useful for updating your view based on this status. For example when making an async data requests.</p>
+<p>NOTE: this examples assumes you have added <strong>statuses</strong> as shown above in our options in the previous section.</p>
+<pre><code class="language-tsx"><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">Home</span><span class="hl-2"> = () </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// The third arg here is the restash store.</span><br/><span class="hl-2">  </span><span class="hl-0">// you can use this to get state, status </span><br/><span class="hl-2">  </span><span class="hl-0">// you can also use this is middleware.</span><br/><span class="hl-2">  </span><span class="hl-1">const</span><span class="hl-2"> [</span><span class="hl-3">state</span><span class="hl-2">, </span><span class="hl-3">dispatch</span><span class="hl-2">, </span><span class="hl-3">restash</span><span class="hl-2">] = </span><span class="hl-6">useStore</span><span class="hl-2">();</span><br/><br/><span class="hl-2">  </span><span class="hl-0">// Although we&#39;re not updating the state here</span><br/><span class="hl-2">  </span><span class="hl-0">// you could update it along with the status.</span><br/><span class="hl-2">  </span><span class="hl-0">// This can really be handy stepping through </span><br/><span class="hl-2">  </span><span class="hl-0">// a stepper or remembering and updating a </span><br/><span class="hl-2">  </span><span class="hl-0">// status filling out a form. Once you get</span><br/><span class="hl-2">  </span><span class="hl-0">// the hang of it, can be quite useful.</span><br/><span class="hl-2">  </span><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-6">changeStatus</span><span class="hl-2"> = (</span><span class="hl-4">e</span><span class="hl-2">) </span><span class="hl-1">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-6">dispatch</span><span class="hl-2">(</span><span class="hl-1">null</span><span class="hl-2">, </span><span class="hl-4">e</span><span class="hl-2">.</span><span class="hl-4">target</span><span class="hl-2">.</span><span class="hl-4">value</span><span class="hl-2">);</span><br/><span class="hl-2">  };</span><br/><br/><span class="hl-2">  </span><span class="hl-7">return</span><span class="hl-2"> (</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">     </span><span class="hl-8">&lt;</span><span class="hl-10">h3</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;12px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><span class="hl-2">Current Status</span><span class="hl-8">&lt;/</span><span class="hl-10">h3</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">hr</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">marginBottom:</span><span class="hl-12"> </span><span class="hl-5">&#39;20px&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-10">div</span><span class="hl-2"> </span><span class="hl-11">style</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">color:</span><span class="hl-12"> </span><span class="hl-5">&#39;#fff&#39;</span><span class="hl-12">, </span><span class="hl-4">backgroundColor:</span><span class="hl-12"> </span><span class="hl-5">&#39;darkblue&#39;</span><span class="hl-12">, </span><span class="hl-4">padding:</span><span class="hl-12"> </span><span class="hl-5">&#39;6px&#39;</span><span class="hl-12">, </span><span class="hl-4">display:</span><span class="hl-12"> </span><span class="hl-5">&#39;inline&#39;</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;</span><span class="hl-10">span</span><span class="hl-8">&gt;</span><span class="hl-1">{</span><span class="hl-12">(</span><span class="hl-4">restash</span><span class="hl-12">.</span><span class="hl-4">status</span><span class="hl-12"> </span><span class="hl-2">||</span><span class="hl-12"> </span><span class="hl-5">&#39;&#39;</span><span class="hl-12">).</span><span class="hl-6">toUpperCase</span><span class="hl-12">()</span><span class="hl-1">}</span><span class="hl-8">&lt;/</span><span class="hl-10">span</span><span class="hl-8">&gt;</span><span class="hl-2"> </span><span class="hl-1">&amp;nbsp;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;</span><span class="hl-10">select</span><span class="hl-2"> </span><span class="hl-11">defaultValue</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-4">restash</span><span class="hl-12">.</span><span class="hl-4">status</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-11">onChange</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-4">changeStatus</span><span class="hl-1">}</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-2"> </span><span class="hl-11">value</span><span class="hl-2">=</span><span class="hl-5">&quot;&quot;</span><span class="hl-8">&gt;</span><span class="hl-2">Please Select</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><span class="hl-2">mounted</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><span class="hl-2">start</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><span class="hl-2">progress</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><span class="hl-2">error</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><span class="hl-2">complete</span><span class="hl-8">&lt;/</span><span class="hl-10">option</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;/</span><span class="hl-10">select</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">    </span><span class="hl-8">&lt;/</span><span class="hl-10">div</span><span class="hl-8">&gt;</span><br/><span class="hl-2">  );</span><br/><br/><span class="hl-2">};</span>
 </code></pre>
-				<a href="#server-side-react-ssr" id="server-side-react-ssr" style="color: inherit; text-decoration: none;">
-					<h2>Server Side React (SSR)</h2>
-				</a>
-				<p>To use Restash with server side react you&#39;ll need to expose your state to the window of the application. This is common practice with other libs such as Redux. Here&#39;s an example using Restash with NextJS.</p>
-				<p>First ensure you&#39;ve enabled Restash for use with SSR. You can other pass <strong>true</strong> to use the default SSR key or pass your own string.</p>
-				<pre><code class="language-jsx"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Provider</span><span style="color: #000000">, </span><span style="color: #0070C1">useStore</span><span style="color: #000000"> } = </span><span style="color: #795E26">createRestash</span><span style="color: #000000">({</span>
-<span style="color: #000000">  </span><span style="color: #001080">ssrKey:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// or your own key such as __APP_STATE__</span>
-<span style="color: #000000">});</span>
+
+<a href="#server-side-react-ssr" id="server-side-react-ssr" style="color: inherit; text-decoration: none;">
+  <h2>Server Side React (SSR)</h2>
+</a>
+<p>To use Restash with server side react you&#39;ll need to expose your state to the window of the application. This is common practice with other libs such as Redux. Here&#39;s an example using Restash with NextJS.</p>
+<p>First ensure you&#39;ve enabled Restash for use with SSR. You can other pass <strong>true</strong> to use the default SSR key or pass your own string.</p>
+<pre><code class="language-jsx"><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">Provider</span><span class="hl-2">, </span><span class="hl-3">useStore</span><span class="hl-2"> } = </span><span class="hl-6">createRestash</span><span class="hl-2">({</span><br/><span class="hl-2">  </span><span class="hl-4">ssrKey:</span><span class="hl-2"> </span><span class="hl-1">true</span><span class="hl-2"> </span><span class="hl-0">// or your own key such as __APP_STATE__</span><br/><span class="hl-2">});</span>
 </code></pre>
-				<p>Using the default SSR key or the one you provided expose that to a custom _document.jsx (or _docuemnt.tsx) page in your NextJS <code>/pages</code> directory.</p>
-				<pre><code class="language-jsx"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">({ </span><span style="color: #001080">some_initial_state</span><span style="color: #000000"> });</span>
-<span style="color: #800000">&lt;script</span><span style="color: #000000"> </span><span style="color: #FF0000">dangerouslySetInnerHTML</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">__html:</span><span style="color: #000000FF"> </span><span style="color: #A31515">`window.</span><span style="color: #0000FF">${</span><span style="color: #0070C1">SSR_KEY</span><span style="color: #0000FF">}</span><span style="color: #A31515"> = </span><span style="color: #0000FF">${</span><span style="color: #001080">state</span><span style="color: #0000FF">}</span><span style="color: #A31515">;`</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<p>Using the default SSR key or the one you provided expose that to a custom _document.jsx (or _docuemnt.tsx) page in your NextJS <code>/pages</code> directory.</p>
+<pre><code class="language-jsx"><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">state</span><span class="hl-2"> = </span><span class="hl-9">JSON</span><span class="hl-2">.</span><span class="hl-6">stringify</span><span class="hl-2">({ </span><span class="hl-4">some_initial_state</span><span class="hl-2"> });</span><br/><span class="hl-8">&lt;</span><span class="hl-10">script</span><span class="hl-2"> </span><span class="hl-11">dangerouslySetInnerHTML</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">__html:</span><span class="hl-12"> </span><span class="hl-5">`window.</span><span class="hl-1">${</span><span class="hl-3">SSR_KEY</span><span class="hl-1">}</span><span class="hl-5"> = </span><span class="hl-1">${</span><span class="hl-4">state</span><span class="hl-1">}</span><span class="hl-5">;`</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span>
 </code></pre>
-				<a href="#see-below-for-complete-example" id="see-below-for-complete-example" style="color: inherit; text-decoration: none;">
-					<h3>See Below for Complete Example</h3>
-				</a>
-				<p>The Below example is for <a href="">NextJS</a> but you should be able to easily adapt to any SSR environemnt. The trick with SSR is to bind your state to a window prop as you see above and also below inside our script tag within the head element.</p>
-				<pre><code class="language-jsx">
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">SSR_KEY</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;__APP_STATE__&#039;</span><span style="color: #000000">; </span><span style="color: #008000">// or use default __RESTASH_APP_STATE__</span>
 
-<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyDocument</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Document</span><span style="color: #000000"> {</span>
-
-<span style="color: #000000">  </span><span style="color: #0000FF">static</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #795E26">getInitialProps</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">) {</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">res</span><span style="color: #000000"> } = </span><span style="color: #001080">ctx</span><span style="color: #000000">;</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">app</span><span style="color: #000000"> = </span><span style="color: #001080">res</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #001080">meta</span><span style="color: #000000"> ? </span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #001080">meta</span><span style="color: #000000"> : {};</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">initialProps</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">Document</span><span style="color: #000000">.</span><span style="color: #795E26">getInitialProps</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">);</span>
-<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { ...</span><span style="color: #001080">initialProps</span><span style="color: #000000">, </span><span style="color: #001080">app</span><span style="color: #000000"> };</span>
-<span style="color: #000000">  }</span>
-
-<span style="color: #000000">  </span><span style="color: #795E26">render</span><span style="color: #000000">() {</span>
-
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">app</span><span style="color: #000000"> } = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">props</span><span style="color: #000000">;</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">state</span><span style="color: #000000"> = </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">({ ...</span><span style="color: #0070C1">DEFAULTS</span><span style="color: #000000">, ...</span><span style="color: #001080">app</span><span style="color: #000000"> });</span>
-
-<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Html</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Head</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;script</span><span style="color: #000000"> </span><span style="color: #FF0000">dangerouslySetInnerHTML</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">__html:</span><span style="color: #000000FF"> </span><span style="color: #A31515">`window.</span><span style="color: #0000FF">${</span><span style="color: #0070C1">SSR_KEY</span><span style="color: #0000FF">}</span><span style="color: #A31515"> = </span><span style="color: #0000FF">${</span><span style="color: #001080">state</span><span style="color: #0000FF">}</span><span style="color: #A31515">;`</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;body&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Main</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;</span><span style="color: #267F99">NextScript</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
-<span style="color: #000000">        </span><span style="color: #800000">&lt;/body&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;/</span><span style="color: #267F99">Html</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">    );</span>
-<span style="color: #000000">  }</span>
-
-<span style="color: #000000">}</span>
-
-<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #001080">MyDocument</span><span style="color: #000000">;</span>
+<a href="#see-below-for-complete-example" id="see-below-for-complete-example" style="color: inherit; text-decoration: none;">
+  <h3>See Below for Complete Example</h3>
+</a>
+<p>The Below example is for <a href="">NextJS</a> but you should be able to easily adapt to any SSR environemnt. The trick with SSR is to bind your state to a window prop as you see above and also below inside our script tag within the head element.</p>
+<pre><code class="language-jsx"><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">SSR_KEY</span><span class="hl-2"> = </span><span class="hl-5">&#39;__APP_STATE__&#39;</span><span class="hl-2">; </span><span class="hl-0">// or use default __RESTASH_APP_STATE__</span><br/><br/><span class="hl-1">class</span><span class="hl-2"> </span><span class="hl-9">MyDocument</span><span class="hl-2"> </span><span class="hl-1">extends</span><span class="hl-2"> </span><span class="hl-9">Document</span><span class="hl-2"> {</span><br/><br/><span class="hl-2">  </span><span class="hl-1">static</span><span class="hl-2"> </span><span class="hl-1">async</span><span class="hl-2"> </span><span class="hl-6">getInitialProps</span><span class="hl-2">(</span><span class="hl-4">ctx</span><span class="hl-2">) {</span><br/><span class="hl-2">    </span><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">res</span><span class="hl-2"> } = </span><span class="hl-4">ctx</span><span class="hl-2">;</span><br/><span class="hl-2">    </span><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">app</span><span class="hl-2"> = </span><span class="hl-4">res</span><span class="hl-2"> &amp;&amp; </span><span class="hl-4">res</span><span class="hl-2">.</span><span class="hl-4">meta</span><span class="hl-2"> ? </span><span class="hl-4">res</span><span class="hl-2">.</span><span class="hl-4">meta</span><span class="hl-2"> : {};</span><br/><span class="hl-2">    </span><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">initialProps</span><span class="hl-2"> = </span><span class="hl-7">await</span><span class="hl-2"> </span><span class="hl-4">Document</span><span class="hl-2">.</span><span class="hl-6">getInitialProps</span><span class="hl-2">(</span><span class="hl-4">ctx</span><span class="hl-2">);</span><br/><span class="hl-2">    </span><span class="hl-7">return</span><span class="hl-2"> { ...</span><span class="hl-4">initialProps</span><span class="hl-2">, </span><span class="hl-4">app</span><span class="hl-2"> };</span><br/><span class="hl-2">  }</span><br/><br/><span class="hl-2">  </span><span class="hl-6">render</span><span class="hl-2">() {</span><br/><br/><span class="hl-2">    </span><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">app</span><span class="hl-2"> } = </span><span class="hl-1">this</span><span class="hl-2">.</span><span class="hl-4">props</span><span class="hl-2">;</span><br/><span class="hl-2">    </span><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">state</span><span class="hl-2"> = </span><span class="hl-9">JSON</span><span class="hl-2">.</span><span class="hl-6">stringify</span><span class="hl-2">({ ...</span><span class="hl-3">DEFAULTS</span><span class="hl-2">, ...</span><span class="hl-4">app</span><span class="hl-2"> });</span><br/><br/><span class="hl-2">    </span><span class="hl-7">return</span><span class="hl-2"> (</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;</span><span class="hl-9">Html</span><span class="hl-8">&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;</span><span class="hl-9">Head</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;</span><span class="hl-10">script</span><span class="hl-2"> </span><span class="hl-11">dangerouslySetInnerHTML</span><span class="hl-2">=</span><span class="hl-1">{</span><span class="hl-12">{ </span><span class="hl-4">__html:</span><span class="hl-12"> </span><span class="hl-5">`window.</span><span class="hl-1">${</span><span class="hl-3">SSR_KEY</span><span class="hl-1">}</span><span class="hl-5"> = </span><span class="hl-1">${</span><span class="hl-4">state</span><span class="hl-1">}</span><span class="hl-5">;`</span><span class="hl-12"> }</span><span class="hl-1">}</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;</span><span class="hl-10">body</span><span class="hl-8">&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-9">Main</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">          </span><span class="hl-8">&lt;</span><span class="hl-9">NextScript</span><span class="hl-2"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-2">        </span><span class="hl-8">&lt;/</span><span class="hl-10">body</span><span class="hl-8">&gt;</span><br/><span class="hl-2">      </span><span class="hl-8">&lt;/</span><span class="hl-9">Html</span><span class="hl-8">&gt;</span><br/><span class="hl-2">    );</span><br/><span class="hl-2">  }</span><br/><br/><span class="hl-2">}</span><br/><br/><span class="hl-7">export</span><span class="hl-2"> </span><span class="hl-7">default</span><span class="hl-2"> </span><span class="hl-4">MyDocument</span><span class="hl-2">;</span>
 </code></pre>
-				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
-					<h2>Docs</h2>
-				</a>
-				<p>See <a href="https://blujedis.github.io/restash/">https://blujedis.github.io/restash/</a></p>
-				<a href="#change" id="change" style="color: inherit; text-decoration: none;">
-					<h2>Change</h2>
-				</a>
-				<p>See <a href="CHANGE.md">CHANGE.md</a></p>
-				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-					<h2>License</h2>
-				</a>
-				<p>See <a href="LICENSE">LICENSE.md</a></p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Modules</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/context.html">context</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/index.html">index</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/middleware.html">middleware</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/middleware_logger.html">middleware/logger</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/restash.html">restash</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/storage.html">storage</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/types.html">types</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/utils.html">utils</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+
+<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
+  <h2>Docs</h2>
+</a>
+<p>See <a href="https://blujedis.github.io/restash/">https://blujedis.github.io/restash/</a></p>
+
+<a href="#change" id="change" style="color: inherit; text-decoration: none;">
+  <h2>Change</h2>
+</a>
+<p>See <a href="CHANGE.md">CHANGE.md</a></p>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>See <a href="LICENSE">LICENSE.md</a></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/Action.html" class="tsd-kind-icon">Action</a></li><li class="tsd-kind-enum"><a href="enums/DefaultStatus.html" class="tsd-kind-icon">Default<wbr/>Status</a></li><li class="tsd-kind-enum"><a href="enums/StatusBase.html" class="tsd-kind-icon">Status<wbr/>Base</a></li><li class="tsd-kind-interface"><a href="interfaces/IAction.html" class="tsd-kind-icon">IAction</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IContextOptions.html" class="tsd-kind-icon">IContext<wbr/>Options</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IProvider.html" class="tsd-kind-icon">IProvider</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IRestash.html" class="tsd-kind-icon">IRestash</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IRestashAction.html" class="tsd-kind-icon">IRestash<wbr/>Action</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IRestashOptions.html" class="tsd-kind-icon">IRestash<wbr/>Options</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IRestashState.html" class="tsd-kind-icon">IRestash<wbr/>State</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IStoreOptions.html" class="tsd-kind-icon">IStore<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ActionTypes" class="tsd-kind-icon">Action<wbr/>Types</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#DeepPartial" class="tsd-kind-icon">Deep<wbr/>Partial</a></li><li class="tsd-kind-type-alias"><a href="modules.html#DefaultStatusTypes" class="tsd-kind-icon">Default<wbr/>Status<wbr/>Types</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Dispatch" class="tsd-kind-icon">Dispatch</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#KeyOf" class="tsd-kind-icon">Key<wbr/>Of</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Middleware" class="tsd-kind-icon">Middleware</a></li><li class="tsd-kind-type-alias"><a href="modules.html#MiddlewareDispatch" class="tsd-kind-icon">Middleware<wbr/>Dispatch</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Path" class="tsd-kind-icon">Path</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#PathValue" class="tsd-kind-icon">Path<wbr/>Value</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#RestashHook" class="tsd-kind-icon">Restash<wbr/>Hook</a></li><li class="tsd-kind-type-alias"><a href="modules.html#StatusBaseTypes" class="tsd-kind-icon">Status<wbr/>Base<wbr/>Types</a></li><li class="tsd-kind-function"><a href="modules.html#applyMiddleware" class="tsd-kind-icon">apply<wbr/>Middleware</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#createContext" class="tsd-kind-icon">create<wbr/>Context</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#createRestash" class="tsd-kind-icon">create<wbr/>Restash</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#createStore" class="tsd-kind-icon">create<wbr/>Store</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#logger" class="tsd-kind-icon">logger</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

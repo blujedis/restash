@@ -1,5 +1,10 @@
 # Restash Changes
 
+## 01-27-2022
+
+- Fix issue where persistent keys could not use dot notation.
+- Fix merging of initial state with persistent state.
+
 ## 11-19-2021
 
 - Allow use store at hook to provide initial value.

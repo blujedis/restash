@@ -17,7 +17,7 @@ const { Context, Consumer, Provider, useStore, clearPersistence } = __1.createRe
     initialState,
     middleware,
     persistent: 'Restash',
-    persistentKeys: ['firstName', 'lastName', 'numbers'],
+    persistentKeys: ['firstName', 'lastName', 'numbers.mobile'],
     statuses: ['start', 'progress', 'error', 'complete']
 });
 exports.Context = Context;

@@ -1,4 +1,4 @@
-import { createStore, createRestash, logger, applyMiddleware, DeepPartial } from '../';
+import { createRestash, logger, applyMiddleware, DeepPartial } from '../';
 
 const _initialState = {
   firstName: 'Bob',
@@ -20,7 +20,7 @@ const { Context, Consumer, Provider, useStore, clearPersistence } = createRestas
   initialState,
   middleware,
   persistent: 'Restash',
-  persistentKeys: ['firstName', 'lastName', 'numbers'],
+  persistentKeys: ['firstName', 'lastName', 'numbers.mobile'],
   statuses: ['start', 'progress', 'error', 'complete']
 });
 

@@ -59,5 +59,8 @@ declare const Context: import("react").Context<[import("../types").IRestashState
             mobile: string;
         };
     }>, "start" | "progress" | "error" | "complete">>;
-}, clearPersistence: <K extends "firstName" | "lastName" | "age" | "numbers">(...keys: K[]) => boolean;
+}, clearPersistence: {
+    <K extends "firstName" | "lastName" | "age" | "numbers" | "numbers.mobile" | "numbers.home">(...keys: K[]): boolean;
+    (...keys: string[]): boolean;
+};
 export { Context, Consumer, Provider, useStore, clearPersistence };

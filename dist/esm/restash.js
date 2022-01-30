@@ -1,7 +1,7 @@
 import { useContext, useRef, useEffect } from 'react';
 import { initContext } from './context';
 import { get, set } from 'dot-prop';
-import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow, clearStorage } from './utils';
+import { thunkify, unwrap, isPlainObject, setStorage, getStorage, getInitialState, isUndefined, isWindow, clearStorage, mergeStore } from './utils';
 import { StatusBase, Action } from './types';
 const STATE_KEY = '__RESTASH_APP_STATE__';
 /**
@@ -91,9 +91,11 @@ export function createStore(options) {
  * @param options options used to initialize Restash.
  */
 export function createRestash(options) {
-    if (options.persistentKeys) {
+    if (typeof options.persistentKeys !== 'undefined') {
         if (!Array.isArray(options.persistentKeys))
             options.persistentKeys = [options.persistentKeys];
+        // use persistent key or make one from keys
+        // should this be changed to a generated uid or somethign?
         options.persistent = options.persistent || options.persistentKeys.join('-');
     }
     // Check for persisent state
@@ -101,14 +103,14 @@ export function createRestash(options) {
         const state = getStorage(options.persistent, options.persistentKeys);
         // If local storage state exists favor it.
         if (state) {
-            options.initialState = { ...options.initialState, ...state };
+            options.initialState = mergeStore(options.initialState, state);
         }
         // Otherwise load from window state if avail.
         else if (options.ssrKey) {
             const ssrKey = options.ssrKey === true ? STATE_KEY : options.ssrKey;
             options.initialState = getInitialState(options.initialState, ssrKey);
         }
-        // Set the initial state.
+        // Set the initial persistent state.
         setStorage(options.persistent, options.initialState, options.persistentKeys);
     }
     // Load initial state for SSR environments.
@@ -141,11 +143,6 @@ export function createRestash(options) {
         return;
     const { Context, Provider, Consumer, useStore: useStoreBase } = store;
     let prevPayload = {};
-    /**
-     * Clears persistence, when keys are present clears only those persisted keys.
-     *
-     * @param keys keys that should be cleared.
-     */
     function clearPersistence(...keys) {
         return clearStorage(options.persistent, keys);
     }
@@ -215,8 +212,11 @@ export function createRestash(options) {
             });
             const nextData = { ...state.data, ...prevPayload, ...payload };
             prevState.current = { status: u || state.status, data: nextData };
-            if (options.persistent)
+            if (options.persistent) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 setStorage(options.persistent, nextData, options.persistentKeys);
+            }
             return nextData;
         };
         const restash = {

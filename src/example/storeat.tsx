@@ -33,7 +33,7 @@ const StoreAt: FC = () => {
         First Name: <input type="text" onBlur={changeState('firstName')} defaultValue={state.firstName} />
       </div>
       <div style={{ marginBottom: '12px' }}>
-        Last Name: <input type="text" onBlur={changeStateAt} defaultValue={stateAt} /> (Using State at Key)
+        Mobile Number: <input type="text" onBlur={changeStateAt} defaultValue={stateAt} /> (Using State at Key)
       </div>
       <h3 style={{ marginBottom: '12px' }}>Current Status</h3>
       <hr style={{ marginBottom: '20px' }} />

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isWindow = exports.clearStorage = exports.getStorage = exports.setStorage = exports.tryParseJSON = exports.tryStringifyJSON = exports.isEmpty = exports.isPlainObject = exports.isObject = exports.isFunction = exports.isNullOrUndefined = exports.isUndefined = exports.isSymbol = exports.isString = exports.unwrap = exports.thunkify = exports.getInitialState = exports.validateState = void 0;
+exports.isWindow = exports.clearStorage = exports.getStorage = exports.setStorage = exports.filterKeys = exports.mergeStore = exports.tryParseJSON = exports.tryStringifyJSON = exports.isEmpty = exports.isPlainObject = exports.isObject = exports.isFunction = exports.isNullOrUndefined = exports.isUndefined = exports.isSymbol = exports.isString = exports.unwrap = exports.thunkify = exports.getInitialState = exports.validateState = void 0;
+const dot_prop_1 = require("dot-prop");
 /**
  * Validates iniital state type.
  *
@@ -164,6 +165,48 @@ function tryParseJSON(value) {
 }
 exports.tryParseJSON = tryParseJSON;
 /**
+ * Merges store initial state with the persistent state.
+ *
+ * @param initialState the state the store was initialized with.
+ * @param persistentState the persistent state from localStorage.
+ */
+function mergeStore(initialState, persistentState) {
+    const clone = { ...initialState };
+    for (const k in persistentState) {
+        const value = persistentState[k];
+        if (value !== null && !Array.isArray(value) && typeof value === 'object') {
+            clone[k] = mergeStore(clone[k], value);
+        }
+        else if (typeof value !== 'undefined') {
+            clone[k] = value;
+        }
+    }
+    return clone;
+}
+exports.mergeStore = mergeStore;
+/**
+ * Iterates store value and filters out provided keys.
+ *
+ * @param value the current store value.
+ * @param strategy whether to include the filters or exclude them.
+ * @param filters the values to be filtered.
+ */
+function filterKeys(value, strategy, filters) {
+    if (strategy === 'exclude') {
+        const clone = { ...value };
+        filters.forEach(p => dot_prop_1.delete(clone, p));
+        return clone;
+    }
+    const result = {};
+    filters.forEach(p => {
+        const val = dot_prop_1.get(value, p);
+        if (typeof val !== 'undefined')
+            dot_prop_1.set(result, p, val);
+    });
+    return result;
+}
+exports.filterKeys = filterKeys;
+/**
  * Persists state to storage.
  *
  * @param key the key used to set storage.
@@ -173,17 +216,12 @@ exports.tryParseJSON = tryParseJSON;
 function setStorage(key, value, filters = []) {
     if (typeof localStorage === 'undefined' || typeof value === 'undefined' || value === null)
         return;
-    setTimeout(() => {
-        if (filters.length)
-            value = Object.keys(value).reduce((result, k) => {
-                if (filters.includes(k))
-                    result[k] = value[k];
-                return result;
-            }, {});
-        const stringified = tryStringifyJSON(value);
-        if (stringified)
-            localStorage.setItem(key, stringified);
-    });
+    if (filters.length) {
+        value = filterKeys(value, 'include', filters);
+    }
+    const stringified = tryStringifyJSON(value);
+    if (stringified)
+        localStorage.setItem(key, stringified);
 }
 exports.setStorage = setStorage;
 /**
@@ -198,11 +236,7 @@ function getStorage(key, filters = []) {
     const parsed = tryParseJSON(localStorage.getItem(key));
     if (!filters.length || !parsed)
         return parsed;
-    return Object.keys(parsed).reduce((result, k) => {
-        if (filters.includes(k))
-            result[k] = parsed[k];
-        return result;
-    }, {});
+    return filterKeys(parsed, 'include', filters);
 }
 exports.getStorage = getStorage;
 /**
@@ -218,7 +252,9 @@ function clearStorage(key, filters = []) {
         localStorage.removeItem(key);
         return true;
     }
-    setStorage(key, getStorage(key), filters);
+    const currentStore = getStorage(key);
+    const newStore = filterKeys(currentStore, 'exclude', filters);
+    setStorage(key, newStore);
     return true;
 }
 exports.clearStorage = clearStorage;

@@ -8,6 +8,7 @@
     "allowJs": false,
     "noEmit": false,
     "jsx": "react",
-    "outDir": "dist/esm"
+    "outDir": "dist/esm",
+    "sourceMap": true
   }
 }

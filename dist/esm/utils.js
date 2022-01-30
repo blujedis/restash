@@ -1,3 +1,4 @@
+import { get, delete as del, set } from 'dot-prop';
 /**
  * Validates iniital state type.
  *
@@ -147,6 +148,46 @@ export function tryParseJSON(value) {
     }
 }
 /**
+ * Merges store initial state with the persistent state.
+ *
+ * @param initialState the state the store was initialized with.
+ * @param persistentState the persistent state from localStorage.
+ */
+export function mergeStore(initialState, persistentState) {
+    const clone = { ...initialState };
+    for (const k in persistentState) {
+        const value = persistentState[k];
+        if (value !== null && !Array.isArray(value) && typeof value === 'object') {
+            clone[k] = mergeStore(clone[k], value);
+        }
+        else if (typeof value !== 'undefined') {
+            clone[k] = value;
+        }
+    }
+    return clone;
+}
+/**
+ * Iterates store value and filters out provided keys.
+ *
+ * @param value the current store value.
+ * @param strategy whether to include the filters or exclude them.
+ * @param filters the values to be filtered.
+ */
+export function filterKeys(value, strategy, filters) {
+    if (strategy === 'exclude') {
+        const clone = { ...value };
+        filters.forEach(p => del(clone, p));
+        return clone;
+    }
+    const result = {};
+    filters.forEach(p => {
+        const val = get(value, p);
+        if (typeof val !== 'undefined')
+            set(result, p, val);
+    });
+    return result;
+}
+/**
  * Persists state to storage.
  *
  * @param key the key used to set storage.
@@ -156,17 +197,12 @@ export function tryParseJSON(value) {
 export function setStorage(key, value, filters = []) {
     if (typeof localStorage === 'undefined' || typeof value === 'undefined' || value === null)
         return;
-    setTimeout(() => {
-        if (filters.length)
-            value = Object.keys(value).reduce((result, k) => {
-                if (filters.includes(k))
-                    result[k] = value[k];
-                return result;
-            }, {});
-        const stringified = tryStringifyJSON(value);
-        if (stringified)
-            localStorage.setItem(key, stringified);
-    });
+    if (filters.length) {
+        value = filterKeys(value, 'include', filters);
+    }
+    const stringified = tryStringifyJSON(value);
+    if (stringified)
+        localStorage.setItem(key, stringified);
 }
 /**
  * Gets state from storage.
@@ -180,11 +216,7 @@ export function getStorage(key, filters = []) {
     const parsed = tryParseJSON(localStorage.getItem(key));
     if (!filters.length || !parsed)
         return parsed;
-    return Object.keys(parsed).reduce((result, k) => {
-        if (filters.includes(k))
-            result[k] = parsed[k];
-        return result;
-    }, {});
+    return filterKeys(parsed, 'include', filters);
 }
 /**
  * Clears entire storage for store or clears by defined filter key.
@@ -199,7 +231,9 @@ export function clearStorage(key, filters = []) {
         localStorage.removeItem(key);
         return true;
     }
-    setStorage(key, getStorage(key), filters);
+    const currentStore = getStorage(key);
+    const newStore = filterKeys(currentStore, 'exclude', filters);
+    setStorage(key, newStore);
     return true;
 }
 /**

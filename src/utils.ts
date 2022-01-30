@@ -1,4 +1,5 @@
-import { KeyOf } from './types';
+import { Path } from './types';
+import { get, delete as del, set } from 'dot-prop';
 
 /**
  * Validates iniital state type.
@@ -168,26 +169,63 @@ export function tryParseJSON(value: string) {
 }
 
 /**
+ * Merges store initial state with the persistent state.
+ * 
+ * @param initialState the state the store was initialized with.
+ * @param persistentState the persistent state from localStorage.
+ */
+export function mergeStore<S extends Record<string, any>>(initialState: S, persistentState: Record<string, any>) {
+  const clone = { ...initialState };
+  for (const k in persistentState) {
+    const value = persistentState[k];
+    if (value !== null && !Array.isArray(value) && typeof value === 'object') {
+      clone[k as keyof S] = mergeStore(clone[k], value);
+    }
+    else if(typeof value !== 'undefined') {
+      clone[k as keyof S] = value;
+    }
+  }
+  return clone;
+}
+
+/**
+ * Iterates store value and filters out provided keys.
+ * 
+ * @param value the current store value.
+ * @param strategy whether to include the filters or exclude them.
+ * @param filters the values to be filtered.
+ */
+export function filterKeys<S extends Record<string, any>>(value: S, strategy: 'include' | 'exclude', filters: (Path<S> | string)[]) {
+  if (strategy === 'exclude') {
+    const clone = { ...value };
+    filters.forEach(p => del(clone, p as string));
+    return clone;
+  }
+  const result = {} as any;
+  filters.forEach(p => {
+    const val = get(value, p as string);
+    if (typeof val !== 'undefined')
+      set(result, p as string, val);
+  });
+  return result;
+}
+
+/**
  * Persists state to storage.
  * 
  * @param key the key used to set storage.
  * @param value the value to be set.
  * @param filters an array of keys to filter from persisted object.
  */
-export function setStorage<S extends Record<string, any>>(key: string, value: S, filters: KeyOf<S>[] = []) {
+export function setStorage<S extends Record<string, any>>(key: string, value: S, filters: Path<S>[] = []) {
   if (typeof localStorage === 'undefined' || typeof value === 'undefined' || value === null)
     return;
-  setTimeout(() => {
-    if (filters.length)
-      value = Object.keys(value).reduce((result, k) => {
-        if (filters.includes(k as KeyOf<S>))
-          result[k as keyof S] = value[k];
-        return result;
-      }, {} as S);
-    const stringified = tryStringifyJSON(value);
-    if (stringified)
-      localStorage.setItem(key, stringified);
-  });
+  if (filters.length) {
+    value = filterKeys(value, 'include', filters);
+  }
+  const stringified = tryStringifyJSON(value);
+  if (stringified)
+    localStorage.setItem(key, stringified);
 }
 
 /**
@@ -196,17 +234,13 @@ export function setStorage<S extends Record<string, any>>(key: string, value: S,
  * @param key the storage key to retrieve.
  * @param filters array of keys to filter.
  */
-export function getStorage<S extends Record<string, any>>(key: string, filters: KeyOf<S>[] = []) {
+export function getStorage<S extends Record<string, any>>(key: string, filters: Path<S>[] = []): S | Partial<S> {
   if (typeof localStorage === 'undefined')
     return null;
   const parsed = tryParseJSON(localStorage.getItem(key)) as S;
   if (!filters.length || !parsed)
     return parsed;
-  return Object.keys(parsed).reduce((result, k) => {
-    if (filters.includes(k as KeyOf<S>))
-      result[k as keyof S] = parsed[k];
-    return result;
-  }, {} as S);
+  return filterKeys(parsed, 'include', filters);
 }
 
 /**
@@ -215,14 +249,16 @@ export function getStorage<S extends Record<string, any>>(key: string, filters: 
  * @param key the storage key for the store.
  * @param filters key filters to set.
  */
-export function clearStorage<S extends Record<string, any>>(key: string, filters: KeyOf<S>[] = []) {
+export function clearStorage<S extends Record<string, any>>(key: string, filters: (Path<S> | string)[] = []) {
   if (typeof localStorage === 'undefined')
     return false;
   if (!filters.length) {
     localStorage.removeItem(key);
     return true;
   }
-  setStorage<S>(key, getStorage<S>(key), filters);
+  const currentStore = getStorage<S>(key);
+  const newStore = filterKeys(currentStore, 'exclude', filters);
+  setStorage<S>(key, newStore);
   return true;
 }
 

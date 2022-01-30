@@ -14,7 +14,7 @@ const { Context, Consumer, Provider, useStore, clearPersistence } = createRestas
     initialState,
     middleware,
     persistent: 'Restash',
-    persistentKeys: ['firstName', 'lastName', 'numbers'],
+    persistentKeys: ['firstName', 'lastName', 'numbers.mobile'],
     statuses: ['start', 'progress', 'error', 'complete']
 });
 export { Context, Consumer, Provider, useStore, clearPersistence };

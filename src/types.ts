@@ -60,7 +60,7 @@ export type KeyOf<T> = Extract<keyof T, string>;
 /**
  * Context provider options.
  */
-export interface IProvider<T extends object, A extends IAction = IAction> {
+export interface IProvider<T extends Record<string, unknown>, A extends IAction = IAction> {
 
   /**
    * The initial state to use for the context.
@@ -94,7 +94,7 @@ export interface IAction {
 /**
  * Base default context
  */
-export interface IContextOptions<T extends object, A extends IAction> {
+export interface IContextOptions<T extends Record<string, unknown>, A extends IAction> {
 
   /**
    * The initial state of the Context.
@@ -111,7 +111,7 @@ export interface IContextOptions<T extends object, A extends IAction> {
 /**
  * Options for creating base store.
  */
-export interface IStoreOptions<S extends object, A extends IAction = IAction> {
+export interface IStoreOptions<S extends Record<string, unknown>, A extends IAction = IAction> {
 
   /**
    * The initial state of the store.
@@ -186,7 +186,7 @@ export interface IRestashOptions<
    * Array of keys in store that should be persisted.
    * when not defined all are stored at persistent key.
    */
-  persistentKeys?: KeyOf<S> | KeyOf<S>[];
+  persistentKeys?: Path<S> | Path<S>[];
 
   /**
    * A key used to load intital state in SSR environments from window if available.
@@ -264,7 +264,7 @@ export type Middleware =
 /**
  * Restash store state.
  */
-export interface IRestashState<S extends object, U extends string> {
+export interface IRestashState<S extends Record<string, unknown>, U extends string> {
 
   /**
    * The current status.
